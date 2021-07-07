@@ -14,7 +14,7 @@
 	<name>jelly mushroom game</name>
 	<description>这是一个果冻与蘑菇共同制作的，双人联机小游戏</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

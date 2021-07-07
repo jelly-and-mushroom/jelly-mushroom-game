@@ -1,3 +1,8 @@
+# Read Me First
+The following was discovered as part of building this project:
+
+* The original package name 'team.jellymushroom.jm-game' is invalid and this project uses 'team.jellymushroom.jmgame' instead.
+
 # Getting Started
 
 ### Reference Documentation

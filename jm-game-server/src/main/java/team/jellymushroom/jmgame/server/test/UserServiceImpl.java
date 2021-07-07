@@ -1,10 +1,12 @@
 package team.jellymushroom.jmgame.server.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.jmgame.core.test.IUserService;
 import team.jellymushroom.jmgame.core.test.User;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements IUserService {
 
   @Override
@@ -21,7 +23,7 @@ public class UserServiceImpl implements IUserService {
       }
 
     }
-    System.out.println(user);
+    log.info(user.toString());
     return user;
   }
 }

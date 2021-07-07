@@ -11,7 +11,7 @@ public class RmiBootClient {
   @Bean
   public RmiProxyFactoryBean rmiProxyFactoryBean(){
     RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
-    rmiProxyFactoryBean.setServiceUrl("rmi://127.0.0.1:2002/userService");
+    rmiProxyFactoryBean.setServiceUrl("rmi://192.168.31.51:2002/userService");
     rmiProxyFactoryBean.setServiceInterface(IUserService.class);
     return rmiProxyFactoryBean;
 

@@ -1,5 +1,6 @@
 package team.jellymushroom.jmgame.client.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import team.jellymushroom.jmgame.core.test.IUserService;
@@ -7,6 +8,7 @@ import team.jellymushroom.jmgame.core.test.IUserService;
 import javax.annotation.PostConstruct;
 
 @Component
+@Slf4j
 public class TestResult {
 
   @Autowired
@@ -14,6 +16,6 @@ public class TestResult {
 
   @PostConstruct
   public void init() {
-    System.out.println(userService.getUserByName("admin"));
+    log.info(userService.getUserByName("admin").toString());
   }
 }

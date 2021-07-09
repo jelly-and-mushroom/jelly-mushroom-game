@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 import team.jellymushroom.jmgame.core.test.IUserService;
+import team.jellymushroom.jmgame.core.test.User;
 
 import java.rmi.RemoteException;
 
@@ -16,6 +17,7 @@ public class RmiBootServer {
 
   @Bean
   public RmiServiceExporter rmiServiceExporter(){
+    new User();
     RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
     rmiServiceExporter.setServiceName("userService");
     rmiServiceExporter.setService(userService);

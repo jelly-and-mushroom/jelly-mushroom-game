@@ -2,11 +2,11 @@ package team.jellymushroom.jmgame.server.rmi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import team.jellymushroom.jmgame.core.server.rmi.IGameRMIService;
+import team.jellymushroom.jmgame.core.server.rmi.IGameRmiService;
 
 @Slf4j
 @Service
-public class GameRMIServiceImpl implements IGameRMIService {
+public class GameRmiServiceImpl implements IGameRmiService {
 
   @Override
   public String test(Integer testParam) {

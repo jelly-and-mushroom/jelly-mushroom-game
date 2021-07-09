@@ -5,7 +5,12 @@ package team.jellymushroom.jmgame.core.server.rmi;
  * 本接口在jm-game-server中实现
  *
  */
-public interface IGameRMIService {
+public interface IGameRmiService {
+
+  /**
+   * rmi交互时本server对应的名称
+   */
+  String RMI_SERVER_NAME = "gameRmiService";
 
   String test(Integer testParam);
 }

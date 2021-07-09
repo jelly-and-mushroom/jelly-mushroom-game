@@ -1,6 +1,5 @@
 package team.jellymushroom.jmgame.server.test;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.rmi.RmiServiceExporter;
@@ -12,8 +11,11 @@ import java.rmi.RemoteException;
 @Configuration
 public class RmiBootServer {
 
-  @Autowired
-  private IUserService userService;
+  private final IUserService userService;
+
+  public RmiBootServer(IUserService userService) {
+    this.userService = userService;
+  }
 
   @Bean
   public RmiServiceExporter rmiServiceExporter(){

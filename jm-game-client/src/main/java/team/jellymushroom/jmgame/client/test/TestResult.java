@@ -2,7 +2,7 @@ package team.jellymushroom.jmgame.client.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import team.jellymushroom.jmgame.core.test.IUserService;
+import team.jellymushroom.jmgame.core.server.rmi.IGameRMIService;
 
 import javax.annotation.PostConstruct;
 
@@ -10,14 +10,14 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class TestResult {
 
-  private final IUserService userService;
+  private final IGameRMIService gameRMIService;
 
-  public TestResult(IUserService userService) {
-    this.userService = userService;
+  public TestResult(IGameRMIService gameRMIService) {
+    this.gameRMIService = gameRMIService;
   }
 
   @PostConstruct
   public void init() {
-    log.info(userService.getUserByName("admin").toString());
+    log.info(gameRMIService.test(1));
   }
 }

@@ -1,5 +1,6 @@
 package team.jellymushroom.jmgame.server.configuration;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.rmi.RmiServiceExporter;
@@ -12,22 +13,21 @@ public class RmiServer {
 
   private final IGameRmiService gameRmiService;
 
+  @Value(value = "${jm.rmi.port}")
+  private Integer port;
+
   public RmiServer(IGameRmiService gameRmiService) {
     this.gameRmiService = gameRmiService;
   }
 
   @Bean
-  public RmiServiceExporter rmiServiceExporter() {
+  public RmiServiceExporter rmiServiceExporter() throws RemoteException {
     RmiServiceExporter rmiServiceExporter = new RmiServiceExporter();
     rmiServiceExporter.setServiceName(IGameRmiService.RMI_SERVER_NAME);
     rmiServiceExporter.setService(gameRmiService);
     rmiServiceExporter.setServiceInterface(IGameRmiService.class);
-    rmiServiceExporter.setRegistryPort(2002);
-    try {
-      rmiServiceExporter.afterPropertiesSet();
-    } catch (RemoteException e) {
-      e.printStackTrace();
-    }
+    rmiServiceExporter.setRegistryPort(port);
+    rmiServiceExporter.afterPropertiesSet();
     return rmiServiceExporter;
   }
 }

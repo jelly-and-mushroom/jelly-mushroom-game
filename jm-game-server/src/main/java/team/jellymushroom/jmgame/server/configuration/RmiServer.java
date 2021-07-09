@@ -1,5 +1,6 @@
 package team.jellymushroom.jmgame.server.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import team.jellymushroom.jmgame.core.server.rmi.IGameRmiService;
 import java.rmi.RemoteException;
 
 @Configuration
+@Slf4j
 public class RmiServer {
 
   private final IGameRmiService gameRmiService;
@@ -28,6 +30,7 @@ public class RmiServer {
     rmiServiceExporter.setServiceInterface(IGameRmiService.class);
     rmiServiceExporter.setRegistryPort(port);
     rmiServiceExporter.afterPropertiesSet();
+    log.info("rmi server 初始化完成.port:{}", port);
     return rmiServiceExporter;
   }
 }

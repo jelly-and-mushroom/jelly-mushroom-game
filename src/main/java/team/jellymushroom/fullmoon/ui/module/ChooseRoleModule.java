@@ -8,9 +8,6 @@ import java.awt.*;
 
 /**
  * 角色选择模块
- *
- * 初始化inner信息:
- * iWidth:1010,iHeight:725
  */
 public class ChooseRoleModule extends Module {
 
@@ -26,15 +23,16 @@ public class ChooseRoleModule extends Module {
     int addX = adjustX;
     // 对手选职业
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, false, false).draw(g);
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, false, false, false).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;
     // 自身选职业
     GameRoleEnum currentRole = null;
+    GameRoleEnum confirmedRole = this.uiService.getGame().getMySelf().getGameRoleEnum();
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
       boolean lightImg = !this.uiService.showRoleChooseDetal() && gameRoleEnum.equals(this.uiService.getCurrentRole());
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, lightImg, false).draw(g);
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, lightImg, false, gameRoleEnum.equals(confirmedRole)).draw(g);
       addX += moduleRoleOWidth;
       if (gameRoleEnum.equals(this.uiService.getCurrentRole())) {
         currentRole = gameRoleEnum;
@@ -42,9 +40,7 @@ public class ChooseRoleModule extends Module {
     }
     // 详细信息介绍
     if (this.uiService.showRoleChooseDetal()) {
-      int detailHeight = (int)(0.8 * this.iHeight);
-      int detailWidth = (int)(1.0 * detailHeight * 662 / 1022);
-      new RoleModule(this.uiService, this.resource, this.iX + (this.iWidth - detailWidth) / 2, this.iY + (this.iHeight - detailHeight) / 2, detailWidth, detailHeight, 0, currentRole, true, true).draw(g);
+      new RoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole, true, true, confirmedRole != null).draw(g);
     }
     super.drawWindow(g);
   }

@@ -47,7 +47,11 @@ public class KeyEventService {
         this.roleChooseService.setShowDetail(true);
         break;
       case CANCEL:
-        this.roleChooseService.setShowDetail(false);
+        if (this.roleChooseService.getShowDetail()) {
+          this.roleChooseService.setShowDetail(false);
+        } else {
+          this.roleChooseService.cancelConfirm();
+        }
         break;
       case CONFIRM:
         this.roleChooseService.confirm();

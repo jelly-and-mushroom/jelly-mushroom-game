@@ -22,6 +22,9 @@ public class RoleChooseService {
   private Boolean showDetail = false;
 
   public void updateRole(int delta) {
+    if (null != this.mainService.getGameEntity().getMySelf().getGameRoleEnum()) {
+      return;
+    }
     int preResult = this.currentRole.getIndex() + delta;
     if (preResult < 0) {
       this.currentRole = GameRoleEnum.getEnumByValue(GameRoleEnum.values().length - 1);
@@ -36,5 +39,9 @@ public class RoleChooseService {
 
   public void confirm() {
     mainService.getGameEntity().getMySelf().setGameRoleEnum(currentRole);
+  }
+
+  public void cancelConfirm() {
+    mainService.getGameEntity().getMySelf().setGameRoleEnum(null);
   }
 }

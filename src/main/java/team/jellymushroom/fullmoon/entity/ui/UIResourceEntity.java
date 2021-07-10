@@ -19,6 +19,11 @@ public class UIResourceEntity {
   private BufferedImage edgingImg;
 
   /**
+   * 确认图片
+   */
+  private BufferedImage confirmImg;
+
+  /**
    * 角色图片
    */
   private Map<GameRoleEnum, BufferedImage> gameRoleImgMap = new HashMap<>(GameRoleEnum.values().length);

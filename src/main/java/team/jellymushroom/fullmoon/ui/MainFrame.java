@@ -67,6 +67,8 @@ public class MainFrame extends Frame {
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
       this.resource.getGameDimRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/dim/" + gameRoleEnum.getIndex() + ".png")));
     }
+    // 加载确认图片
+    this.resource.setConfirmImg(ImageIO.read(new File(resourceRootPath + "/material/image/confirm.png")));
     // 全部正常完成后打印日志
     log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);
   }

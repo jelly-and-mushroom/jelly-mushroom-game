@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
-import team.jellymushroom.fullmoon.service.MainService;
+import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
 
 import javax.annotation.PostConstruct;
@@ -30,12 +30,12 @@ public class MainFrame extends Frame {
   @Value("${fm.ui.mainframe.location.y}")
   private Integer locationY;
 
-  private MainService mainService;
+  private UIService uiService;
 
   private UIResourceEntity resource = new UIResourceEntity();
 
-  public MainFrame(MainService mainService) {
-    this.mainService = mainService;
+  public MainFrame(UIService uiService) {
+    this.uiService = uiService;
   }
 
   @PostConstruct
@@ -46,7 +46,7 @@ public class MainFrame extends Frame {
 
   private void initResource() throws IOException {
     // 获取资源根目录
-    String resourceRootPath = this.mainService.getResourceRootPath();
+    String resourceRootPath = this.uiService.getResourceRootPath();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 加载角色图片
@@ -89,10 +89,10 @@ public class MainFrame extends Frame {
    */
   @Override
   public void paint(Graphics g) {
-    GameEntity game = this.mainService.getGameEntity();
+    GameEntity game = this.uiService.getGame();
     switch (game.getStage()) {
       case CHOOSE_ROLE:
-        new ChooseRoleModule(this.mainService, this.resource, 0, 29, 1024, 739, 0).draw(g);
+        new ChooseRoleModule(this.uiService, this.resource, 0, 29, 1024, 739, 0).draw(g);
     }
   }
 

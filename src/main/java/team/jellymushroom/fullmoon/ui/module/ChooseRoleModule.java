@@ -2,7 +2,7 @@ package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
-import team.jellymushroom.fullmoon.service.MainService;
+import team.jellymushroom.fullmoon.service.UIService;
 
 import java.awt.*;
 
@@ -14,8 +14,8 @@ import java.awt.*;
  */
 public class ChooseRoleModule extends Module {
 
-  public ChooseRoleModule(MainService mainService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding) {
-    super(mainService, resource, oX, oY, oWidth, oHeight, padding);
+  public ChooseRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding) {
+    super(uiService, resource, oX, oY, oWidth, oHeight, padding);
   }
 
   @Override
@@ -26,13 +26,13 @@ public class ChooseRoleModule extends Module {
     int addX = adjustX;
     // 对手选职业
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      new RoleModule(this.mainService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum).draw(g);
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, false).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;
     // 自身选职业
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      new RoleModule(this.mainService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum).draw(g);
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, true).draw(g);
       addX += moduleRoleOWidth;
     }
     super.drawWindow(g);

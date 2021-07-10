@@ -1,7 +1,7 @@
 package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
-import team.jellymushroom.fullmoon.service.MainService;
+import team.jellymushroom.fullmoon.service.UIService;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  */
 public abstract class Module {
 
-    MainService mainService;
+    UIService uiService;
 
     UIResourceEntity resource;
 
@@ -66,7 +66,7 @@ public abstract class Module {
     private static final Integer EDGING_WIDTH = 7;
 
     /**
-     * @param mainService
+     * @param uiService
      * @param resource
      * @param oX Integer, 从外部看，模块的横坐标
      * @param oY Integer, 从外部看，模块的纵坐标
@@ -74,8 +74,8 @@ public abstract class Module {
      * @param oHeight Integer, 从外部看，模块的高
      * @param padding Integer, 留白
      */
-    Module(MainService mainService, UIResourceEntity resource, Integer oX, Integer oY, Integer oWidth, Integer oHeight, Integer padding) {
-        this.mainService = mainService;
+    Module(UIService uiService, UIResourceEntity resource, Integer oX, Integer oY, Integer oWidth, Integer oHeight, Integer padding) {
+        this.uiService = uiService;
         this.resource = resource;
         this.oX = oX;
         this.oY = oY;

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
+import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
 
@@ -16,6 +17,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 游戏主面板
@@ -32,10 +36,13 @@ public class MainFrame extends Frame {
 
   private UIService uiService;
 
+  private GameKeyListener gameKeyListener;
+
   private UIResourceEntity resource = new UIResourceEntity();
 
-  public MainFrame(UIService uiService) {
+  public MainFrame(UIService uiService, GameKeyListener gameKeyListener) {
     this.uiService = uiService;
+    this.gameKeyListener = gameKeyListener;
   }
 
   @PostConstruct
@@ -78,6 +85,10 @@ public class MainFrame extends Frame {
           }
         }
     );
+    // 绑定键盘监听
+    super.addKeyListener(this.gameKeyListener);
+    // 重绘定时任务
+    this.startScheduleRepaint();
     // 设置窗体可见
     super.setVisible(true);
     // 全部正常完成后打印日志
@@ -93,6 +104,7 @@ public class MainFrame extends Frame {
     switch (game.getStage()) {
       case CHOOSE_ROLE:
         new ChooseRoleModule(this.uiService, this.resource, 0, 29, 1024, 739, 0).draw(g);
+        break;
     }
   }
 
@@ -106,5 +118,19 @@ public class MainFrame extends Frame {
     this.paint(bg);
     bg.dispose();
     g.drawImage(bImage, 0, 0, this);
+  }
+
+  /**
+   * 重绘定时任务
+   */
+  private void startScheduleRepaint() {
+    Runnable r = new Runnable() {
+      @Override
+      public void run() {
+        MainFrame.this.repaint();
+      }
+    };
+    ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+    ses.scheduleAtFixedRate(r, 0, 10, TimeUnit.MILLISECONDS);
   }
 }

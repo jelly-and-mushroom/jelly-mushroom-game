@@ -53,6 +53,10 @@ public class MainFrame extends Frame {
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
       this.resource.getGameRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/original/" + gameRoleEnum.getIndex() + ".png")));
     }
+    // 加载虚化图片
+    for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
+      this.resource.getGameDimRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/dim/" + gameRoleEnum.getIndex() + ".png")));
+    }
     // 全部正常完成后打印日志
     log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);
   }
@@ -88,7 +92,7 @@ public class MainFrame extends Frame {
     GameEntity game = this.mainService.getGameEntity();
     switch (game.getStage()) {
       case CHOOSE_ROLE:
-        new ChooseRoleModule(this.resource, 0, 29, 1024, 739, 0).draw(g);
+        new ChooseRoleModule(this.mainService, this.resource, 0, 29, 1024, 739, 0).draw(g);
     }
   }
 

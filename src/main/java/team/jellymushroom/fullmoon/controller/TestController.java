@@ -12,6 +12,7 @@ public class TestController {
   @GetMapping("/test")
   @ResponseBody
   public String getArticleList() {
+    log.info("收到test请求");
     return "测试成功";
   }
 }

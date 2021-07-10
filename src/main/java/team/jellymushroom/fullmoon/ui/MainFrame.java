@@ -3,10 +3,11 @@ package team.jellymushroom.fullmoon.ui;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.ui.module.RoleModule;
+import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
 
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
@@ -48,6 +49,10 @@ public class MainFrame extends Frame {
     String resourceRootPath = this.mainService.getResourceRootPath();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
+    // 加载角色图片
+    for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
+      this.resource.getGameRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/" + gameRoleEnum.getIndex() + ".png")));
+    }
     // 全部正常完成后打印日志
     log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);
   }
@@ -83,7 +88,7 @@ public class MainFrame extends Frame {
     GameEntity game = this.mainService.getGameEntity();
     switch (game.getStage()) {
       case CHOOSE_ROLE:
-        new RoleModule(this.resource, 30, 30, 500, 300, 50).draw(g);
+        new ChooseRoleModule(this.resource, 0, 29, 1024, 739, 0).draw(g);
     }
   }
 

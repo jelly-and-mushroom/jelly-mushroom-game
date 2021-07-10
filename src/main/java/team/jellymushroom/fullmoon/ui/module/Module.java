@@ -16,49 +16,49 @@ public abstract class Module {
     UIResourceEntity resource;
 
     /**
-     * int, 从外部看，模块的横坐标
+     * 从外部看，模块的横坐标
      */
-    int oX;
+    Integer oX;
 
     /**
-     * int, 从外部看，模块的纵坐标
+     * 从外部看，模块的纵坐标
      */
-    int oY;
+    Integer oY;
 
     /**
-     * int, 从外部看，模块的宽
+     * 从外部看，模块的宽
      */
-    int oWidth;
+    Integer oWidth;
 
     /**
-     * int, 从外部看，模块的高
+     * 从外部看，模块的高
      */
-    int oHeight;
+    Integer oHeight;
 
     /**
-     * int, 模块实际有效区域的横坐标
+     * 模块实际有效区域的横坐标
      */
-    int iX;
+    Integer iX;
     
     /**
-     * int, 模块实际有效区域的纵坐标
+     * 模块实际有效区域的纵坐标
      */
-    int iY;
+    Integer iY;
     
     /**
-     * int, 模块实际有效区域的宽
+     * 模块实际有效区域的宽
      */
-    int iWidth;
+    Integer iWidth;
     
     /**
-     * int, 模块实际有效区域的高
+     * 模块实际有效区域的高
      */
-    int iHeight;
+    Integer iHeight;
 
     /**
-     * int, 留白
+     * 留白
      */
-    int padding;
+    Integer padding;
 
     /**
      * int, 边框图片宽度
@@ -67,13 +67,13 @@ public abstract class Module {
 
     /**
      * @param resource 绘制所需资源
-     * @param oX int, 从外部看，模块的横坐标
-     * @param oY int, 从外部看，模块的纵坐标
-     * @param oWidth int, 从外部看，模块的宽
-     * @param oHeight int, 从外部看，模块的高
-     * @param padding int, 留白
+     * @param oX Integer, 从外部看，模块的横坐标
+     * @param oY Integer, 从外部看，模块的纵坐标
+     * @param oWidth Integer, 从外部看，模块的宽
+     * @param oHeight Integer, 从外部看，模块的高
+     * @param padding Integer, 留白
      */
-    Module(UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding) {
+    Module(UIResourceEntity resource, Integer oX, Integer oY, Integer oWidth, Integer oHeight, Integer padding) {
         this.resource = resource;
         this.oX = oX;
         this.oY = oY;

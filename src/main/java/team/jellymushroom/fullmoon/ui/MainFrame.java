@@ -3,12 +3,17 @@ package team.jellymushroom.fullmoon.ui;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
+import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.ui.module.RoleModule;
 
 import javax.annotation.PostConstruct;
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 游戏主面板
@@ -23,8 +28,30 @@ public class MainFrame extends Frame {
   @Value("${fm.ui.mainframe.location.y}")
   private Integer locationY;
 
+  private UIService uiService;
+
+  private UIResourceEntity resource = new UIResourceEntity();
+
+  public MainFrame(UIService uiService) {
+    this.uiService = uiService;
+  }
+
   @PostConstruct
-  public void init() {
+  public void init() throws IOException {
+    this.initResource();
+    this.initUI();
+  }
+
+  private void initResource() throws IOException {
+    // 获取资源根目录
+    String resourceRootPath = this.uiService.getResourceRootPath();
+    // 加载边框图片
+    this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
+    // 全部正常完成后打印日志
+    log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);
+  }
+
+  private void initUI() {
     // 窗口大小 4:3 固定不可配置
     super.setSize(1024, 768);
     // 窗口初始化位置
@@ -41,7 +68,10 @@ public class MainFrame extends Frame {
           }
         }
     );
+    // 设置窗体可见
     super.setVisible(true);
+    // 全部正常完成后打印日志
+    log.info("游戏主窗体初始化完成");
   }
 
   /**
@@ -49,7 +79,7 @@ public class MainFrame extends Frame {
    */
   @Override
   public void paint(Graphics g) {
-    new RoleModule(30, 30, 500, 300, 50).draw(g);
+    new RoleModule(this.resource, 30, 30, 500, 300, 50).draw(g);
   }
 
   /**

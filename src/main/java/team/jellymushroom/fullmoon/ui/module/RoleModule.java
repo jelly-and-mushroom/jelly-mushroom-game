@@ -1,5 +1,7 @@
 package team.jellymushroom.fullmoon.ui.module;
 
+import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
+
 import java.awt.*;
 
 /**
@@ -7,8 +9,8 @@ import java.awt.*;
  */
 public class RoleModule extends Module {
 
-  public RoleModule(int oX, int oY, int oWidth, int oHeight, int padding) {
-    super(oX, oY, oWidth, oHeight, padding);
+  public RoleModule(UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding) {
+    super(resource, oX, oY, oWidth, oHeight, padding);
   }
 
   @Override

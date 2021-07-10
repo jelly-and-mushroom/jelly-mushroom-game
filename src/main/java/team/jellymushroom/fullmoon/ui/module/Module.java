@@ -1,8 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import team.jellymushroom.fullmoon.util.SourceDataGetUtil;
+import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,21 +11,9 @@ import java.awt.image.BufferedImage;
 public abstract class Module {
 
     /**
-     * BufferedImage, 边框图片
+     * 所需资源
      */
-    private static BufferedImage IMAGE_EDGING;
-
-    /**
-     * boolean, true--开启窗口内部区域的遮蔽效果,false--关闭窗口内部区域的遮蔽效果
-     */
-    private static boolean EDG_SHELTER;
-
-    /**
-     * int, 边框宽度，单位为px
-     */
-    public static final int EDGING_LENGTH = 7;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Module.class);
+    UIResourceEntity resource;
 
     /**
      * int, 从外部看，模块的横坐标
@@ -75,81 +61,54 @@ public abstract class Module {
     int padding;
 
     /**
-     * BufferedImage, 边框图片
+     * int, 边框图片宽度
      */
-    private BufferedImage imageEdging;
+    private static final Integer EDGING_WIDTH = 7;
 
     /**
-     * int, 边框图片宽度，单位为px
-     */
-    private int edgingLength;
-
-    static {
-        try {
-            // IMAGE_EDGING
-            String edgingPath = "/Users/reimuwang/temp/material/images/windows/0.png";
-            Module.IMAGE_EDGING = SourceDataGetUtil.loadBufferedImage(edgingPath);
-            // EDG_SHELTER
-            String edgShelter = "0";
-            if ("1".equals(edgShelter))
-                Module.EDG_SHELTER = true;
-            else if (!"0".equals(edgShelter)) {
-                LOGGER.error("view.frame.module.edgShelter illegal,shutdown");
-                System.exit(0);
-            }
-        } catch (Exception e) {
-            LOGGER.error("fail to init Module static", e);
-            System.exit(0);
-        }
-    }
-
-    /**
-     * 构造函数
+     * @param resource 绘制所需资源
      * @param oX int, 从外部看，模块的横坐标
      * @param oY int, 从外部看，模块的纵坐标
      * @param oWidth int, 从外部看，模块的宽
      * @param oHeight int, 从外部看，模块的高
      * @param padding int, 留白
      */
-    Module(int oX, int oY, int oWidth, int oHeight, int padding) {
+    Module(UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding) {
+        this.resource = resource;
         this.oX = oX;
         this.oY = oY;
         this.oWidth = oWidth;
         this.oHeight = oHeight;
         this.padding = padding;
-        this.imageEdging = Module.IMAGE_EDGING;
-        this.edgingLength = Module.EDGING_LENGTH;
-        this.iX = this.oX + this.edgingLength + this.padding;
-        this.iY = this.oY + this.edgingLength + this.padding;
-        this.iWidth = this.oWidth - 2 * (this.edgingLength + this.padding);
-        this.iHeight = this.oHeight - 2 * (this.edgingLength + this.padding);
+        this.iX = this.oX + EDGING_WIDTH + this.padding;
+        this.iY = this.oY + EDGING_WIDTH + this.padding;
+        this.iWidth = this.oWidth - 2 * (EDGING_WIDTH + this.padding);
+        this.iHeight = this.oHeight - 2 * (EDGING_WIDTH + this.padding);
     }
 
     /**
      * 绘制边框
      */
     void drawWindow(Graphics g) {
-        int windowWidth = this.imageEdging.getWidth();
-        int windowHeight = this.imageEdging.getHeight();
+        BufferedImage edgingImg = this.resource.getEdgingImg();
+        int windowWidth = edgingImg.getWidth();
+        int windowHeight = edgingImg.getHeight();
         // 左上
-        g.drawImage(this.imageEdging, this.oX, this.oY, this.oX + this.edgingLength, this.oY + this.edgingLength, 0, 0, this.edgingLength, this.edgingLength, null);
+        g.drawImage(edgingImg, this.oX, this.oY, this.oX + EDGING_WIDTH, this.oY + EDGING_WIDTH, 0, 0, EDGING_WIDTH, EDGING_WIDTH, null);
         // 中上
-        g.drawImage(this.imageEdging, this.oX + this.edgingLength, this.oY, this.oX + this.oWidth - this.edgingLength, this.oY + this.edgingLength, this.edgingLength, 0, windowWidth - this.edgingLength, this.edgingLength, null);
+        g.drawImage(edgingImg, this.oX + EDGING_WIDTH, this.oY, this.oX + this.oWidth - EDGING_WIDTH, this.oY + EDGING_WIDTH, EDGING_WIDTH, 0, windowWidth - EDGING_WIDTH, EDGING_WIDTH, null);
         // 右上
-        g.drawImage(this.imageEdging, this.oX + this.oWidth - this.edgingLength, this.oY, this.oX + this.oWidth, this.oY + this.edgingLength, windowWidth - this.edgingLength, 0, windowWidth, this.edgingLength, null);
+        g.drawImage(edgingImg, this.oX + this.oWidth - EDGING_WIDTH, this.oY, this.oX + this.oWidth, this.oY + EDGING_WIDTH, windowWidth - EDGING_WIDTH, 0, windowWidth, EDGING_WIDTH, null);
         // 左中
-        g.drawImage(this.imageEdging, this.oX, this.oY + this.edgingLength, this.oX + this.edgingLength, this.oY + this.oHeight - this.edgingLength, 0, this.edgingLength, this.edgingLength, windowHeight - this.edgingLength, null);
-        // 中
-        if (Module.EDG_SHELTER)
-            g.drawImage(this.imageEdging, this.oX + this.edgingLength, this.oY + this.edgingLength, this.oX + this.oWidth - this.edgingLength, this.oY + this.oHeight - this.edgingLength, this.edgingLength, this.edgingLength, windowWidth - this.edgingLength, windowHeight - this.edgingLength, null);
+        g.drawImage(edgingImg, this.oX, this.oY + EDGING_WIDTH, this.oX + EDGING_WIDTH, this.oY + this.oHeight - EDGING_WIDTH, 0, EDGING_WIDTH, EDGING_WIDTH, windowHeight - EDGING_WIDTH, null);
         // 右中
-        g.drawImage(this.imageEdging, this.oX + this.oWidth - this.edgingLength, this.oY + this.edgingLength, this.oX + this.oWidth, this.oY + this.oHeight - this.edgingLength, windowWidth - this.edgingLength, this.edgingLength, windowWidth, windowHeight - this.edgingLength, null);
+        g.drawImage(edgingImg, this.oX + this.oWidth - EDGING_WIDTH, this.oY + EDGING_WIDTH, this.oX + this.oWidth, this.oY + this.oHeight - EDGING_WIDTH, windowWidth - EDGING_WIDTH, EDGING_WIDTH, windowWidth, windowHeight - EDGING_WIDTH, null);
         // 左下
-        g.drawImage(this.imageEdging, this.oX, this.oY + this.oHeight - this.edgingLength, this.oX + this.edgingLength, this.oY + this.oHeight, 0, windowHeight - this.edgingLength, this.edgingLength, windowHeight, null);
+        g.drawImage(edgingImg, this.oX, this.oY + this.oHeight - EDGING_WIDTH, this.oX + EDGING_WIDTH, this.oY + this.oHeight, 0, windowHeight - EDGING_WIDTH, EDGING_WIDTH, windowHeight, null);
         // 中下
-        g.drawImage(this.imageEdging, this.oX + this.edgingLength, this.oY + this.oHeight - this.edgingLength, this.oX + this.oWidth - this.edgingLength, this.oY + this.oHeight, this.edgingLength, windowHeight - this.edgingLength, windowWidth - this.edgingLength, windowHeight, null);
+        g.drawImage(edgingImg, this.oX + EDGING_WIDTH, this.oY + this.oHeight - EDGING_WIDTH, this.oX + this.oWidth - EDGING_WIDTH, this.oY + this.oHeight, EDGING_WIDTH, windowHeight - EDGING_WIDTH, windowWidth - EDGING_WIDTH, windowHeight, null);
         // 右下
-        g.drawImage(this.imageEdging, this.oX + this.oWidth - this.edgingLength, this.oY + this.oHeight - this.edgingLength, this.oX + this.oWidth, this.oY + this.oHeight, windowWidth - this.edgingLength, windowHeight - this.edgingLength, windowWidth, windowHeight, null);
+        g.drawImage(edgingImg, this.oX + this.oWidth - EDGING_WIDTH, this.oY + this.oHeight - EDGING_WIDTH, this.oX + this.oWidth, this.oY + this.oHeight, windowWidth - EDGING_WIDTH, windowHeight - EDGING_WIDTH, windowWidth, windowHeight, null);
     }
 
     /**

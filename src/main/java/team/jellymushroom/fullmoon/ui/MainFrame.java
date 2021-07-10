@@ -3,8 +3,9 @@ package team.jellymushroom.fullmoon.ui;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
-import team.jellymushroom.fullmoon.service.UIService;
+import team.jellymushroom.fullmoon.service.MainService;
 import team.jellymushroom.fullmoon.ui.module.RoleModule;
 
 import javax.annotation.PostConstruct;
@@ -28,12 +29,12 @@ public class MainFrame extends Frame {
   @Value("${fm.ui.mainframe.location.y}")
   private Integer locationY;
 
-  private UIService uiService;
+  private MainService mainService;
 
   private UIResourceEntity resource = new UIResourceEntity();
 
-  public MainFrame(UIService uiService) {
-    this.uiService = uiService;
+  public MainFrame(MainService mainService) {
+    this.mainService = mainService;
   }
 
   @PostConstruct
@@ -44,7 +45,7 @@ public class MainFrame extends Frame {
 
   private void initResource() throws IOException {
     // 获取资源根目录
-    String resourceRootPath = this.uiService.getResourceRootPath();
+    String resourceRootPath = this.mainService.getResourceRootPath();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 全部正常完成后打印日志
@@ -79,7 +80,11 @@ public class MainFrame extends Frame {
    */
   @Override
   public void paint(Graphics g) {
-    new RoleModule(this.resource, 30, 30, 500, 300, 50).draw(g);
+    GameEntity game = this.mainService.getGameEntity();
+    switch (game.getStage()) {
+      case CHOOSE_ROLE:
+        new RoleModule(this.resource, 30, 30, 500, 300, 50).draw(g);
+    }
   }
 
   /**

@@ -18,6 +18,13 @@ import java.util.List;
 public class PlayerEntity {
 
   /**
+   * 只在进行一小局游戏过程中生效
+   * true: 自身的回合
+   * false: 对手的回合
+   */
+  private Boolean myTune = false;
+
+  /**
    * 生命上限
    *
    */
@@ -148,4 +155,10 @@ public class PlayerEntity {
    * 按获得顺序排序
    */
   private List<StateEntity> stateList = new ArrayList<>();
+
+  /**
+   * 当前获得的祝福
+   * 按获得顺序排序
+   */
+  private List<BlessingEntity> blessingList = new ArrayList<>();
 }

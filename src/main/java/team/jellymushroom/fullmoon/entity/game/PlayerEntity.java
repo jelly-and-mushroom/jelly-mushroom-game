@@ -9,9 +9,7 @@ import team.jellymushroom.fullmoon.entity.game.card.PrayerCardEntity;
 import team.jellymushroom.fullmoon.entity.game.state.StateEntity;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 游戏玩家
@@ -143,7 +141,7 @@ public class PlayerEntity {
    * value: 距生效剩余回合数
    * 按放置顺序排序
    */
-  private Map<PrayerCardEntity, Integer> prayerCardPlaceList = new LinkedHashMap<>();
+  private List<PrayerCardEntity> prayerCardPlaceList = new ArrayList<>();
 
   /**
    * 当前获得的状态

@@ -12,3 +12,8 @@ B-V7XTQ05P-2253.local
 127.0.0.1	localhost B-V7XTQ05P-2253.local
 ::1             localhost B-V7XTQ05P-2253.local
 ```
+
+# 启动VM参数
+```
+-Djava.awt.headless=false
+```

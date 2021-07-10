@@ -3,6 +3,7 @@ package team.jellymushroom.fullmoon.ui;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import team.jellymushroom.fullmoon.ui.module.RoleModule;
 
 import javax.annotation.PostConstruct;
 import java.awt.*;
@@ -41,5 +42,25 @@ public class MainFrame extends Frame {
         }
     );
     super.setVisible(true);
+  }
+
+  /**
+   * 绘制组件
+   */
+  @Override
+  public void paint(Graphics g) {
+    new RoleModule(30, 30, 500, 300, 50).draw(g);
+  }
+
+  /**
+   * 通过双缓冲解决闪烁问题
+   */
+  @Override
+  public void update(Graphics g) {
+    Image bImage = super.createImage(this.getWidth(), this.getHeight());
+    Graphics bg = bImage.getGraphics();
+    this.paint(bg);
+    bg.dispose();
+    g.drawImage(bImage, 0, 0, this);
   }
 }

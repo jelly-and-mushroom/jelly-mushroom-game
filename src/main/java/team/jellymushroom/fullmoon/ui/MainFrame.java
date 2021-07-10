@@ -51,7 +51,7 @@ public class MainFrame extends Frame {
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 加载角色图片
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      this.resource.getGameRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/" + gameRoleEnum.getIndex() + ".png")));
+      this.resource.getGameRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/original/" + gameRoleEnum.getIndex() + ".png")));
     }
     // 全部正常完成后打印日志
     log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);

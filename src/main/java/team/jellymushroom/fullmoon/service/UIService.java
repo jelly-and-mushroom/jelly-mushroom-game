@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.service;
 
 import org.springframework.stereotype.Service;
+import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 
 @Service
@@ -23,7 +24,11 @@ public class UIService {
     return this.mainService.getGameEntity();
   }
 
-  public Integer getCurrentRoleIndex() {
-    return this.roleChooseService.getCurrentRoleIndex();
+  public GameRoleEnum getCurrentRole() {
+    return this.roleChooseService.getCurrentRole();
+  }
+
+  public boolean showRoleChooseDetal() {
+    return this.roleChooseService.getShowDetail();
   }
 }

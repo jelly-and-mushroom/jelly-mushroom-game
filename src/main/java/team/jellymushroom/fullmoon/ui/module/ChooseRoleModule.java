@@ -26,14 +26,25 @@ public class ChooseRoleModule extends Module {
     int addX = adjustX;
     // 对手选职业
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, false).draw(g);
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, false, false).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;
     // 自身选职业
+    GameRoleEnum currentRole = null;
     for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, true).draw(g);
+      boolean lightImg = !this.uiService.showRoleChooseDetal() && gameRoleEnum.equals(this.uiService.getCurrentRole());
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, lightImg, false).draw(g);
       addX += moduleRoleOWidth;
+      if (gameRoleEnum.equals(this.uiService.getCurrentRole())) {
+        currentRole = gameRoleEnum;
+      }
+    }
+    // 详细信息介绍
+    if (this.uiService.showRoleChooseDetal()) {
+      int detailHeight = (int)(0.8 * this.iHeight);
+      int detailWidth = (int)(1.0 * detailHeight * 662 / 1022);
+      new RoleModule(this.uiService, this.resource, this.iX + (this.iWidth - detailWidth) / 2, this.iY + (this.iHeight - detailHeight) / 2, detailWidth, detailHeight, 0, currentRole, true, true).draw(g);
     }
     super.drawWindow(g);
   }

@@ -34,6 +34,9 @@ public class MainFrame extends Frame {
   @Value("${fm.ui.mainframe.location.y}")
   private Integer locationY;
 
+  @Value("${fm.ui.repaintInterval}")
+  private Integer repaintInterval;
+
   private UIService uiService;
 
   private GameKeyListener gameKeyListener;
@@ -131,6 +134,6 @@ public class MainFrame extends Frame {
       }
     };
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-    ses.scheduleAtFixedRate(r, 0, 10, TimeUnit.MILLISECONDS);
+    ses.scheduleAtFixedRate(r, 0, this.repaintInterval, TimeUnit.MILLISECONDS);
   }
 }

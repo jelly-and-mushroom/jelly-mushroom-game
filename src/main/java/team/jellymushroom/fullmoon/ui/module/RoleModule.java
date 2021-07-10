@@ -17,23 +17,30 @@ public class RoleModule extends Module {
 
   private GameRoleEnum gameRoleEnum;
 
-  private Boolean mySelf;
+  private Boolean light;
 
-  public RoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEnum gameRoleEnum, Boolean mySelf) {
+  private Boolean detail;
+
+  public RoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEnum gameRoleEnum, Boolean light, Boolean detail) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
     this.gameRoleEnum = gameRoleEnum;
-    this.mySelf = mySelf;
+    this.light = light;
+    this.detail = detail;
   }
 
   @Override
   public void draw(Graphics g) {
     super.drawWindow(g);
-    BufferedImage roleImg = null;
-    if (this.mySelf && this.gameRoleEnum.getIndex().equals(this.uiService.getCurrentRoleIndex())) {
-      roleImg = this.resource.getGameRoleImgMap().get(gameRoleEnum);
+
+    BufferedImage roleImg = this.light ? this.resource.getGameRoleImgMap().get(gameRoleEnum) : this.resource.getGameDimRoleImgMap().get(gameRoleEnum);
+    if (this.detail) {
+      g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 478, 371, 1140, 1393, null);
     } else {
-      roleImg = this.resource.getGameDimRoleImgMap().get(gameRoleEnum);
+      g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 697, 371, 922, 1393, null);
     }
-    g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 697, 371, 922, 1393, null);
+    GameRoleEnum confirmedRole = this.uiService.getGame().getMySelf().getGameRoleEnum();
+    if (this.gameRoleEnum.equals(confirmedRole)) {
+
+    }
   }
 }

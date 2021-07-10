@@ -38,14 +38,19 @@ public class KeyEventService {
     }
     switch (keyEventEnum) {
       case LEFT:
-        this.roleChooseService.updateRoleIndex(-1);
+        this.roleChooseService.updateRole(-1);
         break;
       case RIGHT:
-        this.roleChooseService.updateRoleIndex(1);
+        this.roleChooseService.updateRole(1);
         break;
       case DETAIL:
+        this.roleChooseService.setShowDetail(true);
+        break;
+      case CANCEL:
+        this.roleChooseService.setShowDetail(false);
         break;
       case CONFIRM:
+        this.roleChooseService.confirm();
     }
   }
 }

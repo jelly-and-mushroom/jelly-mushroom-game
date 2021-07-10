@@ -14,7 +14,8 @@ public enum KeyEventEnum {
   LEFT (65, "左移"),
   RIGHT (68, "右移"),
   CONFIRM (10, "确定"),
-  DETAIL (83, "详细信息");
+  DETAIL (83, "详细信息"),
+  CANCEL (27, "取消");
 
   /**
    * 职业序号，自0起

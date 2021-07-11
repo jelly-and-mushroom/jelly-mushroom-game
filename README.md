@@ -17,3 +17,11 @@ B-V7XTQ05P-2253.local
 ```
 -Djava.awt.headless=false
 ```
+
+# github 无法访问&慢 问题解决
+[添加至/etc/hosts](https://raw.fastgit.org/521xueweihan/GitHub520/main/hosts)
+[对应github库](https://github.com/521xueweihan/GitHub520)
+若添加后未生效，再执行
+```shell
+sudo killall -HUP mDNSResponder
+```

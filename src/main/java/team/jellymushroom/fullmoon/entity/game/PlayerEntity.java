@@ -3,7 +3,7 @@ package team.jellymushroom.fullmoon.entity.game;
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
-import team.jellymushroom.fullmoon.entity.game.state.StateEntity;
+import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,13 +67,13 @@ public class PlayerEntity {
    * 当前获得的状态
    * 按获得顺序排序
    */
-  private List<StateEntity> stateList = new ArrayList<>();
+  private List<GameStateEntity> gameStateList = new ArrayList<>();
 
   /**
    * 当前获得的祝福
    * 按获得顺序排序
    */
-  private List<BlessingEntity> blessingList = new ArrayList<>();
+  private List<GameBlessingEntity> gameBlessingList = new ArrayList<>();
 
   /**
    * 持有的金币数

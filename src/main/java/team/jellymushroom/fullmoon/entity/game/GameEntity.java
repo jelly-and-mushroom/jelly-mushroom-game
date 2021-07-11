@@ -3,6 +3,9 @@ package team.jellymushroom.fullmoon.entity.game;
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 一大局游戏
  * 包含恢复一局游戏的所有静态信息(即存档读档均通过操作本类实例来实现)
@@ -24,4 +27,11 @@ public class GameEntity {
    * 当前本局游戏所处阶段
    */
   private GameStageEnum stage = GameStageEnum.CHOOSE_ROLE;
+
+  /**
+   * 历史小局游戏胜负情况
+   * true: 自身胜利
+   * false: 对手胜利
+   */
+  private List<Boolean> historyList = new ArrayList<>();
 }

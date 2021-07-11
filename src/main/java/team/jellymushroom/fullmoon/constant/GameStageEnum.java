@@ -8,7 +8,8 @@ import lombok.Getter;
 @Getter
 public enum GameStageEnum {
 
-  CHOOSE_ROLE ("角色选择");
+  CHOOSE_ROLE ("角色选择"),
+  GAME_FIGHT("游戏对战中");
 
   /**
    * 阶段名称

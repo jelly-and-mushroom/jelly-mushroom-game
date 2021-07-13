@@ -1,8 +1,10 @@
 package team.jellymushroom.fullmoon.service;
 
 import org.springframework.stereotype.Service;
-import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
+import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
+
+import java.util.Map;
 
 @Service
 public class UIService {
@@ -11,9 +13,12 @@ public class UIService {
 
   private RoleChooseService roleChooseService;
 
-  public UIService(MainService mainService, RoleChooseService roleChooseService) {
+  private ResourceService resourceService;
+
+  public UIService(MainService mainService, RoleChooseService roleChooseService, ResourceService resourceService) {
     this.mainService = mainService;
     this.roleChooseService = roleChooseService;
+    this.resourceService = resourceService;
   }
 
   public String getResourceRootPath() {
@@ -24,11 +29,15 @@ public class UIService {
     return this.mainService.getGameEntity();
   }
 
-  public GameRoleEnum getCurrentRole() {
+  public GameRoleEntity getCurrentRole() {
     return this.roleChooseService.getCurrentRole();
   }
 
   public boolean showRoleChooseDetal() {
     return this.roleChooseService.getShowDetail();
+  }
+
+  public Map<Integer, GameRoleEntity> getGameRoleMap() {
+    return this.resourceService.getServiceResourceEntity().getGameRoleMap();
   }
 }

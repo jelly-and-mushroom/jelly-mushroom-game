@@ -1,10 +1,11 @@
 package team.jellymushroom.fullmoon.ui.module;
 
-import team.jellymushroom.fullmoon.constant.GameRoleEnum;
+import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 
 import java.awt.*;
+import java.util.Map;
 
 /**
  * 角色选择模块
@@ -21,21 +22,23 @@ public class ChooseRoleModule extends Module {
     int moduleRoleOHeight = this.iHeight / 2;
     int adjustX = 1;
     int addX = adjustX;
+    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getGameRoleMap();
     // 对手选职业
-    for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, false, false, false).draw(g);
+    for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), false, false, false).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;
     // 自身选职业
-    GameRoleEnum currentRole = null;
-    GameRoleEnum confirmedRole = this.uiService.getGame().getMySelf().getGameRoleEnum();
-    for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      boolean lightImg = !this.uiService.showRoleChooseDetal() && gameRoleEnum.equals(this.uiService.getCurrentRole());
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, gameRoleEnum, lightImg, false, gameRoleEnum.equals(confirmedRole)).draw(g);
+    GameRoleEntity currentRole = null;
+    GameRoleEntity confirmedRole = this.uiService.getGame().getMySelf().getGameRoleEntity();
+    Integer confirmedRoleIndex = null==confirmedRole ? null : confirmedRole.getIndex();
+    for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
+      boolean lightImg = !this.uiService.showRoleChooseDetal() && roleEntry.getKey().equals(this.uiService.getCurrentRole().getIndex());
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), lightImg, false, roleEntry.getKey().equals(confirmedRoleIndex)).draw(g);
       addX += moduleRoleOWidth;
-      if (gameRoleEnum.equals(this.uiService.getCurrentRole())) {
-        currentRole = gameRoleEnum;
+      if (roleEntry.getKey().equals(this.uiService.getCurrentRole().getIndex())) {
+        currentRole = roleEntry.getValue();
       }
     }
     // 详细信息介绍

@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.entity.game;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
@@ -18,7 +17,7 @@ public class PlayerEntity {
    * 本局游戏所选职业
    * 一旦选定，则不可修改
    */
-  private GameRoleEnum gameRoleEnum;
+  private GameRoleEntity gameRoleEntity;
 
   /**
    * 只有当前游戏阶段为 GameStageEnum.GAME_FIGHT 本字段才不会为空

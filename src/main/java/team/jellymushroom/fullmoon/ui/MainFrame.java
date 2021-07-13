@@ -3,8 +3,8 @@ package team.jellymushroom.fullmoon.ui;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
+import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
@@ -17,6 +17,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -57,15 +58,17 @@ public class MainFrame extends Frame {
   private void initResource() throws IOException {
     // 获取资源根目录
     String resourceRootPath = this.uiService.getResourceRootPath();
+    // 获取角色资源
+    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getGameRoleMap();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 加载角色图片
-    for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      this.resource.getGameRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/original/" + gameRoleEnum.getIndex() + ".png")));
+    for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
+      this.resource.getGameRoleImgMap().put(roleEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/role/original/" + roleEntry.getKey() + ".png")));
     }
     // 加载虚化图片
-    for (GameRoleEnum gameRoleEnum : GameRoleEnum.values()) {
-      this.resource.getGameDimRoleImgMap().put(gameRoleEnum, ImageIO.read(new File(resourceRootPath + "/material/image/role/dim/" + gameRoleEnum.getIndex() + ".png")));
+    for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
+      this.resource.getGameDimRoleImgMap().put(roleEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/role/dim/" + roleEntry.getKey() + ".png")));
     }
     // 加载确认图片
     this.resource.setConfirmImg(ImageIO.read(new File(resourceRootPath + "/material/image/confirm.png")));

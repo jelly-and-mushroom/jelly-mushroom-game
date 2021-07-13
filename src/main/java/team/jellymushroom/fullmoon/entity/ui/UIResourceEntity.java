@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.entity.ui;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.constant.GameRoleEnum;
 
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -26,10 +25,10 @@ public class UIResourceEntity {
   /**
    * 角色图片
    */
-  private Map<GameRoleEnum, BufferedImage> gameRoleImgMap = new HashMap<>(GameRoleEnum.values().length);
+  private Map<Integer, BufferedImage> gameRoleImgMap = new HashMap<>();
 
   /**
    * 虚化角色图片
    */
-  private Map<GameRoleEnum, BufferedImage> gameDimRoleImgMap = new HashMap<>(GameRoleEnum.values().length);
+  private Map<Integer, BufferedImage> gameDimRoleImgMap = new HashMap<>();
 }

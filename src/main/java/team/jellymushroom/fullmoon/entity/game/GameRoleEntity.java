@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.entity.game;
 
+import lombok.Data;
 import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * 游戏可选职业
  */
+@Data
 public class GameRoleEntity {
 
   /**

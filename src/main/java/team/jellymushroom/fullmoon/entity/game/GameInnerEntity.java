@@ -99,9 +99,7 @@ public class GameInnerEntity {
   private List<CounterCardEntity> counterCardPlaceList = new ArrayList<>();
 
   /**
-   * 当前已放置的祷告牌map
-   * key: 放置的祷告牌
-   * value: 距生效剩余回合数
+   * 当前已放置的祷告牌列表
    * 按放置顺序排序
    */
   private List<PrayerCardEntity> prayerCardPlaceList = new ArrayList<>();

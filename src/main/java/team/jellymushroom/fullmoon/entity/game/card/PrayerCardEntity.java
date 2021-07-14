@@ -9,7 +9,8 @@ import lombok.Data;
 public class PrayerCardEntity extends CardEntity {
 
   /**
-   * 只有已放置入场上时(即在playerEntity.prayerCardPlaceList中)，本参数才有意义
+   * 剩余祷告回合数
+   * 只有当本祷告牌被放置到场上后，本字段才有意义
    */
-  private Integer remaininPrayerCount;
+  private Integer remainPrayerCount;
 }

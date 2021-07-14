@@ -5,26 +5,17 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 键盘按键
- **/
 @Getter
 public enum KeyEventEnum {
 
   LEFT (65, "左移"),
   RIGHT (68, "右移"),
   CONFIRM (10, "确定"),
-  DETAIL (83, "详细信息"),
+  DETAIL (83, "详情"),
   CANCEL (27, "取消");
 
-  /**
-   * 职业序号，自0起
-   */
   private Integer keyCode;
 
-  /**
-   * 描述
-   */
   private String description;
 
   private static Map<Integer, KeyEventEnum> VALUE_MAP = new HashMap<>(KeyEventEnum.values().length);
@@ -35,20 +26,16 @@ public enum KeyEventEnum {
     }
   }
 
-
   KeyEventEnum(Integer keyCode, String description) {
     this.keyCode = keyCode;
     this.description = description;
   }
 
   /**
-   * 若入参是本枚举某实例的value值，则返回该实例
-   * 若未找到，则返回null
-   *
-   * @param valueToSearch 待查找value值
-   * @return 找到的枚举实例
+   * 若入参为null,返回null
+   * 若未找到对应枚举实例，返回null
    */
-  public static KeyEventEnum getEnumByValue(Integer valueToSearch) {
-    return VALUE_MAP.get(valueToSearch);
+  public static KeyEventEnum getEnumByKeyCode(Integer keyCode) {
+    return VALUE_MAP.get(keyCode);
   }
 }

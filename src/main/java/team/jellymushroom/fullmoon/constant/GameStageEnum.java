@@ -7,7 +7,7 @@ public enum GameStageEnum {
 
   CHOOSE_ROLE ("角色选择"),
   CHOOSE_ROLE_DETAIL ("角色选择-详情"),
-  CHOOSE_ROLE_CONFIRM("角色选择-已确认");
+  CHOOSE_ROLE_CONFIRM("角色选择-已确定");
 
   private String name;
 

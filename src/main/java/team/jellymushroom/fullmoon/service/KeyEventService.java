@@ -24,7 +24,7 @@ public class KeyEventService {
   public void keyPressed(KeyEvent keyEvent) {
     GameEntity game = this.mainService.getGameEntity();
     GameStageEnum stage = game.getMySelf().getStage();
-    KeyEventEnum keyEventEnum = KeyEventEnum.getEnumByValue(keyEvent.getKeyCode());
+    KeyEventEnum keyEventEnum = KeyEventEnum.getEnumByKeyCode(keyEvent.getKeyCode());
     String keyEventDesc = null==keyEventEnum ? null : keyEventEnum.getDescription();
     log.info("所处游戏阶段:{},监听到键盘输入:{},对应键盘事件:{}", stage.getName(), keyEvent.getKeyCode(), keyEventDesc);
     GameStageEnum newGameStage = null;

@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.entity.game;
 
 import lombok.Data;
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
@@ -12,6 +13,11 @@ import java.util.List;
  */
 @Data
 public class PlayerEntity {
+
+  /**
+   * 所处阶段
+   */
+  private GameStageEnum stage = GameStageEnum.CHOOSE_ROLE;
 
   /**
    * 本局游戏所选职业

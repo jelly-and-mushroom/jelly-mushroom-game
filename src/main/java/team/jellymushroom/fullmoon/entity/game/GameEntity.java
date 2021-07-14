@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.entity.game;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.constant.GameStageEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,6 @@ public class GameEntity {
    * 对手玩家
    */
   private PlayerEntity opponent;
-
-  /**
-   * 当前本局游戏所处阶段
-   */
-  private GameStageEnum stage = GameStageEnum.CHOOSE_ROLE;
 
   /**
    * 历史小局游戏胜负情况

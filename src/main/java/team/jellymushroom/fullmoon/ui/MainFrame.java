@@ -3,7 +3,7 @@ package team.jellymushroom.fullmoon.ui;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import team.jellymushroom.fullmoon.entity.game.GameEntity;
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
@@ -108,8 +108,8 @@ public class MainFrame extends Frame {
    */
   @Override
   public void paint(Graphics g) {
-    GameEntity game = this.uiService.getGame();
-    switch (game.getStage()) {
+    GameStageEnum stage = this.uiService.getGame().getMySelf().getStage();
+    switch (stage) {
       case CHOOSE_ROLE:
       case CHOOSE_ROLE_DETAIL:
       case CHOOSE_ROLE_CONFIRM:

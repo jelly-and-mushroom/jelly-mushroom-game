@@ -111,6 +111,8 @@ public class MainFrame extends Frame {
     GameEntity game = this.uiService.getGame();
     switch (game.getStage()) {
       case CHOOSE_ROLE:
+      case CHOOSE_ROLE_DETAIL:
+      case CHOOSE_ROLE_CONFIRM:
         new ChooseRoleModule(this.uiService, this.resource, 0, 29, 1024, 739, 0).draw(g);
         break;
     }

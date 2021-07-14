@@ -43,7 +43,7 @@ public class ChooseRoleModule extends Module {
     }
     // 详细信息介绍
     if (this.uiService.showRoleChooseDetal()) {
-      new RoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole, true, true, confirmedRole != null).draw(g);
+      new RoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole, true, true, false).draw(g);
     }
     super.drawWindow(g);
   }

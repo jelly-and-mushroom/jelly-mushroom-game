@@ -47,8 +47,4 @@ public class RoleChooseService {
   public void confirm() {
     this.mainService.getGameEntity().getMySelf().setGameRoleEntity(currentRole);
   }
-
-  public void cancelConfirm() {
-    this.mainService.getGameEntity().getMySelf().setGameRoleEntity(null);
-  }
 }

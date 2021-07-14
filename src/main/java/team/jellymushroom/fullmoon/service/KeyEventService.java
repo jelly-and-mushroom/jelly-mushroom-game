@@ -2,6 +2,7 @@ package team.jellymushroom.fullmoon.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 
@@ -24,18 +25,25 @@ public class KeyEventService {
     GameEntity game = this.mainService.getGameEntity();
     KeyEventEnum keyEventEnum = KeyEventEnum.getEnumByValue(keyEvent.getKeyCode());
     String keyEventDesc = null==keyEventEnum ? null : keyEventEnum.getDescription();
+    log.info("所处游戏阶段:{},监听到键盘输入:{},对应键盘事件:{}", game.getStage().getName(), keyEvent.getKeyCode(), keyEventDesc);
+    GameStageEnum newGameStage = null;
     switch (game.getStage()) {
       case CHOOSE_ROLE:
-        log.info("所处游戏阶段:{},监听到键盘输入:{},对应键盘事件:{}", game.getStage().getName(), keyEvent.getKeyCode(), keyEventDesc);
-        this.handleRoleChoose(keyEventEnum);
+        newGameStage = this.handleRoleChoose(keyEventEnum);
         break;
+      case CHOOSE_ROLE_DETAIL:
+        newGameStage = this.handleRoleChooseDetail(keyEventEnum);
+    }
+    if (null != newGameStage) {
+      game.setStage(newGameStage);
     }
   }
 
-  private void handleRoleChoose(KeyEventEnum keyEventEnum) {
+  private GameStageEnum handleRoleChoose(KeyEventEnum keyEventEnum) {
     if (null == keyEventEnum) {
-      return;
+      return null;
     }
+    GameStageEnum result = null;
     switch (keyEventEnum) {
       case LEFT:
         this.roleChooseService.updateRole(-1);
@@ -45,16 +53,32 @@ public class KeyEventService {
         break;
       case DETAIL:
         this.roleChooseService.setShowDetail(true);
-        break;
-      case CANCEL:
-        if (this.roleChooseService.getShowDetail()) {
-          this.roleChooseService.setShowDetail(false);
-        } else {
-          this.roleChooseService.cancelConfirm();
-        }
+        result =  GameStageEnum.CHOOSE_ROLE_DETAIL;
         break;
       case CONFIRM:
         this.roleChooseService.confirm();
+        System.out.println("aa");
+        result =  GameStageEnum.CHOOSE_ROLE_CONFIRM;
     }
+    return result;
+  }
+
+  private GameStageEnum handleRoleChooseDetail(KeyEventEnum keyEventEnum) {
+    if (null == keyEventEnum) {
+      return null;
+    }
+    GameStageEnum result = null;
+    switch (keyEventEnum) {
+      case LEFT:
+        this.roleChooseService.updateRole(-1);
+        break;
+      case RIGHT:
+        this.roleChooseService.updateRole(1);
+        break;
+      case CANCEL:
+        this.roleChooseService.setShowDetail(false);
+        result = GameStageEnum.CHOOSE_ROLE;
+    }
+    return result;
   }
 }

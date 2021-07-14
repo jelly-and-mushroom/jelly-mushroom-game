@@ -40,9 +40,6 @@ public class RoleModule extends Module {
     BufferedImage confirmImg = resource.getConfirmImg();
     if (this.detail) {
       g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 478, 371, 1140, 1393, null);
-      if (confirm) {
-        g.drawImage(confirmImg, this.confirmX, this.iY, this.confirmX + confirmSize, this.iY + confirmSize, 0, 0, confirmImg.getWidth(), confirmImg.getHeight(), null);
-      }
       return;
     }
     g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 697, 371, 922, 1393, null);

@@ -13,5 +13,8 @@ public class MainService {
   private String resourceRootPath;
 
   @Getter
+  private Boolean isServer = false;
+
+  @Getter
   private GameEntity gameEntity = new GameEntity();
 }

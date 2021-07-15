@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.service;
 
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
@@ -9,6 +10,7 @@ import java.util.Map;
 @Service
 public class UIService {
 
+  @Getter
   private MainService mainService;
 
   private RoleChooseService roleChooseService;

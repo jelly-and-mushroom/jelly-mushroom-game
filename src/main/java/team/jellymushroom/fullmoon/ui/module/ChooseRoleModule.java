@@ -31,7 +31,7 @@ public class ChooseRoleModule extends Module {
     addX = adjustX;
     // 自身选职业
     GameRoleEntity currentRole = null;
-    GameRoleEntity confirmedRole = this.uiService.getGame().getMySelf().getGameRoleEntity();
+    GameRoleEntity confirmedRole = this.uiService.getMainService().getPlayerMyself().getGameRoleEntity();
     Integer confirmedRoleIndex = null==confirmedRole ? null : confirmedRole.getIndex();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       boolean lightImg = !this.uiService.showRoleChooseDetal() && roleEntry.getKey().equals(this.uiService.getCurrentRole().getIndex());

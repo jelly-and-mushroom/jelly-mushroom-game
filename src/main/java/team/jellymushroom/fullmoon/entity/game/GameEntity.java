@@ -13,19 +13,19 @@ import java.util.List;
 public class GameEntity {
 
   /**
-   * 玩家自身
+   * 服务端玩家
    */
-  private PlayerEntity mySelf = new PlayerEntity();
+  private PlayerEntity serverPlayer;
 
   /**
-   * 对手玩家
+   * 客户端玩家
    */
-  private PlayerEntity opponent;
+  private PlayerEntity clientPlayer;
 
   /**
    * 历史小局游戏胜负情况
-   * true: 自身胜利
-   * false: 对手胜利
+   * true: serverPlayer胜利
+   * false: clientPlayer胜利
    */
   private List<Boolean> historyList = new ArrayList<>();
 }

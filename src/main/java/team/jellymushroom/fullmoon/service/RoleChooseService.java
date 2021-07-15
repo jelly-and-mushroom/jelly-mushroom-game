@@ -28,7 +28,7 @@ public class RoleChooseService {
   private Boolean showDetail = false;
 
   public void updateRole(int delta) {
-    if (null != this.mainService.getGameEntity().getMySelf().getGameRoleEntity()) {
+    if (null != this.mainService.getPlayerMyself().getGameRoleEntity()) {
       return;
     }
     Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
@@ -45,6 +45,6 @@ public class RoleChooseService {
   }
 
   public void confirm() {
-    this.mainService.getGameEntity().getMySelf().setGameRoleEntity(currentRole);
+    this.mainService.getPlayerMyself().setGameRoleEntity(currentRole);
   }
 }

@@ -82,8 +82,12 @@ public class MainFrame extends Frame {
     // 窗口初始化位置
     super.setLocation(this.locationX, this.locationY);
     // 窗口标题
-    String serverMsg = this.uiService.getMainService().getIsServer() ? "服务端" : "客户端";
-    super.setTitle("月圆之夜-双人对战联机版(" + serverMsg + ")");
+    Boolean isServer = this.uiService.getMainService().getIsServer();
+    String serverMsg = "";
+    if (null != isServer) {
+      serverMsg = isServer ? "(服务端)" : "(客户端)";
+    }
+    super.setTitle("月圆之夜-双人对战联机版" + serverMsg);
     // 关闭窗体时应用退出
     super.addWindowListener(
         new WindowAdapter() {
@@ -109,7 +113,10 @@ public class MainFrame extends Frame {
    */
   @Override
   public void paint(Graphics g) {
-    GameStageEnum stage = this.uiService.getGame().getMySelf().getStage();
+    GameStageEnum stage = this.uiService.getMainService().getGameStage();
+    if (null == stage) {
+      return;
+    }
     switch (stage) {
       case CHOOSE_ROLE:
       case CHOOSE_ROLE_DETAIL:

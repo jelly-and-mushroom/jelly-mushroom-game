@@ -27,12 +27,7 @@ public class HttpResponseEntity {
     private Object msg;
 
     /**
-     * 构建一个成功的响应
      * 若某入参无意义，则填入null
-     *
-     * @param data 数据
-     * @param msg 描述信息
-     * @return 构建出的成功的响应
      */
     public static HttpResponseEntity success(Object data, Object msg) {
         HttpResponseEntity result = new HttpResponseEntity();
@@ -43,10 +38,7 @@ public class HttpResponseEntity {
     }
 
     /**
-     * 构建一个失败的响应
-     *
-     * @param msg 失败描述信息，若没有则传入null
-     * @return 构建出的成功的响应
+     * 若某入参无意义，则填入null
      */
     public static HttpResponseEntity error(Object msg) {
         HttpResponseEntity result = new HttpResponseEntity();
@@ -61,26 +53,13 @@ public class HttpResponseEntity {
  */
 enum ResponseStatus {
 
-    SUCCESS("success", "成功"),
-    ERROR("error", "失败");
+    SUCCESS("success"),
+    ERROR("error");
 
-    /**
-     * 状态值
-     */
     private String value;
 
-    /**
-     * 状态描述
-     */
-    private String description;
-
-    /**
-     * @param value 状态值
-     * @param description 状态描述
-     */
-    ResponseStatus(String value, String description) {
+    ResponseStatus(String value) {
         this.value = value;
-        this.description = description;
     }
 
     public String getValue() {

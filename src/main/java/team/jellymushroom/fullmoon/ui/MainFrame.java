@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
-import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
+import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;

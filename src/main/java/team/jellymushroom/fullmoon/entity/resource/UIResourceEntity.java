@@ -1,4 +1,4 @@
-package team.jellymushroom.fullmoon.entity.ui;
+package team.jellymushroom.fullmoon.entity.resource;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ui所需的一切静态资源
+ * UI所需的静态资源
  */
 @Data
 public class UIResourceEntity {
@@ -23,12 +23,14 @@ public class UIResourceEntity {
   private BufferedImage confirmImg;
 
   /**
-   * 角色图片
+   * 角色图片map
+   * key: gameRoleEntity.index
    */
   private Map<Integer, BufferedImage> gameRoleImgMap = new HashMap<>();
 
   /**
-   * 虚化角色图片
+   * 虚化角色图片map
+   * key: gameRoleEntity.index
    */
   private Map<Integer, BufferedImage> gameDimRoleImgMap = new HashMap<>();
 }

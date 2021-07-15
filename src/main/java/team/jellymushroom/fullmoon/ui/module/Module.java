@@ -1,6 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
-import team.jellymushroom.fullmoon.entity.ui.UIResourceEntity;
+import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 
 import java.awt.*;

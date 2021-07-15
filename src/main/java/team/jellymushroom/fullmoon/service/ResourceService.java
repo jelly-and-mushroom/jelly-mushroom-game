@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
-import team.jellymushroom.fullmoon.entity.game.ServiceResourceEntity;
+import team.jellymushroom.fullmoon.entity.resource.ServiceResourceEntity;
 
 import javax.annotation.PostConstruct;
 import java.io.File;

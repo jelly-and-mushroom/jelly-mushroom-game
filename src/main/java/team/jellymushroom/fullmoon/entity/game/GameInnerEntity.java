@@ -5,6 +5,7 @@ import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.PrayerCardEntity;
+import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,37 +19,33 @@ import java.util.List;
 public class GameInnerEntity {
 
   /**
-   * true: 自身的回合
-   * false: 对手的回合
-   */
-  private Boolean myTune = false;
-
-  /**
-   * 本小局游戏当前生命上限
-   * 因卡牌，祝福效果一小局游戏过程中生命上限会发生变化
-   * 本小局游戏结束后，生命上限将恢复为进行本小局游戏前的状态
+   * 本小局游戏当前生命值上限
+   * 因卡牌，祝福效果一小局游戏过程中生命值上限可能会发生变化
+   * 因此要与全局的生命值上限做出区分
    */
   private Integer maxHp;
 
   /**
    * 本小局当前生命值
    */
-  private Integer hp;
+  private Integer hp = this.maxHp;
 
   /**
    * 本小局游戏当前行动力上限
-   * 因卡牌，祝福效果一小局游戏过程中行动力上限会发生变化
-   * 本小局游戏结束后，行动力上限将恢复为进行本小局游戏前的状态
+   * 因卡牌，祝福效果一小局游戏过程中行动力上限可能会发生变化
+   * 因此要与全局的行动力上限做出区分
    */
   private Integer maxAction;
 
   /**
    * 本小局当前行动力
    */
-  private Integer action = maxAction;
+  private Integer action = this.maxAction;
 
   /**
    * 当前小局，每回合结束时的手牌上限
+   * 因卡牌，祝福效果一小局游戏过程中手牌上限可能会发生变化
+   * 因此要与全局的手牌上限做出区分
    */
   private Integer maxHandCardSize;
 
@@ -60,7 +57,7 @@ public class GameInnerEntity {
 
   /**
    * 本小局游戏当前牌堆列表
-   * 列表顺序(有固定排序规则，规则同cardList)即为展现顺序
+   * 排序规则同 playerEntity.cardList
    * 若在某回合未将牌堆抽尽，则下一回合不补充牌堆
    * 直到某回合将牌堆抽尽，则即便仍可抽牌，本回合也将无牌可抽
    * 到下一回合，坟场中的牌会全部消失，补充至牌堆
@@ -68,14 +65,7 @@ public class GameInnerEntity {
   private List<CardEntity> heapCardList = new ArrayList<>();
 
   /**
-   * 当前打出的，正在生效展示中的卡牌
-   * 若不是自身的回合，或在自身回合中尚未打出卡牌，则本字段为null
-   * 同一时刻，对两位玩家而言，最多只能有一位玩家打出一张卡牌
-   */
-  private CardEntity currentShowCard;
-
-  /**
-   * 本小局当前坟场列表
+   * 本小局游戏当前坟场列表
    * 按进入坟场的先后顺序排序
    */
   private List<CardEntity> tombCardList = new ArrayList<>();
@@ -106,7 +96,15 @@ public class GameInnerEntity {
 
   /**
    * 本小局游戏中，当前获得的祝福
+   * 因卡牌，祝福效果一小局游戏过程中祝福列表可能会发生变化
+   * 因此要与全局的祝福列表做出区分
    * 按获得顺序排序
    */
   private List<GameBlessingEntity> blessingList = new ArrayList<>();
+
+  /**
+   * 本小局游戏中，当前获得的状态
+   * 按获得顺序排序
+   */
+  private List<GameStateEntity> gameStateList = new ArrayList<>();
 }

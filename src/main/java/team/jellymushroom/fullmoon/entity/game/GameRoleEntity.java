@@ -14,7 +14,6 @@ public class GameRoleEntity {
 
   /**
    * 从0开始，职业编号
-   * 主要用作句柄，来定为图片等资源
    */
   private Integer index;
 

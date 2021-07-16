@@ -1,10 +1,10 @@
 package team.jellymushroom.fullmoon.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
+import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
 import team.jellymushroom.fullmoon.service.MainService;
@@ -33,13 +33,15 @@ public class MainController {
     }
   }
 
-  @PostMapping("/test")
+  @PostMapping("/full-moon/updateGame")
   @ResponseBody
-  public HttpResponseEntity test(@RequestBody JSONObject requestParam) {
+  public HttpResponseEntity updateGame(@RequestBody GameEntity gameEntity) {
     try {
       return HttpResponseEntity.success(null, null);
     } catch (Exception e) {
-      return HttpResponseEntity.error("");
+      String errorMsg = "updateGame执行时出错";
+      log.error(errorMsg, e);
+      return HttpResponseEntity.error(errorMsg + ":" + e.getMessage());
     }
   }
 }

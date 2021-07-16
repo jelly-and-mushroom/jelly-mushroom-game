@@ -21,13 +21,12 @@ public class MainController {
 
   @GetMapping("/full-moon/getHttpWaitConnectInfo")
   public HttpResponseEntity getHttpWaitConnectInfo() {
-    log.info("getHttpWaitConnectInfo接到http请求");
     try {
       HttpWaitConnectEntity result = new HttpWaitConnectEntity();
       result.setInitTime(this.mainService.getServerControlEntity().getInitTime());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
-      String errorMsg = "getHttpWaitConnectInfo执行时出错出错";
+      String errorMsg = "getHttpWaitConnectInfo执行时出错";
       log.error(errorMsg, e);
       return HttpResponseEntity.error(errorMsg + ":" + e.getMessage());
     }

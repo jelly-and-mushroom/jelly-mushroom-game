@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.ui;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -48,12 +48,13 @@ public class MainFrame extends Frame {
   }
 
   @PostConstruct
-  public void init() throws IOException {
+  public void init() {
     this.initResource();
     this.initUI();
   }
 
-  private void initResource() throws IOException {
+  @SneakyThrows
+  private void initResource() {
     // 获取资源根目录
     String resourceRootPath = this.uiService.getResourceService().getResourceRootPath();
     // 加载边框图片

@@ -3,6 +3,7 @@ package team.jellymushroom.fullmoon.service;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,6 @@ import team.jellymushroom.fullmoon.entity.resource.ServiceResourceEntity;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.IOException;
 
 @Service
 @Slf4j
@@ -38,7 +38,7 @@ public class ResourceService {
     }
   }
 
-  private void loadGameRole() throws IOException {
+  private void loadGameRole() {
     String path = "/json/game_role.json";
     String dataStr = this.readFile(path);
     JSONArray gameRoleJSONArray = JSONArray.parseArray(dataStr);
@@ -50,7 +50,8 @@ public class ResourceService {
     log.info("游戏角色数据加载完成,path:{},size:{}", path, JSONObject.toJSONString(this.serviceResourceEntity.getGameRoleMap().size()));
   }
 
-  private String readFile(String path) throws IOException {
+  @SneakyThrows
+  private String readFile(String path) {
     File file = new File(this.resourceRootPath + path);
     return FileUtils.readFileToString(file, ENCODING);
   }

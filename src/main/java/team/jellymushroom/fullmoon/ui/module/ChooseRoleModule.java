@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
@@ -25,7 +26,7 @@ public class ChooseRoleModule extends Module {
     int addX = adjustX;
     // 对手选职业
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
-      boolean opponentLight = roleEntry.getValue().getIndex().equals(this.uiService.getMainService().getServerControlEntity().getOpponentCurrentChooseRole().getIndex());
+      boolean opponentLight = roleEntry.getValue().getIndex().equals(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
       boolean opponentConfirm = opponentLight && null != this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity();
       new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), opponentLight, false, opponentConfirm).draw(g);
       addX += moduleRoleOWidth;
@@ -33,7 +34,7 @@ public class ChooseRoleModule extends Module {
     addX = adjustX;
     // 自身选职业
     boolean showRoleChooseDetal = GameStageEnum.CHOOSE_ROLE_DETAIL.equals(this.uiService.getMainService().getPlayerMyself().getStage());
-    GameRoleEntity currentRole = this.uiService.getMainService().getServerControlEntity().getCurrentChooseRole();
+    GameRoleEntity currentRole = ServerControlEntity.getInstance().getCurrentChooseRole();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       boolean light = !showRoleChooseDetal && roleEntry.getKey().equals(currentRole.getIndex());
       boolean confirm = light && null != this.uiService.getMainService().getPlayerMyself().getGameRoleEntity();

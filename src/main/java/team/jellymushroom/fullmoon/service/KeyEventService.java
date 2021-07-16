@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
+import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 
 @Service
@@ -30,7 +31,7 @@ public class KeyEventService {
       return;
     }
     // 尚未选出服务端，不接受按键
-    Boolean isServer = this.mainService.getServerControlEntity().getIsServer();
+    Boolean isServer = ServerControlEntity.getInstance().getIsServer();
     if (null == isServer) {
       return;
     }

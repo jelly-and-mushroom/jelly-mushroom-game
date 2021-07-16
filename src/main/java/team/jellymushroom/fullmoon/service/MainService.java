@@ -16,9 +16,6 @@ public class MainService {
   @Getter
   private GameEntity gameEntity;
 
-  @Getter
-  private ServerControlEntity serverControlEntity = new ServerControlEntity();
-
   @Value("${fm.http.opponent.host}")
   @Getter
   private String httpOpponentHost;
@@ -27,7 +24,7 @@ public class MainService {
 
   public MainService(ResourceService resourceService) {
     this.resourceService = resourceService;
-    this.serverControlEntity.setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
+    ServerControlEntity.getInstance().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
   }
 
   @PostConstruct
@@ -36,10 +33,10 @@ public class MainService {
   }
 
   public PlayerEntity getPlayerMyself() {
-    return this.serverControlEntity.getIsServer() ? this.gameEntity.getServerPlayer() : this.gameEntity.getClientPlayer();
+    return ServerControlEntity.getInstance().getIsServer() ? this.gameEntity.getServerPlayer() : this.gameEntity.getClientPlayer();
   }
 
   public PlayerEntity getPlayerOpponent() {
-    return this.serverControlEntity.getIsServer() ? this.gameEntity.getClientPlayer() : this.gameEntity.getServerPlayer();
+    return ServerControlEntity.getInstance().getIsServer() ? this.gameEntity.getClientPlayer() : this.gameEntity.getServerPlayer();
   }
 }

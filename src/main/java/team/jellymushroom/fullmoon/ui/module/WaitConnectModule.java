@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
+import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 
@@ -24,7 +25,7 @@ public class WaitConnectModule extends Module {
   }
 
   private String generatePointStr() {
-    long timePass = System.currentTimeMillis() - this.uiService.getMainService().getServerControlEntity().getInitTime();
+    long timePass = System.currentTimeMillis() - ServerControlEntity.getInstance().getInitTime();
     int pointCount = ((int)(timePass / 1000)) % 7;
     StringBuilder result = new StringBuilder();
     for (int i = 0; i < pointCount; i++) {

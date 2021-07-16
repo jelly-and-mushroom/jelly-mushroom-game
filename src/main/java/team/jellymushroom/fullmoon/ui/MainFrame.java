@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
@@ -79,7 +80,7 @@ public class MainFrame extends Frame {
     // 窗口初始化位置
     super.setLocation(this.locationX, this.locationY);
     // 窗口标题
-    Boolean isServer = this.uiService.getMainService().getServerControlEntity().getIsServer();
+    Boolean isServer = ServerControlEntity.getInstance().getIsServer();
     String serverMsg = "";
     if (null != isServer) {
       serverMsg = isServer ? "(服务端)" : "(客户端)";
@@ -107,7 +108,7 @@ public class MainFrame extends Frame {
 
   @Override
   public void paint(Graphics g) {
-    Boolean isServer = this.uiService.getMainService().getServerControlEntity().getIsServer();
+    Boolean isServer = ServerControlEntity.getInstance().getIsServer();
     int oY = 29;
     int oWidth = 1024;
     int oHeight = 739;

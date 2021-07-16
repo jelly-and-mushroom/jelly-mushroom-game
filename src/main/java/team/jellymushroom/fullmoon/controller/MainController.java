@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
 import team.jellymushroom.fullmoon.service.MainService;
@@ -23,7 +24,7 @@ public class MainController {
   public HttpResponseEntity getHttpWaitConnectInfo() {
     try {
       HttpWaitConnectEntity result = new HttpWaitConnectEntity();
-      result.setInitTime(this.mainService.getServerControlEntity().getInitTime());
+      result.setInitTime(ServerControlEntity.getInstance().getInitTime());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
       String errorMsg = "getHttpWaitConnectInfo执行时出错";

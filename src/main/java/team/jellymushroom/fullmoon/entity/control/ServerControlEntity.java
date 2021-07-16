@@ -10,6 +10,15 @@ import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 @Data
 public class ServerControlEntity {
 
+  private static ServerControlEntity INSTANCE = new ServerControlEntity();
+
+  private ServerControlEntity() {
+  }
+
+  public static ServerControlEntity getInstance() {
+    return INSTANCE;
+  }
+
   /**
    * true-服务端 false-客户端 null-尚未确定
    */

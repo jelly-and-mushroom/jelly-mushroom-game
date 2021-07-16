@@ -19,4 +19,9 @@ public class ServerControlEntity {
    * 游戏选择阶段，当前选择的角色
    */
   private GameRoleEntity currentChooseRole;
+
+  /**
+   * 游戏选择阶段，对手当前选择的角色
+   */
+  private GameRoleEntity opponentCurrentChooseRole;
 }

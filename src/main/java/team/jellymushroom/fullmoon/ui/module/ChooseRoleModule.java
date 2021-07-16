@@ -8,9 +8,6 @@ import team.jellymushroom.fullmoon.service.UIService;
 import java.awt.*;
 import java.util.Map;
 
-/**
- * 角色选择模块
- */
 public class ChooseRoleModule extends Module {
 
   public ChooseRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding) {
@@ -19,14 +16,18 @@ public class ChooseRoleModule extends Module {
 
   @Override
   public void draw(Graphics g) {
-    int moduleRoleOWidth = this.iWidth / 9;
+    // 获取职业map
+    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();
+    // 位置字段
+    int moduleRoleOWidth = this.iWidth / gameRoleMap.size();
     int moduleRoleOHeight = this.iHeight / 2;
     int adjustX = 1;
     int addX = adjustX;
-    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();;
     // 对手选职业
+    boolean opponentConfirm = null != this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), false, false, false).draw(g);
+      boolean opponentLight = roleEntry.getValue().equals(this.uiService.getMainService().getServerControlEntity().getOpponentCurrentChooseRole());
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), opponentLight, false, opponentConfirm).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;

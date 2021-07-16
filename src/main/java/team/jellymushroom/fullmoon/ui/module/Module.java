@@ -6,9 +6,6 @@ import team.jellymushroom.fullmoon.service.UIService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
- * 抽象模块：包含模块的基本信息
- */
 public abstract class Module {
 
     UIService uiService;
@@ -61,19 +58,10 @@ public abstract class Module {
     Integer padding;
 
     /**
-     * int, 边框图片宽度
+     * 边框图片宽度
      */
     private static final Integer EDGING_WIDTH = 7;
 
-    /**
-     * @param uiService
-     * @param resource
-     * @param oX Integer, 从外部看，模块的横坐标
-     * @param oY Integer, 从外部看，模块的纵坐标
-     * @param oWidth Integer, 从外部看，模块的宽
-     * @param oHeight Integer, 从外部看，模块的高
-     * @param padding Integer, 留白
-     */
     Module(UIService uiService, UIResourceEntity resource, Integer oX, Integer oY, Integer oWidth, Integer oHeight, Integer padding) {
         this.uiService = uiService;
         this.resource = resource;
@@ -88,10 +76,8 @@ public abstract class Module {
         this.iHeight = this.oHeight - 2 * (EDGING_WIDTH + this.padding);
     }
 
-    /**
-     * 绘制边框
-     */
     void drawWindow(Graphics g) {
+        // 边框图片
         BufferedImage edgingImg = this.resource.getEdgingImg();
         int windowWidth = edgingImg.getWidth();
         int windowHeight = edgingImg.getHeight();
@@ -113,8 +99,5 @@ public abstract class Module {
         g.drawImage(edgingImg, this.oX + this.oWidth - EDGING_WIDTH, this.oY + this.oHeight - EDGING_WIDTH, this.oX + this.oWidth, this.oY + this.oHeight, windowWidth - EDGING_WIDTH, windowHeight - EDGING_WIDTH, windowWidth, windowHeight, null);
     }
 
-    /**
-     * 绘制模块
-     */
     abstract void draw(Graphics g);
 }

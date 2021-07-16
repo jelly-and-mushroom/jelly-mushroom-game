@@ -22,9 +22,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * 游戏主面板
- */
 @Component
 @Slf4j
 public class MainFrame extends Frame {
@@ -58,16 +55,12 @@ public class MainFrame extends Frame {
   private void initResource() throws IOException {
     // 获取资源根目录
     String resourceRootPath = this.uiService.getResourceService().getResourceRootPath();
-    // 获取角色资源
-    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 加载角色图片
+    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       this.resource.getGameRoleImgMap().put(roleEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/role/original/" + roleEntry.getKey() + ".png")));
-    }
-    // 加载虚化图片
-    for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       this.resource.getGameDimRoleImgMap().put(roleEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/role/dim/" + roleEntry.getKey() + ".png")));
     }
     // 加载确认图片
@@ -108,13 +101,11 @@ public class MainFrame extends Frame {
     log.info("游戏主窗体初始化完成");
   }
 
-  /**
-   * 绘制组件
-   */
   @Override
   public void paint(Graphics g) {
     Boolean isServer = this.uiService.getMainService().getServerControlEntity().getIsServer();
     if (null == isServer) {
+      // TODO
       return;
     }
     GameStageEnum gameStage = this.uiService.getMainService().getPlayerMyself().getStage();
@@ -127,9 +118,6 @@ public class MainFrame extends Frame {
     }
   }
 
-  /**
-   * 通过双缓冲解决闪烁问题
-   */
   @Override
   public void update(Graphics g) {
     Image bImage = super.createImage(this.getWidth(), this.getHeight());
@@ -139,16 +127,8 @@ public class MainFrame extends Frame {
     g.drawImage(bImage, 0, 0, this);
   }
 
-  /**
-   * 重绘定时任务
-   */
   private void startScheduleRepaint() {
-    Runnable r = new Runnable() {
-      @Override
-      public void run() {
-        MainFrame.this.repaint();
-      }
-    };
+    Runnable r = () -> MainFrame.this.repaint();
     ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
     ses.scheduleAtFixedRate(r, 0, this.repaintInterval, TimeUnit.MILLISECONDS);
   }

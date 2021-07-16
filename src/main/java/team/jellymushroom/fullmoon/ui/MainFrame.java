@@ -113,11 +113,12 @@ public class MainFrame extends Frame {
    */
   @Override
   public void paint(Graphics g) {
-    GameStageEnum stage = this.uiService.getMainService().getGameStage();
-    if (null == stage) {
+    Boolean isServer = this.uiService.getMainService().getServerControlEntity().getIsServer();
+    if (null == isServer) {
       return;
     }
-    switch (stage) {
+    GameStageEnum gameStage = this.uiService.getMainService().getPlayerMyself().getStage();
+    switch (gameStage) {
       case CHOOSE_ROLE:
       case CHOOSE_ROLE_DETAIL:
       case CHOOSE_ROLE_CONFIRM:

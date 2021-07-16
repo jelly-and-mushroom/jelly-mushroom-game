@@ -82,7 +82,7 @@ public class MainFrame extends Frame {
     // 窗口初始化位置
     super.setLocation(this.locationX, this.locationY);
     // 窗口标题
-    Boolean isServer = this.uiService.getMainService().getIsServer();
+    Boolean isServer = this.uiService.getMainService().getServerControlEntity().getIsServer();
     String serverMsg = "";
     if (null != isServer) {
       serverMsg = isServer ? "(服务端)" : "(客户端)";

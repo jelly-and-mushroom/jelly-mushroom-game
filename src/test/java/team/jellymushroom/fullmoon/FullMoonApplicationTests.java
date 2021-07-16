@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class FullMoonApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void test() {
 	}
 
 }

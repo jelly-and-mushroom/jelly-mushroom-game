@@ -9,5 +9,4 @@ public class FullMoonApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FullMoonApplication.class, args);
 	}
-
 }

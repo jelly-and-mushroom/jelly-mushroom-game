@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.service;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
@@ -14,6 +15,7 @@ import javax.annotation.PostConstruct;
 public class MainService {
 
   @Getter
+  @Setter
   private GameEntity gameEntity;
 
   @Value("${fm.http.opponent.host}")

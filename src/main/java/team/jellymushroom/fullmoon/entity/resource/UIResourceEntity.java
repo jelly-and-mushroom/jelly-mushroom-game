@@ -18,6 +18,11 @@ public class UIResourceEntity {
   private BufferedImage edgingImg;
 
   /**
+   * 等待连接图片
+   */
+  private BufferedImage waitConnectImg;
+
+  /**
    * 确认图片
    */
   private BufferedImage confirmImg;

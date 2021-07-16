@@ -24,4 +24,9 @@ public class ServerControlEntity {
    * 游戏选择阶段，对手当前选择的角色
    */
   private GameRoleEntity opponentCurrentChooseRole;
+
+  /**
+   * 约等于程序启动时间
+   */
+  private Long initTime = System.currentTimeMillis();
 }

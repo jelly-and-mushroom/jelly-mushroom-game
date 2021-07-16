@@ -34,14 +34,14 @@ public class RoleModule extends Module {
   public void draw(Graphics g) {
     // 图片素材
     BufferedImage roleImg = this.light ? this.resource.getGameRoleImgMap().get(this.gameRoleEntity.getIndex()) : this.resource.getGameDimRoleImgMap().get(this.gameRoleEntity.getIndex());
-    BufferedImage confirmImg = resource.getConfirmImg();
+    BufferedImage confirmImg = this.resource.getConfirmImg();
     // 绘制角色
     if (this.detail) {
       g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 478, 371, 1140, 1393, null);
       return;
     } else {
       g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 697, 371, 922, 1393, null);
-      if (confirm) {
+      if (this.confirm) {
         g.drawImage(confirmImg, this.confirmX, this.iY, this.confirmX + CONFIRM_SIZE, this.iY + CONFIRM_SIZE, 0, 0, confirmImg.getWidth(), confirmImg.getHeight(), null);
       }
     }

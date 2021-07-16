@@ -44,7 +44,9 @@ public class MainController {
         log.error(errorMsg);
         return HttpResponseEntity.error(errorMsg);
       }
-      this.mainService.setGameEntity(httpGameEntity.getGame());
+      if (null != httpGameEntity.getGame()) {
+        this.mainService.setGameEntity(httpGameEntity.getGame());
+      }
       HttpServerControlEntity serverControl = httpGameEntity.getServerControl();
       if (null != serverControl) {
         if (null != serverControl.getCurrentChooseRole()) {

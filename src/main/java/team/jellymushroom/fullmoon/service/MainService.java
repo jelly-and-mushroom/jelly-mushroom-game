@@ -24,7 +24,6 @@ public class MainService {
 
   public MainService(ResourceService resourceService) {
     this.resourceService = resourceService;
-    ServerControlEntity.getInstance().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
   }
 
   @PostConstruct
@@ -38,5 +37,12 @@ public class MainService {
 
   public PlayerEntity getPlayerOpponent() {
     return ServerControlEntity.getInstance().getIsServer() ? this.gameEntity.getClientPlayer() : this.gameEntity.getServerPlayer();
+  }
+
+  public void initGame() {
+    this.gameEntity = new GameEntity();
+    ServerControlEntity.getInstance().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
+    ServerControlEntity.getInstance().setOpponentCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
+    ServerControlEntity.getInstance().setIsServer(true);
   }
 }

@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.entity.http;
 
 import lombok.Data;
+import team.jellymushroom.fullmoon.constant.HttpResponseStatusEnum;
 
 /**
  * Controller通用返回结构
@@ -24,14 +25,29 @@ public class HttpResponseEntity {
     /**
      * 描述信息
      */
-    private Object msg;
+    private String msg;
+
+    /**
+     * 接到同样为HttpResponseEntity结构的http返回值时，解析status字段的key
+     */
+    public static final String STATUS_KEY = "status";
+
+    /**
+     * 接到同样为HttpResponseEntity结构的http返回值时，解析data字段的key
+     */
+    public static final String DATA_KEY = "data";
+
+    /**
+     * 接到同样为HttpResponseEntity结构的http返回值时，解析msg字段的key
+     */
+    public static final String MSG_KEY = "msg";
 
     /**
      * 若某入参无意义，则填入null
      */
-    public static HttpResponseEntity success(Object data, Object msg) {
+    public static HttpResponseEntity success(Object data, String msg) {
         HttpResponseEntity result = new HttpResponseEntity();
-        result.status = ResponseStatus.SUCCESS.getValue();
+        result.status = HttpResponseStatusEnum.SUCCESS.getValue();
         result.data = data;
         result.msg = msg;
         return result;
@@ -40,29 +56,10 @@ public class HttpResponseEntity {
     /**
      * 若某入参无意义，则填入null
      */
-    public static HttpResponseEntity error(Object msg) {
+    public static HttpResponseEntity error(String msg) {
         HttpResponseEntity result = new HttpResponseEntity();
-        result.status = ResponseStatus.ERROR.getValue();
+        result.status = HttpResponseStatusEnum.ERROR.getValue();
         result.msg = msg;
         return result;
-    }
-}
-
-/**
- * HttpResponseEntity用到的表征状态的枚举值
- */
-enum ResponseStatus {
-
-    SUCCESS("success"),
-    ERROR("error");
-
-    private String value;
-
-    ResponseStatus(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
     }
 }

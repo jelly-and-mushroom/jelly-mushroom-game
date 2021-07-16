@@ -57,9 +57,9 @@ public class MainFrame extends Frame {
 
   private void initResource() throws IOException {
     // 获取资源根目录
-    String resourceRootPath = this.uiService.getResourceRootPath();
+    String resourceRootPath = this.uiService.getResourceService().getResourceRootPath();
     // 获取角色资源
-    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getGameRoleMap();
+    Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 加载角色图片

@@ -2,11 +2,6 @@ package team.jellymushroom.fullmoon.service;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;
-import team.jellymushroom.fullmoon.constant.GameStageEnum;
-import team.jellymushroom.fullmoon.entity.game.GameEntity;
-import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
-
-import java.util.Map;
 
 @Service
 public class UIService {
@@ -14,33 +9,11 @@ public class UIService {
   @Getter
   private MainService mainService;
 
-  private ChooseRoleService chooseRoleService;
-
+  @Getter
   private ResourceService resourceService;
 
-  public UIService(MainService mainService, ChooseRoleService chooseRoleService, ResourceService resourceService) {
+  public UIService(MainService mainService, ResourceService resourceService) {
     this.mainService = mainService;
-    this.chooseRoleService = chooseRoleService;
     this.resourceService = resourceService;
-  }
-
-  public String getResourceRootPath() {
-    return this.resourceService.getResourceRootPath();
-  }
-
-  public GameEntity getGame() {
-    return this.mainService.getGameEntity();
-  }
-
-  public GameRoleEntity getCurrentRole() {
-    return this.mainService.getServerControlEntity().getCurrentChooseRole();
-  }
-
-  public boolean showRoleChooseDetal() {
-    return GameStageEnum.CHOOSE_ROLE_DETAIL.equals(this.mainService.getPlayerMyself().getStage());
-  }
-
-  public Map<Integer, GameRoleEntity> getGameRoleMap() {
-    return this.resourceService.getServiceResourceEntity().getGameRoleMap();
   }
 }

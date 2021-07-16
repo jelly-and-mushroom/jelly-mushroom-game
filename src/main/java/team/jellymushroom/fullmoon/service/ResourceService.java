@@ -22,16 +22,10 @@ public class ResourceService {
   @Getter
   private String resourceRootPath;
 
-  private MainService mainService;
-
   @Getter
   private ServiceResourceEntity serviceResourceEntity = new ServiceResourceEntity();
 
   private static final String ENCODING = "UTF-8";
-
-  public ResourceService(MainService mainService) {
-    this.mainService = mainService;
-  }
 
   @PostConstruct
   public void init() {

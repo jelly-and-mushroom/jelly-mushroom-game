@@ -4,9 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
-import team.jellymushroom.fullmoon.entity.game.GameEntity;
-
-import java.awt.event.KeyEvent;
+import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 
 @Service
 @Slf4j
@@ -21,32 +19,39 @@ public class KeyEventService {
     this.roleChooseService = roleChooseService;
   }
 
-  public void keyPressed(KeyEvent keyEvent) {
-    GameStageEnum stage = this.mainService.getGameStage();
-    if (null == stage) {
+  /**
+   * @param keyCode 键盘事件code ( keyEvent.keyCode )
+   * @param fromLocal true-自身按键 false:联机对手按键
+   */
+  public void keyPressed(int keyCode, boolean fromLocal) {
+    // 判断按键是否有效
+    KeyEventEnum keyEventEnum = KeyEventEnum.getEnumByKeyCode(keyCode);
+    if (null == keyEventEnum) {
       return;
     }
-    KeyEventEnum keyEventEnum = KeyEventEnum.getEnumByKeyCode(keyEvent.getKeyCode());
-    String keyEventDesc = null==keyEventEnum ? null : keyEventEnum.getDescription();
-    log.info("所处游戏阶段:{},监听到键盘输入:{},对应键盘事件:{}", stage.getName(), keyEvent.getKeyCode(), keyEventDesc);
-    GameStageEnum newGameStage = null;
-    switch (stage) {
+    // 尚未选出服务端，不接受按键
+    Boolean isServer = this.mainService.getIsServer();
+    if (null == isServer) {
+      return;
+    }
+    // 客户端处理事件
+    if (!isServer) {
+      // TODO
+      return;
+    }
+    // 服务端处理事件
+    PlayerEntity activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
+    log.info("服务端开始处理键盘指令,keyCode:{},fromLocal:{},发送指令玩家所处状态:{}", keyCode, fromLocal, activePlayer.getStage());
+    switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-        newGameStage = this.handleRoleChoose(keyEventEnum);
+        this.handleChooseRole(activePlayer, keyEventEnum);
         break;
       case CHOOSE_ROLE_DETAIL:
-        newGameStage = this.handleRoleChooseDetail(keyEventEnum);
-    }
-    if (null != newGameStage) {
-      this.mainService.setGameStage(newGameStage);
+        this.handleRoleChooseDetail(activePlayer, keyEventEnum);
     }
   }
 
-  private GameStageEnum handleRoleChoose(KeyEventEnum keyEventEnum) {
-    if (null == keyEventEnum) {
-      return null;
-    }
-    GameStageEnum result = null;
+  private void handleChooseRole(PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
         this.roleChooseService.updateRole(-1);
@@ -55,22 +60,15 @@ public class KeyEventService {
         this.roleChooseService.updateRole(1);
         break;
       case DETAIL:
-        this.roleChooseService.setShowDetail(true);
-        result =  GameStageEnum.CHOOSE_ROLE_DETAIL;
+        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_DETAIL);
         break;
       case CONFIRM:
         this.roleChooseService.confirm();
-        System.out.println("aa");
-        result =  GameStageEnum.CHOOSE_ROLE_CONFIRM;
+        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
     }
-    return result;
   }
 
-  private GameStageEnum handleRoleChooseDetail(KeyEventEnum keyEventEnum) {
-    if (null == keyEventEnum) {
-      return null;
-    }
-    GameStageEnum result = null;
+  private void handleRoleChooseDetail(PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
         this.roleChooseService.updateRole(-1);
@@ -79,9 +77,7 @@ public class KeyEventService {
         this.roleChooseService.updateRole(1);
         break;
       case CANCEL:
-        this.roleChooseService.setShowDetail(false);
-        result = GameStageEnum.CHOOSE_ROLE;
+        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);
     }
-    return result;
   }
 }

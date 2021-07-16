@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.resource.ServiceResourceEntity;
@@ -16,6 +17,10 @@ import java.io.IOException;
 @Service
 @Slf4j
 public class ResourceService {
+
+  @Value("${fm.resource.rootPath}")
+  @Getter
+  private String resourceRootPath;
 
   private MainService mainService;
 
@@ -52,7 +57,7 @@ public class ResourceService {
   }
 
   private String readFile(String path) throws IOException {
-    File file = new File(this.mainService.getResourceRootPath() + path);
+    File file = new File(this.resourceRootPath + path);
     return FileUtils.readFileToString(file, ENCODING);
   }
 }

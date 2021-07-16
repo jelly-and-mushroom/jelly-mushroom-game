@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.service;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 
@@ -22,10 +21,6 @@ public class RoleChooseService {
     this.resourceService = resourceService;
     this.currentRole = this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0);
   }
-
-  @Getter
-  @Setter
-  private Boolean showDetail = false;
 
   public void updateRole(int delta) {
     if (null != this.mainService.getPlayerMyself().getGameRoleEntity()) {

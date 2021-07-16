@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.keylistener;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 
@@ -7,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 @Component
+@Slf4j
 public class GameKeyListener implements KeyListener {
 
   private KeyEventService keyEventService;
@@ -27,7 +29,8 @@ public class GameKeyListener implements KeyListener {
    */
   @Override
   public void keyPressed(KeyEvent e) {
-    keyEventService.keyPressed(e);
+    log.info("本地按下按键,keyCode:{}", e.getKeyCode());
+    keyEventService.keyPressed(e.getKeyCode(), true);
   }
 
   /**

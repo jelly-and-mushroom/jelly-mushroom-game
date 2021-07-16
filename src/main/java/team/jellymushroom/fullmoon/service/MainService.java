@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.service;
 
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
@@ -9,10 +8,6 @@ import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 
 @Service
 public class MainService {
-
-  @Value("${fm.resource.rootPath}")
-  @Getter
-  private String resourceRootPath;
 
   @Getter
   private Boolean isServer;
@@ -32,6 +27,10 @@ public class MainService {
 
   public PlayerEntity getPlayerMyself() {
     return this.isServer ? this.gameEntity.getServerPlayer() : this.gameEntity.getClientPlayer();
+  }
+
+  public PlayerEntity getPlayerOpponent() {
+    return this.isServer ? this.gameEntity.getClientPlayer() : this.gameEntity.getServerPlayer();
   }
 
   public void setGameStage(GameStageEnum stage) {

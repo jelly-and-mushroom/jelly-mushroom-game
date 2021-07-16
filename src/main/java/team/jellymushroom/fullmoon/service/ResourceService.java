@@ -47,7 +47,7 @@ public class ResourceService {
       GameRoleEntity gameRoleEntity = JSONObject.parseObject(gameRoleJSONObject.toJSONString(), GameRoleEntity.class);
       this.serviceResourceEntity.getGameRoleMap().put(gameRoleEntity.getIndex(), gameRoleEntity);
     }
-    log.info("游戏角色数据加载完成,path:{},value:{}", path, JSONObject.toJSONString(this.serviceResourceEntity.getGameRoleMap()));
+    log.info("游戏角色数据加载完成,path:{},size:{}", path, JSONObject.toJSONString(this.serviceResourceEntity.getGameRoleMap().size()));
   }
 
   private String readFile(String path) throws IOException {

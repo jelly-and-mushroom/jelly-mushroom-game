@@ -14,13 +14,13 @@ public class UIService {
   @Getter
   private MainService mainService;
 
-  private RoleChooseService roleChooseService;
+  private ChooseRoleService chooseRoleService;
 
   private ResourceService resourceService;
 
-  public UIService(MainService mainService, RoleChooseService roleChooseService, ResourceService resourceService) {
+  public UIService(MainService mainService, ChooseRoleService chooseRoleService, ResourceService resourceService) {
     this.mainService = mainService;
-    this.roleChooseService = roleChooseService;
+    this.chooseRoleService = chooseRoleService;
     this.resourceService = resourceService;
   }
 
@@ -33,7 +33,7 @@ public class UIService {
   }
 
   public GameRoleEntity getCurrentRole() {
-    return this.roleChooseService.getCurrentRole();
+    return this.mainService.getServerControlEntity().getCurrentChooseRole();
   }
 
   public boolean showRoleChooseDetal() {

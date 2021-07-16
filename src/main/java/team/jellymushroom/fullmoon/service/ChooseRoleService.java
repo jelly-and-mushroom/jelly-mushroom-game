@@ -1,25 +1,20 @@
 package team.jellymushroom.fullmoon.service;
 
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 
 import java.util.Map;
 
 @Service
-public class RoleChooseService {
+public class ChooseRoleService {
 
   private MainService mainService;
 
   private ResourceService resourceService;
 
-  @Getter
-  private GameRoleEntity currentRole;
-
-  public RoleChooseService(MainService mainService, ResourceService resourceService) {
+  public ChooseRoleService(MainService mainService, ResourceService resourceService) {
     this.mainService = mainService;
     this.resourceService = resourceService;
-    this.currentRole = this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0);
   }
 
   public void updateRole(int delta) {
@@ -27,19 +22,20 @@ public class RoleChooseService {
       return;
     }
     Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
-    int preResult = this.currentRole.getIndex() + delta;
+    GameRoleEntity currentRole = this.mainService.getServerControlEntity().getCurrentChooseRole();
+    int preResult = currentRole.getIndex() + delta;
     if (preResult < 0) {
-      this.currentRole = gameRoleMap.get(gameRoleMap.size() - 1);
+      this.mainService.getServerControlEntity().setCurrentChooseRole(gameRoleMap.get(gameRoleMap.size() - 1));
       return;
     }
     if (preResult >= gameRoleMap.size()) {
-      this.currentRole  = gameRoleMap.get(0);
+      this.mainService.getServerControlEntity().setCurrentChooseRole(gameRoleMap.get(0));
       return;
     }
-    this.currentRole  = gameRoleMap.get(preResult);
+    this.mainService.getServerControlEntity().setCurrentChooseRole(gameRoleMap.get(preResult));
   }
 
   public void confirm() {
-    this.mainService.getPlayerMyself().setGameRoleEntity(currentRole);
+    this.mainService.getPlayerMyself().setGameRoleEntity(this.mainService.getServerControlEntity().getCurrentChooseRole());
   }
 }

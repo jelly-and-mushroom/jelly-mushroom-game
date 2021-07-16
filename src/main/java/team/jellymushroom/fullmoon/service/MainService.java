@@ -15,6 +15,13 @@ public class MainService {
   @Getter
   private ServerControlEntity serverControlEntity = new ServerControlEntity();
 
+  private ResourceService resourceService;
+
+  public MainService(ResourceService resourceService) {
+    this.resourceService = resourceService;
+    this.serverControlEntity.setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
+  }
+
   public PlayerEntity getPlayerMyself() {
     return this.serverControlEntity.getIsServer() ? this.gameEntity.getServerPlayer() : this.gameEntity.getClientPlayer();
   }

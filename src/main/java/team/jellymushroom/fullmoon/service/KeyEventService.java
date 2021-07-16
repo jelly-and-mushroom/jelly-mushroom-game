@@ -12,11 +12,11 @@ public class KeyEventService {
 
   private MainService mainService;
 
-  private RoleChooseService roleChooseService;
+  private ChooseRoleService chooseRoleService;
 
-  public KeyEventService(MainService mainService, RoleChooseService roleChooseService) {
+  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService) {
     this.mainService = mainService;
-    this.roleChooseService = roleChooseService;
+    this.chooseRoleService = chooseRoleService;
   }
 
   /**
@@ -54,16 +54,16 @@ public class KeyEventService {
   private void handleChooseRole(PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
-        this.roleChooseService.updateRole(-1);
+        this.chooseRoleService.updateRole(-1);
         break;
       case RIGHT:
-        this.roleChooseService.updateRole(1);
+        this.chooseRoleService.updateRole(1);
         break;
       case DETAIL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_DETAIL);
         break;
       case CONFIRM:
-        this.roleChooseService.confirm();
+        this.chooseRoleService.confirm();
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
     }
   }
@@ -71,10 +71,10 @@ public class KeyEventService {
   private void handleRoleChooseDetail(PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
-        this.roleChooseService.updateRole(-1);
+        this.chooseRoleService.updateRole(-1);
         break;
       case RIGHT:
-        this.roleChooseService.updateRole(1);
+        this.chooseRoleService.updateRole(1);
         break;
       case CANCEL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);

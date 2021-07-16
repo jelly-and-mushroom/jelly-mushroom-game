@@ -24,31 +24,27 @@ public class ChooseRoleModule extends Module {
     int adjustX = 1;
     int addX = adjustX;
     // 对手选职业
-    boolean opponentConfirm = null != this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
-      boolean opponentLight = roleEntry.getValue().equals(this.uiService.getMainService().getServerControlEntity().getOpponentCurrentChooseRole());
+      boolean opponentLight = roleEntry.getValue().getIndex().equals(this.uiService.getMainService().getServerControlEntity().getOpponentCurrentChooseRole().getIndex());
+      boolean opponentConfirm = opponentLight && null != this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity();
       new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), opponentLight, false, opponentConfirm).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;
     // 自身选职业
-    GameRoleEntity currentRole = null;
-    GameRoleEntity confirmedRole = this.uiService.getMainService().getPlayerMyself().getGameRoleEntity();
-    Integer confirmedRoleIndex = null==confirmedRole ? null : confirmedRole.getIndex();
-    Integer currentRoleIndex = this.uiService.getMainService().getServerControlEntity().getCurrentChooseRole().getIndex();
     boolean showRoleChooseDetal = GameStageEnum.CHOOSE_ROLE_DETAIL.equals(this.uiService.getMainService().getPlayerMyself().getStage());
+    GameRoleEntity currentRole = this.uiService.getMainService().getServerControlEntity().getCurrentChooseRole();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
-      boolean lightImg = !showRoleChooseDetal && roleEntry.getKey().equals(currentRoleIndex);
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), lightImg, false, roleEntry.getKey().equals(confirmedRoleIndex)).draw(g);
+      boolean light = !showRoleChooseDetal && roleEntry.getKey().equals(currentRole.getIndex());
+      boolean confirm = light && null != this.uiService.getMainService().getPlayerMyself().getGameRoleEntity();
+      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), light, false, confirm).draw(g);
       addX += moduleRoleOWidth;
-      if (roleEntry.getKey().equals(currentRoleIndex)) {
-        currentRole = roleEntry.getValue();
-      }
     }
     // 详细信息介绍
     if (showRoleChooseDetal) {
       new RoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole, true, true, false).draw(g);
     }
+    // 绘制边框
     super.drawWindow(g);
   }
 }

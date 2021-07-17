@@ -49,17 +49,18 @@ public class KeyEventService {
     }
     // 服务端处理事件
     PlayerEntity activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
+    PlayerEntity passivePlayer = fromLocal ? this.mainService.getGameEntity().getClientPlayer() : this.mainService.getGameEntity().getServerPlayer();
     log.info("服务端开始处理键盘指令,keyCode:{},fromLocal:{},发送指令玩家所处状态:{}", keyCode, fromLocal, activePlayer.getStage());
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-        this.handleChooseRole(fromLocal, activePlayer, keyEventEnum);
+        this.handleChooseRole(fromLocal, activePlayer, passivePlayer, keyEventEnum);
         break;
       case CHOOSE_ROLE_DETAIL:
         this.handleRoleChooseDetail(fromLocal, activePlayer, keyEventEnum);
     }
   }
 
-  private void handleChooseRole(boolean fromLocal, PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
+  private void handleChooseRole(boolean fromLocal, PlayerEntity activePlayer, PlayerEntity passivePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
         if (fromLocal) {
@@ -97,7 +98,12 @@ public class KeyEventService {
         } else {
           this.chooseRoleService.confirmOpponent();
         }
-        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
+        if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
+          activePlayer.setStage(GameStageEnum.CHOOSE_CARD);
+          passivePlayer.setStage(GameStageEnum.CHOOSE_CARD);
+        } else {
+          activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
+        }
         new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
     }
   }

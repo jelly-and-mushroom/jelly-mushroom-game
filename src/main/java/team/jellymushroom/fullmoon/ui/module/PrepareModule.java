@@ -15,5 +15,9 @@ public class PrepareModule extends Module {
   public void draw(Graphics g) {
     // 绘制背景图片
     super.drawBackgroundImg(g);
+    // 绘制对手角色
+    new DetailRoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity()).draw(g);
+    // 绘制边框
+    super.drawWindow(g);
   }
 }

@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
@@ -35,7 +36,7 @@ public class MainController {
 
   @PostMapping("/full-moon/updateGame")
   @ResponseBody
-  public HttpResponseEntity updateGame(@RequestBody HttpGameEntity httpGameEntity) {
+  public HttpResponseEntity updateGame(@RequestBody JSONObject jsonObject) {
     try {
       Boolean isServer = ServerControlEntity.getInstance().getIsServer();
       if (null != isServer && isServer) {
@@ -43,6 +44,8 @@ public class MainController {
         log.error(errorMsg);
         return HttpResponseEntity.error(errorMsg);
       }
+      log.info("接收到服务端更新的数据:{}", jsonObject.toJSONString());
+      HttpGameEntity httpGameEntity = JSONObject.parseObject(jsonObject.toJSONString(), HttpGameEntity.class);
       if (null != httpGameEntity.getGame()) {
         this.mainService.setGameEntity(httpGameEntity.getGame());
       }

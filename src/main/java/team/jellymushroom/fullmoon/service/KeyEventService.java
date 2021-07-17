@@ -94,11 +94,10 @@ public class KeyEventService {
       case CONFIRM:
         if (fromLocal) {
           this.chooseRoleService.confirm();
-          activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         } else {
           this.chooseRoleService.confirmOpponent();
-          activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         }
+        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
     }
   }

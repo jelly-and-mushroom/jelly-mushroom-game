@@ -99,8 +99,8 @@ public class KeyEventService {
           this.chooseRoleService.confirmOpponent();
         }
         if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
-          activePlayer.setStage(GameStageEnum.CHOOSE_CARD);
-          passivePlayer.setStage(GameStageEnum.CHOOSE_CARD);
+          activePlayer.setStage(GameStageEnum.PREPARE);
+          passivePlayer.setStage(GameStageEnum.PREPARE);
         } else {
           activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         }

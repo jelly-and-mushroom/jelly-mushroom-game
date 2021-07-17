@@ -80,12 +80,7 @@ public class MainFrame extends Frame {
     // 窗口初始化位置
     super.setLocation(this.locationX, this.locationY);
     // 窗口标题
-    Boolean isServer = ServerControlEntity.getInstance().getIsServer();
-    String serverMsg = "";
-    if (null != isServer) {
-      serverMsg = isServer ? "(服务端)" : "(客户端)";
-    }
-    super.setTitle("月圆之夜-双人对战联机版" + serverMsg);
+    super.setTitle("月圆之夜-双人对战联机版");
     // 关闭窗体时应用退出
     super.addWindowListener(
         new WindowAdapter() {

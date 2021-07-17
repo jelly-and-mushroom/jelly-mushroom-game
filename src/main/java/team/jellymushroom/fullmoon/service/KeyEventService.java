@@ -6,6 +6,9 @@ import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
+import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
+import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 
 @Service
 @Slf4j
@@ -37,7 +40,7 @@ public class KeyEventService {
     }
     // 客户端处理事件
     if (!isServer) {
-      // TODO
+      new Thread(new HttpSendKeyEventRunnable(this.mainService, keyCode)).start();
       return;
     }
     // 服务端处理事件
@@ -45,40 +48,90 @@ public class KeyEventService {
     log.info("服务端开始处理键盘指令,keyCode:{},fromLocal:{},发送指令玩家所处状态:{}", keyCode, fromLocal, activePlayer.getStage());
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-        this.handleChooseRole(activePlayer, keyEventEnum);
+        this.handleChooseRole(fromLocal, activePlayer, keyEventEnum);
         break;
       case CHOOSE_ROLE_DETAIL:
-        this.handleRoleChooseDetail(activePlayer, keyEventEnum);
+        this.handleRoleChooseDetail(fromLocal, activePlayer, keyEventEnum);
     }
   }
 
-  private void handleChooseRole(PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
+  private void handleChooseRole(boolean fromLocal, PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
-        this.chooseRoleService.updateRole(-1);
+        if (fromLocal) {
+          this.chooseRoleService.updateRole(-1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setOpponentCurrentChooseRole(ServerControlEntity.getInstance().getCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        } else {
+          this.chooseRoleService.updateOpponentRole(-1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentChooseRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        }
         break;
       case RIGHT:
-        this.chooseRoleService.updateRole(1);
+        if (fromLocal) {
+          this.chooseRoleService.updateRole(1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setOpponentCurrentChooseRole(ServerControlEntity.getInstance().getCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        } else {
+          this.chooseRoleService.updateOpponentRole(1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentChooseRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        }
         break;
       case DETAIL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_DETAIL);
+        new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
-        this.chooseRoleService.confirm();
-        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
+        if (fromLocal) {
+          this.chooseRoleService.confirm();
+          activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
+        } else {
+          this.chooseRoleService.confirmOpponent();
+          activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
+        }
+        new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
     }
   }
 
-  private void handleRoleChooseDetail(PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
+  private void handleRoleChooseDetail(boolean fromLocal, PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
     switch (keyEventEnum) {
       case LEFT:
-        this.chooseRoleService.updateRole(-1);
+        if (fromLocal) {
+          this.chooseRoleService.updateRole(-1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setOpponentCurrentChooseRole(ServerControlEntity.getInstance().getCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        } else {
+          this.chooseRoleService.updateOpponentRole(-1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentChooseRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        }
         break;
       case RIGHT:
-        this.chooseRoleService.updateRole(1);
+        if (fromLocal) {
+          this.chooseRoleService.updateRole(1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setOpponentCurrentChooseRole(ServerControlEntity.getInstance().getCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        } else {
+          this.chooseRoleService.updateOpponentRole(1);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentChooseRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
+          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+        }
         break;
       case CANCEL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);
+        if (!fromLocal) {
+          new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
+        }
     }
   }
 }

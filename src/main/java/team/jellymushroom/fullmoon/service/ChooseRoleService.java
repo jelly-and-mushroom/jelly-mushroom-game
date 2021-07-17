@@ -37,7 +37,30 @@ public class ChooseRoleService {
     ServerControlEntity.getInstance().setCurrentChooseRole(gameRoleMap.get(preResult));
   }
 
+  public void updateOpponentRole(int delta) {
+    // 所有可选职业
+    Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
+    // 变更后的角色值
+    int preResult = ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex() + delta;
+    // 小于下限则设为上限
+    if (preResult < 0) {
+      ServerControlEntity.getInstance().setOpponentCurrentChooseRole(gameRoleMap.get(gameRoleMap.size() - 1));
+      return;
+    }
+    // 大于上限则设为下限
+    if (preResult >= gameRoleMap.size()) {
+      ServerControlEntity.getInstance().setOpponentCurrentChooseRole(gameRoleMap.get(0));
+      return;
+    }
+    // 设置为变更后的值
+    ServerControlEntity.getInstance().setOpponentCurrentChooseRole(gameRoleMap.get(preResult));
+  }
+
   public void confirm() {
     this.mainService.getPlayerMyself().setGameRoleEntity(ServerControlEntity.getInstance().getCurrentChooseRole());
+  }
+
+  public void confirmOpponent() {
+    this.mainService.getPlayerOpponent().setGameRoleEntity(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
   }
 }

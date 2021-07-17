@@ -1,24 +1,23 @@
 package team.jellymushroom.fullmoon.controller;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
+import team.jellymushroom.fullmoon.entity.http.*;
+import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
 
 @RestController
 @Slf4j
 public class MainController {
 
-  @Getter
   private MainService mainService;
 
-  public MainController(MainService mainService) {
+  private KeyEventService keyEventService;
+
+  public MainController(MainService mainService, KeyEventService keyEventService) {
     this.mainService = mainService;
+    this.keyEventService = keyEventService;
   }
 
   @GetMapping("/full-moon/getHttpWaitConnectInfo")
@@ -40,7 +39,7 @@ public class MainController {
     try {
       Boolean isServer = ServerControlEntity.getInstance().getIsServer();
       if (null != isServer && isServer) {
-        String errorMsg = "服务端updateGame接口无效，不应被调用";
+        String errorMsg = "updateGame接口无效，不应被调用";
         log.error(errorMsg);
         return HttpResponseEntity.error(errorMsg);
       }
@@ -57,6 +56,25 @@ public class MainController {
         }
       }
       ServerControlEntity.getInstance().setIsServer(false);
+      return HttpResponseEntity.success(null, null);
+    } catch (Exception e) {
+      String errorMsg = "updateGame执行时出错";
+      log.error(errorMsg, e);
+      return HttpResponseEntity.error(errorMsg + ":" + e.getMessage());
+    }
+  }
+
+  @PostMapping("/full-moon/receiveKeyEvent")
+  @ResponseBody
+  public HttpResponseEntity receiveKeyEvent(@RequestBody HttpKeyEventEntity httpKeyEventEntity) {
+    try {
+      Boolean isServer = ServerControlEntity.getInstance().getIsServer();
+      if (null == isServer || !isServer) {
+        String errorMsg = "receiveKeyEvent接口无效，不应被调用";
+        log.error(errorMsg);
+        return HttpResponseEntity.error(errorMsg);
+      }
+      this.keyEventService.keyPressed(httpKeyEventEntity.getKeyCode(), false);
       return HttpResponseEntity.success(null, null);
     } catch (Exception e) {
       String errorMsg = "updateGame执行时出错";

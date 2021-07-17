@@ -28,7 +28,7 @@ public class ChooseRoleModule extends Module {
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       boolean opponentLight = roleEntry.getValue().getIndex().equals(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
       boolean opponentConfirm = opponentLight && null != this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity();
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), opponentLight, false, opponentConfirm).draw(g);
+      new PartRoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), opponentLight, opponentConfirm).draw(g);
       addX += moduleRoleOWidth;
     }
     addX = adjustX;
@@ -38,12 +38,12 @@ public class ChooseRoleModule extends Module {
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       boolean light = !showRoleChooseDetal && roleEntry.getKey().equals(currentRole.getIndex());
       boolean confirm = light && null != this.uiService.getMainService().getPlayerMyself().getGameRoleEntity();
-      new RoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), light, false, confirm).draw(g);
+      new PartRoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), light, confirm).draw(g);
       addX += moduleRoleOWidth;
     }
     // 详细信息介绍
     if (showRoleChooseDetal) {
-      new RoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole, true, true, false).draw(g);
+      new WholeRoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole).draw(g);
     }
     // 绘制边框
     super.drawWindow(g);

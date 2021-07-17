@@ -11,6 +11,7 @@ import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
+import team.jellymushroom.fullmoon.ui.module.WholeRoleModule;
 import team.jellymushroom.fullmoon.ui.module.WaitConnectModule;
 
 import javax.annotation.PostConstruct;
@@ -118,6 +119,8 @@ public class MainFrame extends Frame {
       case CHOOSE_ROLE_CONFIRM:
         new ChooseRoleModule(this.uiService, this.resource, 0, oY, oWidth, oHeight, 0).draw(g);
         break;
+      case CHOOSE_CARD:
+        new WholeRoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, this.uiService.getMainService().getPlayerMyself().getGameRoleEntity()).draw(g);
     }
   }
 

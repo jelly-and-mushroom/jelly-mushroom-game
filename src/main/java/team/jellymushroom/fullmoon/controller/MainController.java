@@ -4,9 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
+import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.http.*;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
+import team.jellymushroom.fullmoon.service.ResourceService;
+
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -16,9 +20,12 @@ public class MainController {
 
   private KeyEventService keyEventService;
 
-  public MainController(MainService mainService, KeyEventService keyEventService) {
+  private ResourceService resourceService;
+
+  public MainController(MainService mainService, KeyEventService keyEventService, ResourceService resourceService) {
     this.mainService = mainService;
     this.keyEventService = keyEventService;
+    this.resourceService = resourceService;
   }
 
   @GetMapping("/full-moon/getHttpWaitConnectInfo")
@@ -50,12 +57,13 @@ public class MainController {
         this.mainService.setGameEntity(httpGameEntity.getGame());
       }
       HttpServerControlEntity serverControl = httpGameEntity.getServerControl();
+      Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
       if (null != serverControl) {
-        if (null != serverControl.getCurrentChooseRole()) {
-          ServerControlEntity.getInstance().setCurrentChooseRole(serverControl.getCurrentChooseRole());
+        if (null != serverControl.getCurrentChooseRoleIndex()) {
+          ServerControlEntity.getInstance().setCurrentChooseRole(gameRoleMap.get(serverControl.getCurrentChooseRoleIndex()));
         }
-        if (null != serverControl.getOpponentCurrentChooseRole()) {
-          ServerControlEntity.getInstance().setOpponentCurrentChooseRole(serverControl.getOpponentCurrentChooseRole());
+        if (null != serverControl.getOpponentCurrentChooseRoleIndex()) {
+          ServerControlEntity.getInstance().setOpponentCurrentChooseRole(gameRoleMap.get(serverControl.getOpponentCurrentChooseRoleIndex()));
         }
       }
       ServerControlEntity.getInstance().setIsServer(false);

@@ -53,8 +53,8 @@ public class MainService {
     ServerControlEntity.getInstance().setIsServer(true);
     // 同步数据给客户端
     HttpServerControlEntity serverControl = new HttpServerControlEntity();
-    serverControl.setCurrentChooseRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
-    serverControl.setOpponentCurrentChooseRole(ServerControlEntity.getInstance().getCurrentChooseRole());
+    serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
+    serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
     new Thread(new HttpUpdateGameRunnable(this, serverControl, this.getGameEntity())).start();
   }
 }

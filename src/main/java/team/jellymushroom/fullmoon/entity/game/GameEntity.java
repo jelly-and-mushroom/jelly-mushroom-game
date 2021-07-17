@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.entity.game;
 
 import lombok.Data;
+import team.jellymushroom.fullmoon.constant.GameResultEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 
 import java.util.ArrayList;
@@ -24,11 +25,9 @@ public class GameEntity {
   private PlayerEntity clientPlayer = new PlayerEntity();
 
   /**
-   * 本大局游戏已进行了多少小局游戏
-   * true: serverPlayer胜利
-   * false: clientPlayer胜利
+   * 本大局游戏胜负情况(serverPlayer视角)
    */
-  private List<Boolean> historyList = new ArrayList<>();
+  private List<GameResultEnum> historyList = new ArrayList<>();
 
   /**
    * 只有当游戏阶段为某小局游戏进行中时本字段才有意义

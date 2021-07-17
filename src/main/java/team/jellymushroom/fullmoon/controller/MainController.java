@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.http.*;
+import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
 import team.jellymushroom.fullmoon.service.ResourceService;
@@ -18,14 +19,17 @@ public class MainController {
 
   private MainService mainService;
 
+  private HttpTransferService httpTransferService;
+
   private KeyEventService keyEventService;
 
   private ResourceService resourceService;
 
-  public MainController(MainService mainService, KeyEventService keyEventService, ResourceService resourceService) {
+  public MainController(MainService mainService, KeyEventService keyEventService, ResourceService resourceService, HttpTransferService httpTransferService) {
     this.mainService = mainService;
     this.keyEventService = keyEventService;
     this.resourceService = resourceService;
+    this.httpTransferService = httpTransferService;
   }
 
   @GetMapping("/full-moon/getHttpWaitConnectInfo")
@@ -54,7 +58,7 @@ public class MainController {
       log.info("接收到服务端更新的数据:{}", jsonObject.toJSONString());
       HttpDataEntity httpDataEntity = JSONObject.parseObject(jsonObject.toJSONString(), HttpDataEntity.class);
       if (null != httpDataEntity.getGame()) {
-        this.mainService.setGameEntity(httpDataEntity.getGame());
+        this.mainService.setGameEntity(this.httpTransferService.convert(httpDataEntity.getGame()));
       }
       HttpServerControlEntity serverControl = httpDataEntity.getServerControl();
       Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();

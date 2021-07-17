@@ -34,7 +34,7 @@ public class HttpUpdateGameRunnable implements Runnable {
     while (true) {
       HttpDataEntity body = new HttpDataEntity();
       body.setServerControl(this.serverControl);
-      body.setGame(this.game);
+      body.setGame(this.httpTransferService.convert(this.game));
       HttpResult httpResult = HttpClientUtil
           .post(this.httpTransferService.getHttpOpponentHost() + "/full-moon/updateGame")
           .objectBody(body).exec();

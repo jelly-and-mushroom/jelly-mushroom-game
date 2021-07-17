@@ -15,7 +15,7 @@ public class HttpGameEntity {
 
   private HttpPlayerEntity clientPlayer;
 
-  private List<Integer> historyList;
+  private List<Integer> historyIndexList;
 
   private Integer serverTune;
 

@@ -30,10 +30,6 @@ public class HttpUpdateGameRunnable implements Runnable {
   @SneakyThrows
   @Override
   public void run() {
-    if (ServerControlEntity.getInstance().getHttpSendWait()) {
-      log.info("尚有未完成的http通信，不进行服务端向客户端数据同步");
-      return;
-    }
     ServerControlEntity.getInstance().setHttpSendWait(true);
     while (true) {
       HttpGameEntity body = new HttpGameEntity();

@@ -1,6 +1,6 @@
 #!/bin/bash
 psCount=`ps -ef|grep 'full-moon-0.0.1-SNAPSHOT.jar' | wc -l`
-if [ "$#" -ne 1 ];then
+if [ "$psCount" -ne 1 ];then
 	echo "已有服务启动"
 	exit
 fi

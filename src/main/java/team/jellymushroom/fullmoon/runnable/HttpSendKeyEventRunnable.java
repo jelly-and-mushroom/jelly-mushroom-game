@@ -25,10 +25,6 @@ public class HttpSendKeyEventRunnable implements Runnable {
   @SneakyThrows
   @Override
   public void run() {
-    if (ServerControlEntity.getInstance().getHttpSendWait()) {
-      log.info("尚有未完成的http通信，不接受新的客户端按键输入,keyCode:{}", keyCode);
-      return;
-    }
     ServerControlEntity.getInstance().setHttpSendWait(true);
     while (true) {
       HttpKeyEventEntity body = new HttpKeyEventEntity();

@@ -28,6 +28,10 @@ public class KeyEventService {
    * @param fromLocal true-自身按键 false:联机对手按键
    */
   public void keyPressed(int keyCode, boolean fromLocal) {
+    if (ServerControlEntity.getInstance().getHttpSendWait()) {
+      log.info("尚有未完成的http通信，不进行按键同步");
+      return;
+    }
     // 判断按键是否有效
     KeyEventEnum keyEventEnum = KeyEventEnum.getEnumByKeyCode(keyCode);
     if (null == keyEventEnum) {

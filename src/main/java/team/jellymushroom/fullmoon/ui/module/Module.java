@@ -102,11 +102,11 @@ public abstract class Module {
   /**
    * 绘制文字，绘制完成后再恢复为默认
    */
-  void drawFont(Graphics g, int x, int y, String content, Color color, int size) {
+  void drawFont(Graphics g, int x, int y, String content, Color color, int style, int size) {
     Color baseColor = g.getColor();
     Font baseFont = g.getFont();
     g.setColor(color);
-    g.setFont(new Font(null, Font.BOLD, size));
+    g.setFont(new Font(null, style, size));
     g.drawString(content, x, y);
     g.setFont(baseFont);
     g.setColor(baseColor);

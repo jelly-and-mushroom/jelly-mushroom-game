@@ -11,9 +11,8 @@ import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
+import team.jellymushroom.fullmoon.ui.module.PrepareModule;
 import team.jellymushroom.fullmoon.ui.module.WaitConnectModule;
-import team.jellymushroom.fullmoon.ui.module.WholeRoleModule;
-import team.jellymushroom.fullmoon.ui.module.BackgroundModule;
 
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
@@ -63,7 +62,7 @@ public class MainFrame extends Frame {
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
     // 加载等待连接图片
-    this.resource.setWaitConnectImg(ImageIO.read(new File(resourceRootPath + "/material/image/wait_connect.png")));
+    this.resource.setBackgroundImg(ImageIO.read(new File(resourceRootPath + "/material/image/wait_connect.png")));
     // 加载角色图片
     Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
@@ -110,7 +109,6 @@ public class MainFrame extends Frame {
     int oWidth = 1024;
     int oHeight = 739;
     if (null == isServer) {
-      new BackgroundModule(this.uiService, this.resource, 0, oY, oWidth, oHeight, 0).draw(g);
       new WaitConnectModule(this.uiService, this.resource, 0, oY, oWidth, oHeight, 0).draw(g);
       return;
     }
@@ -122,7 +120,7 @@ public class MainFrame extends Frame {
         new ChooseRoleModule(this.uiService, this.resource, 0, oY, oWidth, oHeight, 0).draw(g);
         break;
       case PREPARE:
-        new WholeRoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, this.uiService.getMainService().getPlayerMyself().getGameRoleEntity()).draw(g);
+        new PrepareModule(this.uiService, this.resource, 0, oY, oWidth, oHeight, 0).draw(g);
     }
   }
 

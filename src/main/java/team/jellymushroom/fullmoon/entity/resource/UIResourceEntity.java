@@ -20,7 +20,7 @@ public class UIResourceEntity {
   /**
    * 等待连接图片
    */
-  private BufferedImage waitConnectImg;
+  private BufferedImage backgroundImg;
 
   /**
    * 确认图片

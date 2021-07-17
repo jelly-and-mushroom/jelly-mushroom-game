@@ -14,8 +14,12 @@ public class WaitConnectModule extends Module {
 
   @Override
   public void draw(Graphics g) {
+    // 绘制背景图片
+    super.drawBackgroundImg(g);
     // 绘制文字
     super.drawFont(g, this.iX + 830, this.iY + 700, "连接中" + this.generatePointStr(), Color.WHITE, 35);
+    // 绘制边框
+    super.drawWindow(g);
   }
 
   private String generatePointStr() {

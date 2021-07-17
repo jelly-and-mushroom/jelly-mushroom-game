@@ -112,5 +112,10 @@ public abstract class Module {
     g.setColor(baseColor);
   }
 
+  void drawBackgroundImg(Graphics g) {
+    BufferedImage img = this.resource.getBackgroundImg();
+    g.drawImage(img, this.iX, this.iY, this.iX + this.iWidth, this.iY + this.iHeight, 95, 0, 1761, img.getHeight(), null);
+  }
+
   abstract void draw(Graphics g);
 }

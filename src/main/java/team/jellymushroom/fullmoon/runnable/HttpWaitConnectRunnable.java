@@ -7,6 +7,7 @@ import team.jellymushroom.fullmoon.constant.HttpResponseStatusEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
+import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.MainService;
 import team.jellymushroom.fullmoon.util.http.HttpClientUtil;
 import team.jellymushroom.fullmoon.util.http.HttpResult;
@@ -16,24 +17,27 @@ public class HttpWaitConnectRunnable implements Runnable {
 
   private MainService mainService;
 
-  public HttpWaitConnectRunnable(MainService mainService) {
+  private HttpTransferService httpTransferService;
+
+  public HttpWaitConnectRunnable(MainService mainService, HttpTransferService httpTransferService) {
     this.mainService = mainService;
+    this.httpTransferService = httpTransferService;
   }
 
   @SneakyThrows
   @Override
   public void run() {
     while (true) {
-      HttpResult httpResult = HttpClientUtil.get(this.mainService.getHttpOpponentHost() + "/full-moon/getHttpWaitConnectInfo").exec();
+      HttpResult httpResult = HttpClientUtil.get(this.httpTransferService.getHttpOpponentHost() + "/full-moon/getHttpWaitConnectInfo").exec();
       if (!httpResult.isHttpSuccess()) {
-        log.info("连接对手: {} 失败,等待{}ms后重试", this.mainService.getHttpOpponentHost(), MainService.HTTP_RETRY_INTERVAL);
-        Thread.sleep(MainService.HTTP_RETRY_INTERVAL);
+        log.info("连接对手: {} 失败,等待{}ms后重试", this.httpTransferService.getHttpOpponentHost(), HttpTransferService.HTTP_RETRY_INTERVAL);
+        Thread.sleep(HttpTransferService.HTTP_RETRY_INTERVAL);
         continue;
       }
       String status = httpResult.getString(HttpResponseEntity.STATUS_KEY);
       if (!HttpResponseStatusEnum.SUCCESS.getValue().equals(status)) {
-        log.error("对手服务返回异常,msg:{},等待{}ms后重试", httpResult.getString(HttpResponseEntity.MSG_KEY), MainService.HTTP_RETRY_INTERVAL);
-        Thread.sleep(MainService.HTTP_RETRY_INTERVAL);
+        log.error("对手服务返回异常,msg:{},等待{}ms后重试", httpResult.getString(HttpResponseEntity.MSG_KEY), HttpTransferService.HTTP_RETRY_INTERVAL);
+        Thread.sleep(HttpTransferService.HTTP_RETRY_INTERVAL);
         continue;
       }
       JSONObject data = httpResult.getJSONObject(HttpResponseEntity.DATA_KEY);

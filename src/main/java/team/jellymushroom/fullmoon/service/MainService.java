@@ -2,7 +2,6 @@ package team.jellymushroom.fullmoon.service;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
@@ -20,21 +19,18 @@ public class MainService {
   @Setter
   private GameEntity gameEntity;
 
-  @Value("${fm.http.opponent.host}")
-  @Getter
-  private String httpOpponentHost;
-
   private ResourceService resourceService;
 
-  public static final Long HTTP_RETRY_INTERVAL = 1000L;
+  private HttpTransferService httpTransferService;
 
-  public MainService(ResourceService resourceService) {
+  public MainService(ResourceService resourceService, HttpTransferService httpTransferService) {
     this.resourceService = resourceService;
+    this.httpTransferService = httpTransferService;
   }
 
   @PostConstruct
   public void init() {
-    new Thread(new HttpWaitConnectRunnable(this)).start();
+    new Thread(new HttpWaitConnectRunnable(this, this.httpTransferService)).start();
   }
 
   public PlayerEntity getPlayerMyself() {
@@ -55,6 +51,6 @@ public class MainService {
     HttpServerControlEntity serverControl = new HttpServerControlEntity();
     serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
     serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-    new Thread(new HttpUpdateGameRunnable(this, serverControl, this.getGameEntity())).start();
+    new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.getGameEntity())).start();
   }
 }

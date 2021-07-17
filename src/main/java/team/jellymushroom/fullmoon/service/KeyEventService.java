@@ -18,9 +18,12 @@ public class KeyEventService {
 
   private ChooseRoleService chooseRoleService;
 
-  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService) {
+  private HttpTransferService httpTransferService;
+
+  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService) {
     this.mainService = mainService;
     this.chooseRoleService = chooseRoleService;
+    this.httpTransferService = httpTransferService;
   }
 
   /**
@@ -44,7 +47,7 @@ public class KeyEventService {
     }
     // 客户端处理事件
     if (!isServer) {
-      new Thread(new HttpSendKeyEventRunnable(this.mainService, keyCode)).start();
+      new Thread(new HttpSendKeyEventRunnable(this.httpTransferService, keyCode)).start();
       return;
     }
     // 服务端处理事件
@@ -67,12 +70,12 @@ public class KeyEventService {
           this.chooseRoleService.updateRole(-1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         } else {
           this.chooseRoleService.updateOpponentRole(-1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         }
         break;
       case RIGHT:
@@ -80,17 +83,17 @@ public class KeyEventService {
           this.chooseRoleService.updateRole(1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         } else {
           this.chooseRoleService.updateOpponentRole(1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         }
         break;
       case DETAIL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_DETAIL);
-        new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
         if (fromLocal) {
@@ -104,7 +107,7 @@ public class KeyEventService {
         } else {
           activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         }
-        new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
     }
   }
 
@@ -115,12 +118,12 @@ public class KeyEventService {
           this.chooseRoleService.updateRole(-1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         } else {
           this.chooseRoleService.updateOpponentRole(-1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         }
         break;
       case RIGHT:
@@ -128,18 +131,18 @@ public class KeyEventService {
           this.chooseRoleService.updateRole(1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         } else {
           this.chooseRoleService.updateOpponentRole(1);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.mainService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         }
         break;
       case CANCEL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);
         if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.mainService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
     }
   }

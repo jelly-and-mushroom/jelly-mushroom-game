@@ -52,11 +52,11 @@ public class MainController {
         return HttpResponseEntity.error(errorMsg);
       }
       log.info("接收到服务端更新的数据:{}", jsonObject.toJSONString());
-      HttpGameEntity httpGameEntity = JSONObject.parseObject(jsonObject.toJSONString(), HttpGameEntity.class);
-      if (null != httpGameEntity.getGame()) {
-        this.mainService.setGameEntity(httpGameEntity.getGame());
+      HttpDataEntity httpDataEntity = JSONObject.parseObject(jsonObject.toJSONString(), HttpDataEntity.class);
+      if (null != httpDataEntity.getGame()) {
+        this.mainService.setGameEntity(httpDataEntity.getGame());
       }
-      HttpServerControlEntity serverControl = httpGameEntity.getServerControl();
+      HttpServerControlEntity serverControl = httpDataEntity.getServerControl();
       Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
       if (null != serverControl) {
         if (null != serverControl.getCurrentChooseRoleIndex()) {

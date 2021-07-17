@@ -1,12 +1,23 @@
 package team.jellymushroom.fullmoon.entity.http;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.entity.game.GameEntity;
 
+import java.util.List;
+
+/**
+ * 服务端发给客户端，用于更新客户端的 gameEntity
+ * 因此，本类字段也一一对应于 gameEntity
+ */
 @Data
 public class HttpGameEntity {
 
-  private HttpServerControlEntity serverControl;
+  private HttpPlayerEntity serverPlayer;
 
-  private GameEntity game;
+  private HttpPlayerEntity clientPlayer;
+
+  private List<Integer> historyList;
+
+  private Integer serverTune;
+
+  private Integer effectCardIndex;
 }

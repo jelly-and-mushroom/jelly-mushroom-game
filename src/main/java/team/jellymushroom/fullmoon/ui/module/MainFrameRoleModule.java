@@ -7,7 +7,7 @@ import team.jellymushroom.fullmoon.service.UIService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class DetailRoleModule extends Module {
+public class MainFrameRoleModule extends Module {
 
   private Boolean mySelf;
 
@@ -15,7 +15,7 @@ public class DetailRoleModule extends Module {
 
   static final Integer O_WIDTH = 231;
 
-  public DetailRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, Boolean mySelf) {
+  public MainFrameRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, Boolean mySelf) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
     this.mySelf = mySelf;
   }

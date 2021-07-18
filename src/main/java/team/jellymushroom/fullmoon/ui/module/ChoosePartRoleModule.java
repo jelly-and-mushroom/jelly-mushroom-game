@@ -7,7 +7,7 @@ import team.jellymushroom.fullmoon.service.UIService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class PartRoleModule extends Module {
+public class ChoosePartRoleModule extends Module {
 
   private GameRoleEntity gameRoleEntity;
 
@@ -19,7 +19,7 @@ public class PartRoleModule extends Module {
 
   private static final Integer CONFIRM_SIZE = 30;
 
-  public PartRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEntity gameRoleEntity, Boolean light, Boolean confirm) {
+  public ChoosePartRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEntity gameRoleEntity, Boolean light, Boolean confirm) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
     this.gameRoleEntity = gameRoleEntity;
     this.light = light;

@@ -20,9 +20,9 @@ public class MainFrameModule extends Module {
     // 绘制背景图片
     super.drawBackgroundImg(g);
     // 绘制对手角色
-    new DetailRoleModule(this.uiService, this.resource, this.iX + this.iWidth - DetailRoleModule.O_WIDTH, this.iY, DetailRoleModule.O_WIDTH, DetailRoleModule.O_HEIGHT, 0, false).draw(g);
+    new MainFrameRoleModule(this.uiService, this.resource, this.iX + this.iWidth - MainFrameRoleModule.O_WIDTH, this.iY, MainFrameRoleModule.O_WIDTH, MainFrameRoleModule.O_HEIGHT, 0, false).draw(g);
     // 绘制自身角色
-    new DetailRoleModule(this.uiService, this.resource, this.iX + this.iWidth - DetailRoleModule.O_WIDTH, this.iY + DetailRoleModule.O_HEIGHT, DetailRoleModule.O_WIDTH, DetailRoleModule.O_HEIGHT, 0, true).draw(g);
+    new MainFrameRoleModule(this.uiService, this.resource, this.iX + this.iWidth - MainFrameRoleModule.O_WIDTH, this.iY + MainFrameRoleModule.O_HEIGHT, MainFrameRoleModule.O_WIDTH, MainFrameRoleModule.O_HEIGHT, 0, true).draw(g);
     // 绘制边框
     super.drawWindow(g);
   }

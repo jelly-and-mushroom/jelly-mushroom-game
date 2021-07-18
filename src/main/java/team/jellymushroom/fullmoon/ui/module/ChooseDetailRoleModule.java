@@ -7,11 +7,11 @@ import team.jellymushroom.fullmoon.service.UIService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class WholeRoleModule extends Module {
+public class ChooseDetailRoleModule extends Module {
 
   private GameRoleEntity gameRoleEntity;
 
-  public WholeRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEntity gameRoleEntity) {
+  public ChooseDetailRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEntity gameRoleEntity) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
     this.gameRoleEntity = gameRoleEntity;
   }

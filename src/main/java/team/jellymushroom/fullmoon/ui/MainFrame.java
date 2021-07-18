@@ -61,8 +61,10 @@ public class MainFrame extends Frame {
     String resourceRootPath = this.uiService.getResourceService().getResourceRootPath();
     // 加载边框图片
     this.resource.setEdgingImg(ImageIO.read(new File(resourceRootPath + "/material/image/window.png")));
-    // 加载等待连接图片
-    this.resource.setBackgroundImg(ImageIO.read(new File(resourceRootPath + "/material/image/wait_connect.png")));
+    // 加载背景图片
+    this.resource.setBackgroundImg(ImageIO.read(new File(resourceRootPath + "/material/image/background.png")));
+    // 加载电脑图标
+    this.resource.setComputerIconImg(ImageIO.read(new File(resourceRootPath + "/material/image/computer_icon.jpg")));
     // 加载角色图片
     Map<Integer, GameRoleEntity> gameRoleMap = this.uiService.getResourceService().getServiceResourceEntity().getGameRoleMap();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {

@@ -30,6 +30,7 @@ public class DetailRoleModule extends Module {
     int roleImgRealHeight = 233;
     g.drawImage(roleImg, this.iX, this.iY, this.iX + this.iWidth, this.iY + roleImgRealHeight, 518, 420, 1095, 1001, null);
     // 文字测试
+    super.drawFont(g, this.iX + 20, this.iY + roleImgRealHeight + 30, "765/765", Color.BLACK, Font.BOLD, 20);
     // 绘制边框
     super.drawWindow(g);
   }

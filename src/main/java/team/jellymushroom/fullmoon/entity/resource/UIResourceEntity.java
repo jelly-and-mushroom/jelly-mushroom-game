@@ -18,9 +18,14 @@ public class UIResourceEntity {
   private BufferedImage edgingImg;
 
   /**
-   * 等待连接图片
+   * 背景图片
    */
   private BufferedImage backgroundImg;
+
+  /**
+   * 电脑图标
+   */
+  private BufferedImage computerIconImg;
 
   /**
    * 确认图片

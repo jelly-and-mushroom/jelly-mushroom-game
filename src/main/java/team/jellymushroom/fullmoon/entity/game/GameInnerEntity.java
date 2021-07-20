@@ -31,6 +31,11 @@ public class GameInnerEntity {
   private Integer hp = this.maxHp;
 
   /**
+   * 本小局当前魔法值
+   */
+  private Integer mp;
+
+  /**
    * 本小局游戏当前行动力上限
    * 因卡牌，祝福效果一小局游戏过程中行动力上限可能会发生变化
    * 因此要与全局的行动力上限做出区分

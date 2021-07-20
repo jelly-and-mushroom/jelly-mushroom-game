@@ -38,4 +38,12 @@ public enum GameStageEnum {
   public static GameStageEnum getEnumByIndex(Integer index) {
     return VALUE_MAP.get(index);
   }
+
+  /**
+   * 判断当前游戏阶段
+   * true-在一小局游戏中 false-未在一小局游戏中
+   */
+  public static boolean inGame(GameStageEnum gameStageEnum) {
+    return false;
+  }
 }

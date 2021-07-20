@@ -15,6 +15,8 @@ public class HttpGameInnerEntity {
 
   private Integer hp;
 
+  private Integer mp;
+
   private Integer maxAction;
 
   private Integer action;

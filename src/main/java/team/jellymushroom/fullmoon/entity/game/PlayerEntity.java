@@ -76,7 +76,7 @@ public class PlayerEntity {
   /**
    * 持有的金币数
    */
-  private Integer gold;
+  private Integer gold = 0;
 
   public void initByRole(GameRoleEntity role) {
     this.gameRoleEntity = role;

@@ -226,6 +226,10 @@ public class HttpTransferService {
     if (null != gameInner.getHp()) {
       httpGameInner.setHp(gameInner.getHp());
     }
+    // 本小局当前魔法值
+    if (null != gameInner.getMp()) {
+      httpGameInner.setMp(gameInner.getMp());
+    }
     // 本小局游戏当前行动力上限
     if (null != gameInner.getMaxAction()) {
       httpGameInner.setMaxAction(gameInner.getMaxAction());
@@ -306,6 +310,10 @@ public class HttpTransferService {
     // 本小局当前生命值
     if (null != httpGameInner.getHp()) {
       gameInner.setHp(httpGameInner.getHp());
+    }
+    // 本小局当前魔法值
+    if (null != httpGameInner.getMp()) {
+      gameInner.setMp(httpGameInner.getMp());
     }
     // 本小局游戏当前行动力上限
     if (null != httpGameInner.getMaxAction()) {

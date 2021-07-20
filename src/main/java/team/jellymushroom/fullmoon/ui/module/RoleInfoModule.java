@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
@@ -29,18 +30,25 @@ public class RoleInfoModule extends Module {
     int fontX = this.iX + 50;
     int fontSize = 15;
     int fontY = slotY - (slotHeight - fontSize);
+    // 判断当前游戏阶段是否在一小局游戏进行中
+    boolean inGame = GameStageEnum.inGame(player.getStage());
     // hp
+    int hp = inGame ? player.getGameInnerEntity().getHp() : player.getMaxHp();
+    int maxHp = inGame ? player.getGameInnerEntity().getMaxHp() : player.getMaxHp();
     super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.BLACK);
     super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.PINK);
-    super.drawFont(g, fontX, fontY + slotHeight, player.getMaxHp() + "/" + player.getMaxHp(), Color.WHITE, Font.PLAIN, fontSize);
+    super.drawFont(g, fontX, fontY + slotHeight, hp+ "/" + maxHp, Color.WHITE, Font.PLAIN, fontSize);
     // mp
+    int mp = inGame ? player.getGameInnerEntity().getMp() : player.getInitMp();
     super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.BLACK);
     super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.CYAN);
-    super.drawFont(g, fontX, fontY + 2 * slotHeight, player.getInitMp() + "", Color.WHITE, Font.PLAIN, fontSize);
+    super.drawFont(g, fontX, fontY + 2 * slotHeight, mp + "", Color.WHITE, Font.PLAIN, fontSize);
     // 行动力
+    int action = inGame ? player.getGameInnerEntity().getAction() : player.getMaxAction();
+    int maxAction = inGame ? player.getGameInnerEntity().getMaxAction() : player.getMaxAction();
     super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.BLACK);
     super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.ORANGE);
-    super.drawFont(g, fontX, fontY + 3 * slotHeight, player.getMaxAction() + "/" + player.getMaxAction(), Color.WHITE, Font.PLAIN, fontSize);
+    super.drawFont(g, fontX, fontY + 3 * slotHeight, action + "/" + maxAction, Color.WHITE, Font.PLAIN, fontSize);
     // 金币
     super.drawFillRect(g, slotX, slotY + 3 * slotHeight, slotWidth, slotHeight, Color.BLACK);
     super.drawFont(g, fontX, fontY + 4 * slotHeight, "金币:" + player.getGold(), Color.WHITE, Font.PLAIN, fontSize);

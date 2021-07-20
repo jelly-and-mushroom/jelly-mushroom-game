@@ -31,19 +31,19 @@ public class RoleInfoModule extends Module {
     int fontY = slotY - (slotHeight - fontSize);
     // hp
     super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.BLACK);
-    super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.RED);
-    super.drawFont(g, fontX, fontY + slotHeight, player.getMaxHp() + "/" + player.getMaxHp(), Color.GREEN, Font.PLAIN, fontSize);
+    super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.PINK);
+    super.drawFont(g, fontX, fontY + slotHeight, player.getMaxHp() + "/" + player.getMaxHp(), Color.WHITE, Font.PLAIN, fontSize);
     // mp
     super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.BLACK);
-    super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.BLUE);
-    super.drawFont(g, fontX, fontY + 2 * slotHeight, player.getInitMp() + "", Color.GREEN, Font.PLAIN, fontSize);
+    super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.CYAN);
+    super.drawFont(g, fontX, fontY + 2 * slotHeight, player.getInitMp() + "", Color.WHITE, Font.PLAIN, fontSize);
     // 行动力
     super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.BLACK);
-    super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.YELLOW);
-    super.drawFont(g, fontX, fontY + 3 * slotHeight, player.getMaxAction() + "/" + player.getMaxAction(), Color.GREEN, Font.PLAIN, fontSize);
+    super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.ORANGE);
+    super.drawFont(g, fontX, fontY + 3 * slotHeight, player.getMaxAction() + "/" + player.getMaxAction(), Color.WHITE, Font.PLAIN, fontSize);
     // 金币
     super.drawFillRect(g, slotX, slotY + 3 * slotHeight, slotWidth, slotHeight, Color.BLACK);
-    super.drawFont(g, fontX, fontY + 4 * slotHeight, "金币:" + player.getGold(), Color.GREEN, Font.PLAIN, fontSize);
+    super.drawFont(g, fontX, fontY + 4 * slotHeight, "金币:" + player.getGold(), Color.WHITE, Font.PLAIN, fontSize);
     // 绘制边框
     super.drawWindow(g);
   }

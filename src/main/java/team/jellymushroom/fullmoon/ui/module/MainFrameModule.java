@@ -19,10 +19,14 @@ public class MainFrameModule extends Module {
   private void drawBase(Graphics g) {
     // 绘制背景图片
     super.drawBackgroundImg(g);
-    // 绘制对手角色
-    new MainFrameRoleModule(this.uiService, this.resource, this.iX + this.iWidth - MainFrameRoleModule.O_WIDTH, this.iY, MainFrameRoleModule.O_WIDTH, MainFrameRoleModule.O_HEIGHT, 0, false).draw(g);
-    // 绘制自身角色
-    new MainFrameRoleModule(this.uiService, this.resource, this.iX + this.iWidth - MainFrameRoleModule.O_WIDTH, this.iY + MainFrameRoleModule.O_HEIGHT, MainFrameRoleModule.O_WIDTH, MainFrameRoleModule.O_HEIGHT, 0, true).draw(g);
+    // 角色图片尺寸
+    int roleWidth = 231;
+    int roleHeight = (int)(1.0 * this.iHeight / 3);
+    System.out.println("dadsd    " + roleHeight);
+    // 绘制对手
+    new MainFrameRoleModule(this.uiService, this.resource, this.iX, this.iY, roleWidth, roleHeight, 0, false).draw(g);
+    // 绘制自身
+    new MainFrameRoleModule(this.uiService, this.resource, this.iX + this.iWidth - roleWidth, this.iY + this.iHeight / 2, roleWidth, roleHeight, 0, true).draw(g);
     // 绘制边框
     super.drawWindow(g);
   }

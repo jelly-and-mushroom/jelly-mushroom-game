@@ -14,28 +14,37 @@ public class MainFrameModule extends Module {
 
   @Override
   public void draw(Graphics g) {
-    this.drawBase(g);
-  }
-
-  private void drawBase(Graphics g) {
-    // 绘制背景图片
-    super.drawBackgroundImg(g);
     // 角色图片尺寸
     int roleWidth = 225;
     int roleHeight = (int)(1.0 * this.iHeight / 3);
     int roleInfoGHeight = roleHeight / 2 + 2;
-    // 判断当前游戏阶段是否在一小局游戏进行中
+    // 基础信息
+    this.drawBase(g, roleWidth, roleHeight, roleInfoGHeight);
+    // 绘制其他信息
     boolean inGame = GameStageEnum.inGame(this.uiService.getMainService().getPlayerMyself().getStage());
     if (inGame) {
-      // 绘制对手
-      new MainFrameRoleModule(this.uiService, this.resource, this.iX, this.iY, roleWidth, roleHeight, 0, false).draw(g);
-      new RoleInfoModule(this.uiService, this.resource, this.iX, this.iY + roleHeight, roleWidth, roleInfoGHeight, 0, false).draw(g);
-
+      this.drawInGame(g, roleWidth, roleHeight, roleInfoGHeight);
+    } else {
+      this.drawPrepare(g);
     }
+  }
+
+  private void drawBase(Graphics g, int roleWidth, int roleHeight, int roleInfoGHeight) {
+    // 绘制背景图片
+    super.drawBackgroundImg(g);
     // 绘制自身
     new MainFrameRoleModule(this.uiService, this.resource, this.iX + this.iWidth - roleWidth, this.iY + this.iHeight / 2, roleWidth, roleHeight, 0, true).draw(g);
     new RoleInfoModule(this.uiService, this.resource, this.iX + this.iWidth - roleWidth, this.iY + this.iHeight / 2 + roleHeight, roleWidth, roleInfoGHeight, 0, true).draw(g);
     // 绘制边框
     super.drawWindow(g);
+  }
+
+  private void drawPrepare(Graphics g) {
+  }
+
+  private void drawInGame(Graphics g, int roleWidth, int roleHeight, int roleInfoGHeight) {
+    // 绘制对手
+    new MainFrameRoleModule(this.uiService, this.resource, this.iX, this.iY, roleWidth, roleHeight, 0, false).draw(g);
+    new RoleInfoModule(this.uiService, this.resource, this.iX, this.iY + roleHeight, roleWidth, roleInfoGHeight, 0, false).draw(g);
   }
 }

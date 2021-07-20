@@ -36,18 +36,23 @@ public class RoleInfoModule extends Module {
     int hp = inGame ? player.getGameInnerEntity().getHp() : player.getMaxHp();
     int maxHp = inGame ? player.getGameInnerEntity().getMaxHp() : player.getMaxHp();
     super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.BLACK);
-    super.drawFillRect(g, slotX, slotY, slotWidth, slotHeight, Color.PINK);
+    super.drawFillRect(g, slotX, slotY, (int)(slotWidth * 1.0 * (hp / maxHp)), slotHeight, Color.PINK);
     super.drawFont(g, fontX, fontY + slotHeight, hp+ "/" + maxHp, Color.WHITE, Font.PLAIN, fontSize);
     // mp
     int mp = inGame ? player.getGameInnerEntity().getMp() : player.getInitMp();
+    double mpRate = mp==0 ? 0.0 : 0.5;
     super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.BLACK);
-    super.drawFillRect(g, slotX, slotY + slotHeight, slotWidth, slotHeight, Color.CYAN);
+    super.drawFillRect(g, slotX, slotY + slotHeight, (int)(slotWidth * mpRate), slotHeight, Color.CYAN);
     super.drawFont(g, fontX, fontY + 2 * slotHeight, mp + "", Color.WHITE, Font.PLAIN, fontSize);
     // 行动力
     int action = inGame ? player.getGameInnerEntity().getAction() : player.getMaxAction();
     int maxAction = inGame ? player.getGameInnerEntity().getMaxAction() : player.getMaxAction();
+    double actionRate = 1.0 * action / maxAction;
+    if (action > maxAction) {
+      actionRate = 1.0;
+    }
     super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.BLACK);
-    super.drawFillRect(g, slotX, slotY + 2 * slotHeight, slotWidth, slotHeight, Color.ORANGE);
+    super.drawFillRect(g, slotX, slotY + 2 * slotHeight, (int)(slotWidth * actionRate), slotHeight, Color.ORANGE);
     super.drawFont(g, fontX, fontY + 3 * slotHeight, action + "/" + maxAction, Color.WHITE, Font.PLAIN, fontSize);
     // 金币
     super.drawFillRect(g, slotX, slotY + 3 * slotHeight, slotWidth, slotHeight, Color.BLACK);

@@ -73,6 +73,8 @@ public class MainFrame extends Frame {
     }
     // 加载确认图片
     this.resource.setConfirmImg(ImageIO.read(new File(resourceRootPath + "/material/image/confirm.png")));
+    // 加载金币图片
+    this.resource.setGoldImg(ImageIO.read(new File(resourceRootPath + "/material/image/gold.jpg")));
     // 全部正常完成后打印日志
     log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);
   }

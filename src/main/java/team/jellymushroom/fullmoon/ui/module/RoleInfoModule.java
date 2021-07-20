@@ -19,8 +19,24 @@ public class RoleInfoModule extends Module {
   public void draw(Graphics g) {
     // 获取对应玩家
     PlayerEntity player = this.mySelf ? this.uiService.getMainService().getPlayerMyself() : this.uiService.getMainService().getPlayerOpponent();
+    // 槽位参数
+    int fontSize = this.iHeight / 4;
+    int xAdd = 50;
     // hp
-    super.drawFont(g, this.iX + 50, this.iY + 15, player.getMaxHp() + "/" + player.getMaxHp(), Color.BLACK, Font.PLAIN, 15);
+    super.drawFillRect(g, this.iX, this.iY, this.iWidth, fontSize, Color.BLACK);
+    super.drawFillRect(g, this.iX, this.iY, this.iWidth, fontSize, Color.RED);
+    super.drawFont(g, this.iX + xAdd, this.iY + fontSize, player.getMaxHp() + "/" + player.getMaxHp(), Color.GREEN, Font.PLAIN, fontSize);
+    // mp
+    super.drawFillRect(g, this.iX, this.iY + fontSize, this.iWidth, fontSize, Color.BLACK);
+    super.drawFillRect(g, this.iX, this.iY + fontSize, this.iWidth, fontSize, Color.BLUE);
+    super.drawFont(g, this.iX + xAdd, this.iY + 2 * fontSize, player.getInitMp() + "", Color.GREEN, Font.PLAIN, fontSize);
+    // 行动力
+    super.drawFillRect(g, this.iX, this.iY + 2 * fontSize, this.iWidth, fontSize, Color.BLACK);
+    super.drawFillRect(g, this.iX, this.iY + 2 * fontSize, this.iWidth, fontSize, Color.YELLOW);
+    super.drawFont(g, this.iX + xAdd, this.iY + 3 * fontSize, player.getMaxAction() + "", Color.GREEN, Font.PLAIN, fontSize);
+    // 金币
+    super.drawFillRect(g, this.iX, this.iY + 3 * fontSize, this.iWidth, fontSize, Color.BLACK);
+    super.drawFont(g, this.iX + xAdd, this.iY + 4 * fontSize, "金币:" + player.getGold(), Color.GREEN, Font.PLAIN, fontSize);
     // 绘制边框
     super.drawWindow(g);
   }

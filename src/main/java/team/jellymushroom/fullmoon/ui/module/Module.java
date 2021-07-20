@@ -100,7 +100,7 @@ public abstract class Module {
   }
 
   /**
-   * 绘制文字，绘制完成后再恢复为默认
+   * 绘制文字，绘制完成后再将画笔恢复为默认
    */
   void drawFont(Graphics g, int x, int y, String content, Color color, int style, int size) {
     Color baseColor = g.getColor();
@@ -109,6 +109,16 @@ public abstract class Module {
     g.setFont(new Font(null, style, size));
     g.drawString(content, x, y);
     g.setFont(baseFont);
+    g.setColor(baseColor);
+  }
+
+  /**
+   * 绘制填充矩形，绘制完成后再将画笔恢复为默认
+   */
+  void drawFillRect(Graphics g, int x, int y, int width, int height, Color color) {
+    Color baseColor = g.getColor();
+    g.setColor(color);
+    g.fillRect(x, y, width, height);
     g.setColor(baseColor);
   }
 

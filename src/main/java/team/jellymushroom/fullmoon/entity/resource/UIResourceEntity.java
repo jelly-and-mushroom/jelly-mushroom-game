@@ -43,9 +43,4 @@ public class UIResourceEntity {
    * key: gameRoleEntity.index
    */
   private Map<Integer, BufferedImage> gameDimRoleImgMap = new HashMap<>();
-
-  /**
-   * 金币图片
-   */
-  private BufferedImage goldImg;
 }

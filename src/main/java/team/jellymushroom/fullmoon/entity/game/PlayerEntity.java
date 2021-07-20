@@ -77,4 +77,12 @@ public class PlayerEntity {
    * 持有的金币数
    */
   private Integer gold;
+
+  public void initByRole(GameRoleEntity role) {
+    this.gameRoleEntity = role;
+    this.maxHp = this.gameRoleEntity.getInitMaxHp();
+    this.initMp = this.gameRoleEntity.getInitMp();
+    this.maxAction = this.gameRoleEntity.getInitMaxAction();
+    this.gold = this.gameRoleEntity.getInitGold();
+  }
 }

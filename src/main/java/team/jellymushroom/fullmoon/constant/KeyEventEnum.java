@@ -10,8 +10,10 @@ public enum KeyEventEnum {
 
   LEFT (65, "左移"),
   RIGHT (68, "右移"),
+  UP (87, "上移"),
+  DOWN (83, "右移"),
   CONFIRM (10, "确定"),
-  DETAIL (83, "详情"),
+  DETAIL (90, "详情"),
   CANCEL (27, "取消");
 
   private Integer keyCode;

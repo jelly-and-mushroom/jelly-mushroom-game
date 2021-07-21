@@ -25,6 +25,8 @@ public class HttpPlayerEntity {
 
   private Integer initHandCardSize;
 
+  private Integer drawCardSize;
+
   private Integer maxHandCardSize;
 
   private List<Integer> cardIndexList;

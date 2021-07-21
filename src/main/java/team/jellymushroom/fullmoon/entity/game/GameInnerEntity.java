@@ -48,6 +48,13 @@ public class GameInnerEntity {
   private Integer action = this.maxAction;
 
   /**
+   * 当前小局，抽牌数
+   * 因卡牌，祝福效果一小局游戏过程中抽牌数可能会发生变化
+   * 因此要与全局的抽牌数做出区分
+   */
+  private Integer drawCardSize = 2;
+
+  /**
    * 当前小局，每回合结束时的手牌上限
    * 因卡牌，祝福效果一小局游戏过程中手牌上限可能会发生变化
    * 因此要与全局的手牌上限做出区分

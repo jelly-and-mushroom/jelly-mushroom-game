@@ -129,6 +129,10 @@ public class HttpTransferService {
     if (null != player.getInitHandCardSize()) {
       httpPlayer.setInitHandCardSize(player.getInitHandCardSize());
     }
+    // 抽牌数
+    if (null != player.getDrawCardSize()) {
+      httpPlayer.setDrawCardSize(player.getDrawCardSize());
+    }
     // 每回合结束时的手牌上限
     if (null != player.getMaxHandCardSize()) {
       httpPlayer.setMaxHandCardSize(player.getMaxHandCardSize());
@@ -189,6 +193,10 @@ public class HttpTransferService {
     if (null != httpPlayer.getInitHandCardSize()) {
       player.setInitHandCardSize(httpPlayer.getInitHandCardSize());
     }
+    // 抽牌数
+    if (null != httpPlayer.getDrawCardSize()) {
+      player.setDrawCardSize(httpPlayer.getDrawCardSize());
+    }
     // 每回合结束时的手牌上限
     if (null != httpPlayer.getMaxHandCardSize()) {
       player.setMaxHandCardSize(httpPlayer.getMaxHandCardSize());
@@ -237,6 +245,10 @@ public class HttpTransferService {
     // 本小局当前行动力
     if (null != gameInner.getAction()) {
       httpGameInner.setAction(gameInner.getAction());
+    }
+    // 抽牌数
+    if (null != gameInner.getDrawCardSize()) {
+      httpGameInner.setDrawCardSize(gameInner.getDrawCardSize());
     }
     // 当前小局，每回合结束时的手牌上限
     if (null != gameInner.getMaxHandCardSize()) {
@@ -322,6 +334,10 @@ public class HttpTransferService {
     // 本小局当前行动力
     if (null != httpGameInner.getAction()) {
       gameInner.setAction(httpGameInner.getAction());
+    }
+    // 抽牌数
+    if (null != httpGameInner.getDrawCardSize()) {
+      gameInner.setDrawCardSize(httpGameInner.getDrawCardSize());
     }
     // 当前小局，每回合结束时的手牌上限
     if (null != httpGameInner.getMaxHandCardSize()) {

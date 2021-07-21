@@ -52,6 +52,11 @@ public class PlayerEntity {
   private Integer initHandCardSize = 3;
 
   /**
+   * 抽牌数
+   */
+  private Integer drawCardSize = 2;
+
+  /**
    * 每回合结束时的手牌上限
    */
   private Integer maxHandCardSize = 2;

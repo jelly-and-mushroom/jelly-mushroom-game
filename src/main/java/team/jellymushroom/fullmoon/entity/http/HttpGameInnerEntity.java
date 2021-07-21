@@ -21,6 +21,8 @@ public class HttpGameInnerEntity {
 
   private Integer action;
 
+  private Integer drawCardSize;
+
   private Integer maxHandCardSize;
 
   private List<Integer> handCardIndexList;

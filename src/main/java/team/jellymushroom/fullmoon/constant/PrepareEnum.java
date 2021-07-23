@@ -7,16 +7,20 @@ import java.util.Map;
 
 @Getter
 public enum PrepareEnum {
-
+  // 第一行
   MY_CARD_REPOSITORY (0, "我的牌库", -1, -1, -1, 1, 1, 9, 2),
   MY_BLESSING (1, "受到祝福", 0, -1, -1,  0, 0, 11, 3),
+  // 第二行
   BY_CARD (2, "购买卡牌", 0, -1, -1,  3, 3, 0, 4),
   BY_BLESSING (3, "购买祝福", 0, -1, -1,  2, 2, 1, 5),
+  // 第三行
   INTENSIFY_CARD (4, "强化卡牌", 0, -1, -1,  5, 5, 2, 6),
   DELETE_CARD (5, "删除卡牌", 0, -1, -1,  4, 4, 3, 8),
+  // 第四行
   PROMOTE_MAX_HP (6, "生命上限+", 20, 9, -1, 8, 7, 4, 9),
   PROMOTE_INIT_MP (7, "初始魔法值+", 20, 6, -1, 6, 8, 4, 10),
   PROMOTE_MAX_ACTION (8, "行动力上限+", 50, 1, -1, 7, 6, 5, 11),
+  // 第五行
   PROMOTE_INIT_HAND_CARD (9, "初始手牌+", 50, 1, 5, 11, 10, 6, 0),
   PROMOTE_MAX_HAND_CARD_SIZE (10, "手牌上限+", 50, 1, 5, 9, 11, 7, 0),
   PROMOTE_DRAW_CARD_SIZE (11, "抽牌+", 50, 1, 3, 10, 9, 8, 1);

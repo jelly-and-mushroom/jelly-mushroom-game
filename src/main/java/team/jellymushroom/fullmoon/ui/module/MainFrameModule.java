@@ -25,7 +25,7 @@ public class MainFrameModule extends Module {
     if (inGame) {
       this.drawInGame(g, roleWidth, roleHeight, roleInfoGHeight);
     } else {
-      this.drawPrepare(g);
+      this.drawPrepare(g, roleWidth);
     }
   }
 
@@ -39,7 +39,32 @@ public class MainFrameModule extends Module {
     super.drawWindow(g);
   }
 
-  private void drawPrepare(Graphics g) {
+  private void drawPrepare(Graphics g, int roleWidth) {
+    // 选项模块高
+    int optionHeight = 80;
+    // 选项模块一行整体的宽度
+    int optionLineWidth = 660;
+    // 第一行x坐标
+    int firstLineX = this.iX + (this.iWidth - roleWidth - optionLineWidth) / 2;
+    // 第一行y坐标
+    int firstLineY = this.iY + (this.iHeight - 5 * optionHeight) / 2;
+    // 第一行模块
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY, optionLineWidth / 2, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY, optionLineWidth / 2, optionHeight, 0).draw(g);
+    // 第二行模块
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + optionHeight, optionLineWidth / 2, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY + optionHeight, optionLineWidth / 2, optionHeight, 0).draw(g);
+    // 第三行模块
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 2 * optionHeight, optionLineWidth / 2, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY + 2 * optionHeight, optionLineWidth / 2, optionHeight, 0).draw(g);
+    // 第四行模块
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 3 * optionHeight, optionLineWidth / 3, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 3, firstLineY + 3 * optionHeight, optionLineWidth / 3, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth * 2 / 3, firstLineY + 3 * optionHeight, optionLineWidth / 3, optionHeight, 0).draw(g);
+    // 第五行模块
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 4 * optionHeight, optionLineWidth / 3, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 3, firstLineY + 4 * optionHeight, optionLineWidth / 3, optionHeight, 0).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth * 2 / 3, firstLineY + 4 * optionHeight, optionLineWidth / 3, optionHeight, 0).draw(g);
   }
 
   private void drawInGame(Graphics g, int roleWidth, int roleHeight, int roleInfoGHeight) {

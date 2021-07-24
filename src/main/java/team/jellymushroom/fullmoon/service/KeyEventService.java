@@ -210,8 +210,14 @@ public class KeyEventService {
       case CONFIRM:
         if (fromLocal) {
           this.prepareService.confirm();
+          if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
+            this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
+          }
         } else {
           this.prepareService.confirmOpponent();
+          if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
+            this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
+          }
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
     }

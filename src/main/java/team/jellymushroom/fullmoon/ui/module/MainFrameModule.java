@@ -27,6 +27,9 @@ public class MainFrameModule extends Module {
       this.drawInGame(g, roleWidth, roleHeight, roleInfoGHeight);
       return;
     }
+    if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(this.uiService.getMainService().getPlayerMyself().getStage())) {
+      return;
+    }
     // 基础准备
     this.drawPrepare(g, roleWidth);
   }

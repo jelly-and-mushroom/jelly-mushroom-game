@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public enum PrepareEnum {
+public enum PrepareOptionEnum {
   // 第一行
   MY_CARD_REPOSITORY (0, "我的牌库", -1, -1, -1, 1, 1, 12, 2),
   MY_BLESSING (1, "受到祝福", -1, -1, -1,  0, 0, 12, 3),
@@ -73,15 +73,15 @@ public enum PrepareEnum {
    */
   private Integer downIndex;
 
-  private static Map<Integer, PrepareEnum> VALUE_MAP = new HashMap<>(PrepareEnum.values().length);
+  private static Map<Integer, PrepareOptionEnum> VALUE_MAP = new HashMap<>(PrepareOptionEnum.values().length);
 
   static {
-    for (PrepareEnum e : PrepareEnum.values()) {
+    for (PrepareOptionEnum e : PrepareOptionEnum.values()) {
       VALUE_MAP.put(e.index, e);
     }
   }
 
-  PrepareEnum(Integer index, String description, Integer price, Integer value, Integer limitValue, Integer leftIndex, Integer rightIndex, Integer upIndex, Integer downIndex) {
+  PrepareOptionEnum(Integer index, String description, Integer price, Integer value, Integer limitValue, Integer leftIndex, Integer rightIndex, Integer upIndex, Integer downIndex) {
     this.index = index;
     this.description = description;
     this.price = price;
@@ -97,7 +97,7 @@ public enum PrepareEnum {
    * 若入参为null,返回null
    * 若未找到对应枚举实例，返回null
    */
-  public static PrepareEnum getEnumByKeyCode(Integer keyCode) {
+  public static PrepareOptionEnum getEnumByKeyCode(Integer keyCode) {
     return VALUE_MAP.get(keyCode);
   }
 }

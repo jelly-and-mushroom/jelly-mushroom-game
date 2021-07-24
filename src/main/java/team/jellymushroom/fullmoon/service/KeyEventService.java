@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
-import team.jellymushroom.fullmoon.constant.PrepareEnum;
+import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
@@ -110,8 +110,8 @@ public class KeyEventService {
         if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
           activePlayer.setStage(GameStageEnum.PREPARE);
           passivePlayer.setStage(GameStageEnum.PREPARE);
-          ServerControlEntity.getInstance().setCurrentPrepare(PrepareEnum.MY_CARD_REPOSITORY);
-          ServerControlEntity.getInstance().setOpponentPrepare(PrepareEnum.MY_CARD_REPOSITORY);
+          ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.MY_CARD_REPOSITORY);
+          ServerControlEntity.getInstance().setOpponentPrepare(PrepareOptionEnum.MY_CARD_REPOSITORY);
           serverControl.setCurrentPrepareIndex(ServerControlEntity.getInstance().getOpponentPrepare().getIndex());
         } else {
           activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
@@ -157,11 +157,11 @@ public class KeyEventService {
   }
 
   private void handlePrepare(boolean fromLocal, KeyEventEnum keyEventEnum) {
-    PrepareEnum prepare = fromLocal ? ServerControlEntity.getInstance().getCurrentPrepare() : ServerControlEntity.getInstance().getOpponentPrepare();
-    PrepareEnum nextPrepare = null;
+    PrepareOptionEnum prepare = fromLocal ? ServerControlEntity.getInstance().getCurrentPrepare() : ServerControlEntity.getInstance().getOpponentPrepare();
+    PrepareOptionEnum nextPrepare = null;
     switch (keyEventEnum) {
       case LEFT:
-        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getLeftIndex());
+        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getLeftIndex());
         if (fromLocal) {
           ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
         } else {
@@ -172,7 +172,7 @@ public class KeyEventService {
         }
         break;
       case RIGHT:
-        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getRightIndex());
+        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getRightIndex());
         if (fromLocal) {
           ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
         } else {
@@ -183,7 +183,7 @@ public class KeyEventService {
         }
         break;
       case UP:
-        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getUpIndex());
+        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getUpIndex());
         if (fromLocal) {
           ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
         } else {
@@ -194,7 +194,7 @@ public class KeyEventService {
         }
         break;
       case DOWN:
-        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getDownIndex());
+        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getDownIndex());
         if (fromLocal) {
           ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
         } else {

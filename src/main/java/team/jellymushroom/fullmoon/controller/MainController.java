@@ -3,7 +3,7 @@ package team.jellymushroom.fullmoon.controller;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import team.jellymushroom.fullmoon.constant.PrepareEnum;
+import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.http.*;
@@ -71,7 +71,7 @@ public class MainController {
           ServerControlEntity.getInstance().setOpponentCurrentChooseRole(gameRoleMap.get(serverControl.getOpponentCurrentChooseRoleIndex()));
         }
         if (null != serverControl.getCurrentPrepareIndex()) {
-          ServerControlEntity.getInstance().setCurrentPrepare(PrepareEnum.getEnumByKeyCode(serverControl.getCurrentPrepareIndex()));
+          ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.getEnumByKeyCode(serverControl.getCurrentPrepareIndex()));
         }
       }
       ServerControlEntity.getInstance().setIsServer(false);

@@ -1,7 +1,7 @@
 package team.jellymushroom.fullmoon.entity.control;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.constant.PrepareEnum;
+import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 
 /**
@@ -50,10 +50,10 @@ public class ServerControlEntity {
   /**
    * 游戏准备阶段，当前选择的选项
    */
-  private PrepareEnum currentPrepare;
+  private PrepareOptionEnum currentPrepare;
 
   /**
    * 游戏准备阶段，对手当前选择的选项
    */
-  private PrepareEnum opponentPrepare;
+  private PrepareOptionEnum opponentPrepare;
 }

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
+import team.jellymushroom.fullmoon.constant.PrepareEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
@@ -96,6 +97,7 @@ public class KeyEventService {
         new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
+        HttpServerControlEntity serverControl = new HttpServerControlEntity();
         if (fromLocal) {
           this.chooseRoleService.confirm();
         } else {
@@ -104,10 +106,13 @@ public class KeyEventService {
         if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
           activePlayer.setStage(GameStageEnum.PREPARE);
           passivePlayer.setStage(GameStageEnum.PREPARE);
+          ServerControlEntity.getInstance().setCurrentPrepare(PrepareEnum.MY_CARD_REPOSITORY);
+          ServerControlEntity.getInstance().setOpponentPrepare(PrepareEnum.MY_CARD_REPOSITORY);
+          serverControl.setCurrentPrepareIndex(ServerControlEntity.getInstance().getOpponentPrepare().getIndex());
         } else {
           activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         }
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
     }
   }
 

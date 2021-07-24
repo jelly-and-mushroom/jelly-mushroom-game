@@ -12,4 +12,6 @@ public class HttpServerControlEntity {
   private Integer currentChooseRoleIndex;
 
   private Integer opponentCurrentChooseRoleIndex;
+
+  private Integer currentPrepareIndex;
 }

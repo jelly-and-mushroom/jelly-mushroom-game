@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.constant.PrepareEnum;
+import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 
@@ -18,7 +19,8 @@ public class PrepareOptionModule extends Module {
   @Override
   public void draw(Graphics g) {
     // 绘制底色
-    super.drawFillRect(g, this.iX, this.iY, this.iWidth, this.iHeight, Color.DARK_GRAY);
+    Color rectColor = this.prepareEnum.equals(ServerControlEntity.getInstance().getCurrentPrepare()) ? Color.GRAY : Color.DARK_GRAY;
+    super.drawFillRect(g, this.iX, this.iY, this.iWidth, this.iHeight, rectColor);
     // 绘制文字
     this.drawOptionFont(g);
     // 绘制边框

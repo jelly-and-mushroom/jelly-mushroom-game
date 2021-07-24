@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.entity.control;
 
 import lombok.Data;
+import team.jellymushroom.fullmoon.constant.PrepareEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 
 /**
@@ -32,6 +33,11 @@ public class ServerControlEntity {
   private Boolean httpSendWait = false;
 
   /**
+   * 约等于程序启动时间
+   */
+  private Long initTime = System.currentTimeMillis();
+
+  /**
    * 游戏选择阶段，当前选择的角色
    */
   private GameRoleEntity currentChooseRole;
@@ -42,7 +48,12 @@ public class ServerControlEntity {
   private GameRoleEntity opponentCurrentChooseRole;
 
   /**
-   * 约等于程序启动时间
+   * 游戏准备阶段，当前选择的选项
    */
-  private Long initTime = System.currentTimeMillis();
+  private PrepareEnum currentPrepare;
+
+  /**
+   * 游戏准备阶段，对手当前选择的选项
+   */
+  private PrepareEnum opponentPrepare;
 }

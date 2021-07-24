@@ -61,6 +61,10 @@ public class KeyEventService {
         break;
       case CHOOSE_ROLE_DETAIL:
         this.handleRoleChooseDetail(fromLocal, activePlayer, keyEventEnum);
+        break;
+      case PREPARE:
+        this.handlePrepare(fromLocal, keyEventEnum);
+        break;
     }
   }
 
@@ -148,6 +152,56 @@ public class KeyEventService {
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);
         if (!fromLocal) {
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        }
+    }
+  }
+
+  private void handlePrepare(boolean fromLocal, KeyEventEnum keyEventEnum) {
+    PrepareEnum prepare = fromLocal ? ServerControlEntity.getInstance().getCurrentPrepare() : ServerControlEntity.getInstance().getOpponentPrepare();
+    PrepareEnum nextPrepare = null;
+    switch (keyEventEnum) {
+      case LEFT:
+        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getLeftIndex());
+        if (fromLocal) {
+          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
+        } else {
+          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case RIGHT:
+        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getRightIndex());
+        if (fromLocal) {
+          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
+        } else {
+          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case UP:
+        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getUpIndex());
+        if (fromLocal) {
+          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
+        } else {
+          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case DOWN:
+        nextPrepare = PrepareEnum.getEnumByKeyCode(prepare.getDownIndex());
+        if (fromLocal) {
+          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
+        } else {
+          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
         }
     }
   }

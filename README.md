@@ -25,3 +25,5 @@ B-V7XTQ05P-2253.local
 ```shell
 sudo killall -HUP mDNSResponder
 ```
+# TODO LIST
+- 狼人出生自带状态未添加

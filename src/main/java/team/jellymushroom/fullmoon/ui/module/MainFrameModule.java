@@ -21,13 +21,14 @@ public class MainFrameModule extends Module {
     int roleInfoGHeight = roleHeight / 2 + 2;
     // 基础信息
     this.drawBase(g, roleWidth, roleHeight, roleInfoGHeight);
-    // 绘制其他信息
+    // 游戏中
     boolean inGame = GameStageEnum.inGame(this.uiService.getMainService().getPlayerMyself().getStage());
     if (inGame) {
       this.drawInGame(g, roleWidth, roleHeight, roleInfoGHeight);
-    } else {
-      this.drawPrepare(g, roleWidth);
+      return;
     }
+    // 基础准备
+    this.drawPrepare(g, roleWidth);
   }
 
   private void drawBase(Graphics g, int roleWidth, int roleHeight, int roleInfoGHeight) {

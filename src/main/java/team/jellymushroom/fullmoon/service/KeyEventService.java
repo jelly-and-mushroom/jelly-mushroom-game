@@ -21,10 +21,13 @@ public class KeyEventService {
 
   private HttpTransferService httpTransferService;
 
-  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService) {
+  private PrepareService prepareService;
+
+  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService, PrepareService prepareService) {
     this.mainService = mainService;
     this.chooseRoleService = chooseRoleService;
     this.httpTransferService = httpTransferService;
+    this.prepareService = prepareService;
   }
 
   /**
@@ -202,6 +205,14 @@ public class KeyEventService {
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case CONFIRM:
+        if (fromLocal) {
+          this.prepareService.confirm();
+        } else {
+          this.prepareService.confirmOpponent();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
     }
   }

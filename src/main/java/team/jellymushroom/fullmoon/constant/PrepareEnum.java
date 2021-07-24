@@ -8,8 +8,8 @@ import java.util.Map;
 @Getter
 public enum PrepareEnum {
   // 第一行
-  MY_CARD_REPOSITORY (0, "我的牌库", -1, -1, -1, 1, 1, 9, 2),
-  MY_BLESSING (1, "受到祝福", -1, -1, -1,  0, 0, 11, 3),
+  MY_CARD_REPOSITORY (0, "我的牌库", -1, -1, -1, 1, 1, 12, 2),
+  MY_BLESSING (1, "受到祝福", -1, -1, -1,  0, 0, 12, 3),
   // 第二行
   BY_CARD (2, "购买卡牌", -1, -1, -1,  3, 3, 0, 4),
   BY_BLESSING (3, "购买祝福", -1, -1, -1,  2, 2, 1, 5),
@@ -21,9 +21,11 @@ public enum PrepareEnum {
   PROMOTE_INIT_MP (7, "初始魔法值+", 20, 6, -1, 6, 8, 4, 10),
   PROMOTE_MAX_ACTION (8, "行动力上限+", 50, 1, -1, 7, 6, 5, 11),
   // 第五行
-  PROMOTE_INIT_HAND_CARD (9, "初始手牌+", 50, 1, 5, 11, 10, 6, 0),
-  PROMOTE_MAX_HAND_CARD_SIZE (10, "手牌上限+", 50, 1, 5, 9, 11, 7, 0),
-  PROMOTE_DRAW_CARD_SIZE (11, "抽取牌数+", 99, 1, 3, 10, 9, 8, 1);
+  PROMOTE_INIT_HAND_CARD (9, "初始手牌+", 50, 1, 5, 11, 10, 6, 12),
+  PROMOTE_MAX_HAND_CARD_SIZE (10, "手牌上限+", 50, 1, 5, 9, 11, 7, 12),
+  PROMOTE_DRAW_CARD_SIZE (11, "抽取牌数+", 99, 1, 3, 10, 9, 8, 12),
+  // 第六行
+  DONE (12, "准备完成", -1, -1, -1, 12, 12, 9, 0);
 
   private Integer index;
 

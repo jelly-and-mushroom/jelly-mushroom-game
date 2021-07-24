@@ -48,7 +48,7 @@ public class MainFrameModule extends Module {
     // 第一行x坐标
     int firstLineX = this.iX + (this.iWidth - roleWidth - optionLineWidth) / 2;
     // 第一行y坐标
-    int firstLineY = this.iY + (this.iHeight - 5 * optionHeight) / 2;
+    int firstLineY = this.iY + (this.iHeight - 6 * optionHeight) / 2;
     // 第一行模块
     new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY, optionLineWidth / 2, optionHeight, 0, PrepareEnum.MY_CARD_REPOSITORY).draw(g);
     new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY, optionLineWidth / 2, optionHeight, 0, PrepareEnum.MY_BLESSING).draw(g);
@@ -66,6 +66,8 @@ public class MainFrameModule extends Module {
     new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 4 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareEnum.PROMOTE_INIT_HAND_CARD).draw(g);
     new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 3, firstLineY + 4 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareEnum.PROMOTE_MAX_HAND_CARD_SIZE).draw(g);
     new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth * 2 / 3, firstLineY + 4 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareEnum.PROMOTE_DRAW_CARD_SIZE).draw(g);
+    // 第六行模块
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 5 * optionHeight, optionLineWidth, optionHeight, 0, PrepareEnum.DONE).draw(g);
   }
 
   private void drawInGame(Graphics g, int roleWidth, int roleHeight, int roleInfoGHeight) {

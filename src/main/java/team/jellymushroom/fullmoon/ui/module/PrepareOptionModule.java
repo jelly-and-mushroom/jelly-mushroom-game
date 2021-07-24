@@ -29,6 +29,10 @@ public class PrepareOptionModule extends Module {
     int yAdd = 43;
     int fontSize = 20;
     int fontStyle = Font.PLAIN;
+    if (PrepareEnum.DONE.equals(this.prepareEnum)) {
+      super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareEnum.getDescription(), Color.WHITE, fontStyle, fontSize);
+      return;
+    }
     if (this.prepareEnum.getValue() == -1) {
       super.drawFont(g, this.iX + 125, this.iY + yAdd, this.prepareEnum.getDescription(), Color.WHITE, fontStyle, fontSize);
       return;

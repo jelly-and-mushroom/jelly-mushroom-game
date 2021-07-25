@@ -25,19 +25,19 @@ public class HttpGameInnerEntity {
 
   private Integer maxHandCardSize;
 
-  private List<Integer> handCardIndexList;
+  private List<HttpCardEntity> handCardList;
 
-  private List<Integer> heapCardIndexList;
+  private List<HttpCardEntity> heapCardList;
 
-  private List<Integer> tombCardIndexList;
+  private List<HttpCardEntity> tombCardList;
 
-  private List<Integer> removeCardIndexList;
+  private List<HttpCardEntity> removeCardList;
 
-  private List<Integer> equipmentCardPlaceIndexList;
+  private List<HttpCardEntity> equipmentCardPlaceList;
 
-  private List<Integer> counterCardPlaceIndexList;
+  private List<HttpCardEntity> counterCardPlaceList;
 
-  private List<Integer> prayerCardPlaceIndexList;
+  private List<HttpCardEntity> prayerCardPlaceList;
 
   private List<Integer> blessingIndexList;
 

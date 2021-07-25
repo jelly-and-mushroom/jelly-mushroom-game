@@ -29,7 +29,7 @@ public class HttpPlayerEntity {
 
   private Integer maxHandCardSize;
 
-  private List<Integer> cardIndexList;
+  private List<HttpCardEntity> cardList;
 
   private Integer initEquipmentSlotSize;
 

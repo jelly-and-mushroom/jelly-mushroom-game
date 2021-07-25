@@ -140,9 +140,9 @@ public class HttpTransferService {
     }
     // 本局游戏持有卡牌列表
     if (!player.getCardList().isEmpty()) {
-      List<Integer> cardIndexList = new ArrayList<>(player.getCardList().size());
-      player.getCardList().forEach(e -> cardIndexList.add(e.getIndex()));
-      httpPlayer.setCardIndexList(cardIndexList);
+      List<HttpCardEntity> httpCardList = new ArrayList<>(player.getCardList().size());
+      player.getCardList().forEach(e -> httpCardList.add(this.convert(e)));
+      httpPlayer.setCardList(httpCardList);
     }
     // 每小局游戏初始化时，装备槽数
     if (null != player.getInitEquipmentSlotSize()) {
@@ -203,9 +203,8 @@ public class HttpTransferService {
       player.setMaxHandCardSize(httpPlayer.getMaxHandCardSize());
     }
     // 本局游戏持有卡牌列表
-    Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
-    if (null != httpPlayer.getCardIndexList() && !httpPlayer.getCardIndexList().isEmpty()) {
-      httpPlayer.getCardIndexList().forEach(e -> player.getCardList().add(cardMap.get(e)));
+    if (null != httpPlayer.getCardList() && !httpPlayer.getCardList().isEmpty()) {
+      httpPlayer.getCardList().forEach(e -> player.getCardList().add(this.convert(e)));
     }
     // 每小局游戏初始化时，装备槽数
     if (null != httpPlayer.getInitEquipmentSlotSize()) {
@@ -257,45 +256,45 @@ public class HttpTransferService {
     }
     // 本小局游戏当前手牌列表
     if (!gameInner.getHandCardList().isEmpty()) {
-      List<Integer> handCardIndexList = new ArrayList<>(gameInner.getHandCardList().size());
-      gameInner.getHandCardList().forEach(e -> handCardIndexList.add(e.getIndex()));
-      httpGameInner.setHandCardIndexList(handCardIndexList);
+      List<HttpCardEntity> handCardList = new ArrayList<>(gameInner.getHandCardList().size());
+      gameInner.getHandCardList().forEach(e -> handCardList.add(this.convert(e)));
+      httpGameInner.setHandCardList(handCardList);
     }
     // 本小局游戏当前牌堆列表
     if (!gameInner.getHeapCardList().isEmpty()) {
-      List<Integer> heapCardIndexList = new ArrayList<>(gameInner.getHeapCardList().size());
-      gameInner.getHeapCardList().forEach(e -> heapCardIndexList.add(e.getIndex()));
-      httpGameInner.setHeapCardIndexList(heapCardIndexList);
+      List<HttpCardEntity> heapCardList = new ArrayList<>(gameInner.getHeapCardList().size());
+      gameInner.getHeapCardList().forEach(e -> heapCardList.add(this.convert(e)));
+      httpGameInner.setHeapCardList(heapCardList);
     }
     // 本小局游戏当前坟场列表
     if (!gameInner.getTombCardList().isEmpty()) {
-      List<Integer> tombCardIndexList = new ArrayList<>(gameInner.getTombCardList().size());
-      gameInner.getTombCardList().forEach(e -> tombCardIndexList.add(e.getIndex()));
-      httpGameInner.setTombCardIndexList(tombCardIndexList);
+      List<HttpCardEntity> tombCardList = new ArrayList<>(gameInner.getTombCardList().size());
+      gameInner.getTombCardList().forEach(e -> tombCardList.add(this.convert(e)));
+      httpGameInner.setTombCardList(tombCardList);
     }
     // 本小局当前移除卡牌列表
     if (!gameInner.getRemoveCardList().isEmpty()) {
-      List<Integer> removeCardIndexList = new ArrayList<>(gameInner.getRemoveCardList().size());
-      gameInner.getRemoveCardList().forEach(e -> removeCardIndexList.add(e.getIndex()));
-      httpGameInner.setRemoveCardIndexList(removeCardIndexList);
+      List<HttpCardEntity> removeCardList = new ArrayList<>(gameInner.getRemoveCardList().size());
+      gameInner.getRemoveCardList().forEach(e -> removeCardList.add(this.convert(e)));
+      httpGameInner.setRemoveCardList(removeCardList);
     }
     // 当前已装备的装备牌列表
     if (!gameInner.getEquipmentCardPlaceList().isEmpty()) {
-      List<Integer> equipmentCardPlaceIndexList = new ArrayList<>(gameInner.getEquipmentCardPlaceList().size());
-      gameInner.getEquipmentCardPlaceList().forEach(e -> equipmentCardPlaceIndexList.add(e.getIndex()));
-      httpGameInner.setEquipmentCardPlaceIndexList(equipmentCardPlaceIndexList);
+      List<HttpCardEntity> equipmentCardPlaceList = new ArrayList<>(gameInner.getEquipmentCardPlaceList().size());
+      gameInner.getEquipmentCardPlaceList().forEach(e -> equipmentCardPlaceList.add(this.convert(e)));
+      httpGameInner.setEquipmentCardPlaceList(equipmentCardPlaceList);
     }
     // 当前已放置的反制牌列表
     if (!gameInner.getCounterCardPlaceList().isEmpty()) {
-      List<Integer> counterCardPlaceIndexList = new ArrayList<>(gameInner.getCounterCardPlaceList().size());
-      gameInner.getCounterCardPlaceList().forEach(e -> counterCardPlaceIndexList.add(e.getIndex()));
-      httpGameInner.setCounterCardPlaceIndexList(counterCardPlaceIndexList);
+      List<HttpCardEntity> counterCardPlaceList = new ArrayList<>(gameInner.getCounterCardPlaceList().size());
+      gameInner.getCounterCardPlaceList().forEach(e -> counterCardPlaceList.add(this.convert(e)));
+      httpGameInner.setCounterCardPlaceList(counterCardPlaceList);
     }
     // 当前已放置的祷告牌列表
     if (!gameInner.getPrayerCardPlaceList().isEmpty()) {
-      List<Integer> prayerCardPlaceIndexList = new ArrayList<>(gameInner.getPrayerCardPlaceList().size());
-      gameInner.getPrayerCardPlaceList().forEach(e -> prayerCardPlaceIndexList.add(e.getIndex()));
-      httpGameInner.setPrayerCardPlaceIndexList(prayerCardPlaceIndexList);
+      List<HttpCardEntity> prayerCardPlaceList = new ArrayList<>(gameInner.getPrayerCardPlaceList().size());
+      gameInner.getPrayerCardPlaceList().forEach(e -> prayerCardPlaceList.add(this.convert(e)));
+      httpGameInner.setPrayerCardPlaceList(prayerCardPlaceList);
     }
     // 本小局游戏中，当前获得的祝福
     if (!gameInner.getBlessingList().isEmpty()) {
@@ -345,33 +344,32 @@ public class HttpTransferService {
       gameInner.setMaxHandCardSize(httpGameInner.getMaxHandCardSize());
     }
     // 本小局游戏当前手牌列表
-    Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
-    if (null != httpGameInner.getHandCardIndexList() && !httpGameInner.getHandCardIndexList().isEmpty()) {
-      httpGameInner.getHandCardIndexList().forEach(e -> gameInner.getHandCardList().add(cardMap.get(e)));
+    if (null != httpGameInner.getHandCardList() && !httpGameInner.getHandCardList().isEmpty()) {
+      httpGameInner.getHandCardList().forEach(e -> gameInner.getHandCardList().add(this.convert(e)));
     }
     // 本小局游戏当前牌堆列表
-    if (null != httpGameInner.getHeapCardIndexList() && !httpGameInner.getHeapCardIndexList().isEmpty()) {
-      httpGameInner.getHeapCardIndexList().forEach(e -> gameInner.getHeapCardList().add(cardMap.get(e)));
+    if (null != httpGameInner.getHeapCardList() && !httpGameInner.getHeapCardList().isEmpty()) {
+      httpGameInner.getHeapCardList().forEach(e -> gameInner.getHeapCardList().add(this.convert(e)));
     }
     // 本小局游戏当前坟场列表
-    if (null != httpGameInner.getTombCardIndexList() && !httpGameInner.getTombCardIndexList().isEmpty()) {
-      httpGameInner.getTombCardIndexList().forEach(e -> gameInner.getTombCardList().add(cardMap.get(e)));
+    if (null != httpGameInner.getTombCardList() && !httpGameInner.getTombCardList().isEmpty()) {
+      httpGameInner.getTombCardList().forEach(e -> gameInner.getTombCardList().add(this.convert(e)));
     }
     // 本小局当前移除卡牌列表
-    if (null != httpGameInner.getRemoveCardIndexList() && !httpGameInner.getRemoveCardIndexList().isEmpty()) {
-      httpGameInner.getRemoveCardIndexList().forEach(e -> gameInner.getRemoveCardList().add(cardMap.get(e)));
+    if (null != httpGameInner.getRemoveCardList() && !httpGameInner.getRemoveCardList().isEmpty()) {
+      httpGameInner.getRemoveCardList().forEach(e -> gameInner.getRemoveCardList().add(this.convert(e)));
     }
     // 当前已装备的装备牌列表
-    if (null != httpGameInner.getEquipmentCardPlaceIndexList() && !httpGameInner.getEquipmentCardPlaceIndexList().isEmpty()) {
-      httpGameInner.getEquipmentCardPlaceIndexList().forEach(e -> gameInner.getEquipmentCardPlaceList().add((EquipmentCardEntity)cardMap.get(e)));
+    if (null != httpGameInner.getEquipmentCardPlaceList() && !httpGameInner.getEquipmentCardPlaceList().isEmpty()) {
+      httpGameInner.getEquipmentCardPlaceList().forEach(e -> gameInner.getEquipmentCardPlaceList().add((EquipmentCardEntity)this.convert(e)));
     }
     // 当前已放置的反制牌列表
-    if (null != httpGameInner.getCounterCardPlaceIndexList() && !httpGameInner.getCounterCardPlaceIndexList().isEmpty()) {
-      httpGameInner.getCounterCardPlaceIndexList().forEach(e -> gameInner.getCounterCardPlaceList().add((CounterCardEntity)cardMap.get(e)));
+    if (null != httpGameInner.getCounterCardPlaceList() && !httpGameInner.getCounterCardPlaceList().isEmpty()) {
+      httpGameInner.getCounterCardPlaceList().forEach(e -> gameInner.getCounterCardPlaceList().add((CounterCardEntity)this.convert(e)));
     }
     // 当前已放置的祷告牌列表
-    if (null != httpGameInner.getPrayerCardPlaceIndexList() && !httpGameInner.getPrayerCardPlaceIndexList().isEmpty()) {
-      httpGameInner.getPrayerCardPlaceIndexList().forEach(e -> gameInner.getPrayerCardPlaceList().add((PrayerCardEntity)cardMap.get(e)));
+    if (null != httpGameInner.getPrayerCardPlaceList() && !httpGameInner.getPrayerCardPlaceList().isEmpty()) {
+      httpGameInner.getPrayerCardPlaceList().forEach(e -> gameInner.getPrayerCardPlaceList().add((PrayerCardEntity)this.convert(e)));
     }
     // 本小局游戏中，当前获得的祝福
     Map<Integer, GameBlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getGameBlessingMap();

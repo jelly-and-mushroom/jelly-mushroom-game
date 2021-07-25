@@ -60,6 +60,9 @@ public class ResourceService {
     JSONArray gameCardJSONArray = JSONArray.parseArray(dataStr);
     for (int i = 0; i < gameCardJSONArray.size(); i++) {
       JSONObject gameCardJSONObject = gameCardJSONArray.getJSONObject(i);
+      if (gameCardJSONObject.getInteger("isValid") != 1) {
+        continue;
+      }
       CardTypeEnum cardType = CardTypeEnum.getEnumByIndex(gameCardJSONObject.getInteger("index"));
       CardEntity cardEntity = null;
       switch (cardType) {

@@ -19,5 +19,5 @@ public class HttpGameEntity {
 
   private Integer serverTune;
 
-  private Integer effectCardIndex;
+  private HttpCardEntity effectCard;
 }

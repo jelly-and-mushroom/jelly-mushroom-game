@@ -6,9 +6,7 @@ import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * service所需的静态资源(卡牌，职业，状态，效果，祝福等)
@@ -25,6 +23,8 @@ public class ServiceResourceEntity {
    * key: cardEntity.index
    */
   private Map<Integer, CardEntity> cardMap = new HashMap<>();
+
+  private List<CardEntity> cardList = new ArrayList<>();
 
   /**
    * key: gameBlessingEntity.index

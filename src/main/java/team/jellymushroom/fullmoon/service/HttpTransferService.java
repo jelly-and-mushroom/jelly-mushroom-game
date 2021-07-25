@@ -11,6 +11,7 @@ import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.PrayerCardEntity;
 import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpCardEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpGameInnerEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpPlayerEntity;
@@ -61,7 +62,7 @@ public class HttpTransferService {
     }
     // 当前场上生效卡牌
     if (null != game.getEffectCard()) {
-      httpGame.setEffectCardIndex(game.getEffectCard().getIndex());
+      httpGame.setEffectCard(this.convert(game.getEffectCard()));
     }
     // 返回
     return httpGame;
@@ -91,8 +92,8 @@ public class HttpTransferService {
       game.setServerTune(httpGame.getServerTune()==1 ? true : false);
     }
     // 当前场上生效卡牌
-    if (null != httpGame.getEffectCardIndex()) {
-      game.setEffectCard(this.resourceService.getServiceResourceEntity().getCardMap().get(httpGame.getEffectCardIndex()));
+    if (null != httpGame.getEffectCard()) {
+      game.setEffectCard(this.convert(httpGame.getEffectCard()));
     }
     // 返回
     return game;
@@ -384,5 +385,20 @@ public class HttpTransferService {
     }
     // 返回
     return gameInner;
+  }
+
+  private HttpCardEntity convert(CardEntity card) {
+    HttpCardEntity httpCard = new HttpCardEntity();
+    httpCard.setIndex(card.getIndex());
+    httpCard.setIndex(card.getTemp() ? 1 : 0);
+    return httpCard;
+  }
+
+  private CardEntity convert(HttpCardEntity httpCard) {
+    CardEntity card = this.resourceService.getServiceResourceEntity().getCardMap().get(httpCard.getIndex()).copy();
+    if (httpCard.getTemp() == 1) {
+      card.setTemp(true);
+    }
+    return card;
   }
 }

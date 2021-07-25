@@ -27,3 +27,9 @@ sudo killall -HUP mDNSResponder
 ```
 # TODO LIST
 - 狼人出生自带状态未添加
+- 卡牌
+  - 所有卡牌生效规则均未添加
+
+# 卡牌录入进度
+- 女骑士
+  - 攻击牌 普通攻击3

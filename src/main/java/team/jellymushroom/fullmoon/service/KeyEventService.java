@@ -74,6 +74,8 @@ public class KeyEventService {
       case PREPARE_MY_CARD_REPOSITORY:
         this.handlePrepareMyCardRepository(fromLocal, keyEventEnum);
         break;
+      case PREPARE_MY_CARD_REPOSITORY_DETAIL:
+        this.handlePrepareMyCardRepositoryDetail(fromLocal, keyEventEnum);
     }
   }
 
@@ -291,6 +293,17 @@ public class KeyEventService {
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
+        }
+    }
+  }
+
+  private void handlePrepareMyCardRepositoryDetail(boolean fromLocal, KeyEventEnum keyEventEnum) {
+    PlayerEntity player = fromLocal ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
+    switch (keyEventEnum) {
+      case CANCEL:
+        player.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
+        if (!fromLocal) {
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
     }
   }

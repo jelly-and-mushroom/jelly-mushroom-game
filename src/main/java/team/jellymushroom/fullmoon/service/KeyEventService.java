@@ -219,9 +219,7 @@ public class KeyEventService {
         if (fromLocal) {
           this.prepareService.confirm();
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
-            if (null != this.mainService.getPlayerMyself().getCardList()) {
-              ServerControlEntity.getInstance().setPrepareCardListIndex(0);
-            }
+            ServerControlEntity.getInstance().setPrepareCardListIndex(0);
             this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
             ServerControlEntity.getInstance().setPrepareCardListIndex(0);
@@ -231,10 +229,8 @@ public class KeyEventService {
           this.prepareService.confirmOpponent();
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
-            if (null != this.mainService.getPlayerOpponent().getCardList()) {
-              ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
-              serverControl.setPrepareCardListIndex(0);
-            }
+            ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
+            serverControl.setPrepareCardListIndex(0);
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
             ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
@@ -249,7 +245,7 @@ public class KeyEventService {
   private void handlePrepareMyCardRepository(boolean fromLocal, KeyEventEnum keyEventEnum) {
     PlayerEntity player = fromLocal ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
     int cardListSize = player.getCardList().size();
-    if (cardListSize == 0) {
+    if (cardListSize == 0 && !KeyEventEnum.CANCEL.equals(keyEventEnum)) {
       return;
     }
     switch (keyEventEnum) {

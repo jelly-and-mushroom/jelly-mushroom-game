@@ -29,15 +29,17 @@ public class MainFrameModule extends Module {
     }
     // 当前状态
     GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
+    // 卡牌列表宽高
+    int cardListWidth = 720;
+    int cardListHeight = 607;
     // 牌库
     if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(stage) || GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage)) {
-      int cardListWidth = 720;
-      int cardListHeight = 607;
       new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.MY_CARD_REPOSITORY).draw(g);
       return;
     }
     // 购买卡牌
     if (GameStageEnum.PREPARE_BY_CARD.equals(stage)) {
+      new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.BY_CARD).draw(g);
       return;
     }
     // 基础准备

@@ -93,8 +93,8 @@ public class CardListModule extends Module {
     int yAdd = 43;
     int fontSize = 20;
     int fontStyle = Font.PLAIN;
-    int currentPage = cardListSize==0 ? 0 : startIndex / pageSize + 1;
     if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(this.prepareOption)) {
+      int currentPage = cardListSize==0 ? 0 : startIndex / pageSize + 1;
       int totalpage = cardListSize / pageSize;
       if (cardListSize % pageSize != 0) {
         totalpage++;

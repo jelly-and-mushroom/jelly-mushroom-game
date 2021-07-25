@@ -223,6 +223,9 @@ public class KeyEventService {
               ServerControlEntity.getInstance().setPrepareCardListIndex(0);
             }
             this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
+          } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
+            ServerControlEntity.getInstance().setPrepareCardListIndex(0);
+            this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_BY_CARD);
           }
         } else {
           this.prepareService.confirmOpponent();
@@ -233,6 +236,10 @@ public class KeyEventService {
               serverControl.setPrepareCardListIndex(0);
             }
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
+          } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
+            ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
+            serverControl.setPrepareCardListIndex(0);
+            this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_BY_CARD);
           }
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
         }

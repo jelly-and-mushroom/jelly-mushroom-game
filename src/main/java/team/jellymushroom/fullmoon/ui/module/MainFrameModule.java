@@ -34,7 +34,11 @@ public class MainFrameModule extends Module {
       int cardListWidth = 720;
       int cardListHeight = 607;
       new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.MY_CARD_REPOSITORY).draw(g);
-return;
+      return;
+    }
+    // 购买卡牌
+    if (GameStageEnum.PREPARE_BY_CARD.equals(stage)) {
+      return;
     }
     // 基础准备
     this.drawPrepare(g, roleWidth);

@@ -27,8 +27,10 @@ public class MainFrameModule extends Module {
       this.drawInGame(g, roleWidth, roleHeight, roleInfoGHeight);
       return;
     }
+    // 当前状态
+    GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
     // 牌库
-    if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(this.uiService.getMainService().getPlayerMyself().getStage())) {
+    if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(stage) || GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage)) {
       int cardListWidth = 720;
       int cardListHeight = 620;
       new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.MY_CARD_REPOSITORY).draw(g);

@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
@@ -62,6 +63,22 @@ public class CardListModule extends Module {
     this.drawTitle(g, cardList.size(), startIndex, totalCount);
     // 绘制边框
     super.drawWindow(g);
+    // 绘制detail
+    this.drawCardDetail(g);
+  }
+
+  private void drawCardDetail(Graphics g) {
+    GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
+    if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage)) {
+      int detailCardWidth = 300;
+      int detailCardHeight = (int)(1.0 * detailCardWidth * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
+      new CardModule(this.uiService, this.resource,
+          this.iX + (this.iWidth - detailCardWidth) / 2,
+          this.iY + (this.iHeight - detailCardHeight) / 2,
+          detailCardWidth, detailCardHeight, 0,
+          this.uiService.getMainService().getPlayerMyself().getCardList().get(ServerControlEntity.getInstance().getPrepareCardListIndex()).getIndex(),
+          true).draw(g);
+    }
   }
 
   private void drawTitle(Graphics g, int cardListSize, int startIndex, int pageSize) {

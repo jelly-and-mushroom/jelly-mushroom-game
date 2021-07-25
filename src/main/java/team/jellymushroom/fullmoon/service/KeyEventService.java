@@ -277,6 +277,10 @@ public class KeyEventService {
         }
         break;
       case DETAIL:
+        player.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL);
+        if (!fromLocal) {
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        }
         break;
       case CANCEL:
         player.setStage(GameStageEnum.PREPARE);

@@ -13,7 +13,8 @@ public enum GameStageEnum {
   CHOOSE_ROLE_CONFIRM(2, "角色选择-已确定"),
 
   PREPARE(3, "游戏准备"),
-  PREPARE_MY_CARD_REPOSITORY(4, "游戏准备-我的牌库");
+  PREPARE_MY_CARD_REPOSITORY(4, "游戏准备-我的牌库"),
+  PREPARE_MY_CARD_REPOSITORY_DETAIL(5, "游戏准备-我的牌库-详情");
 
   private Integer index;
 

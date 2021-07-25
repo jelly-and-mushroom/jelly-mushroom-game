@@ -49,6 +49,9 @@ public class PrepareCardListService {
       if (wishIndex >= cardListSize) {
         wishIndex = wishIndex - CardListModule.CARD_COLUMN;
       }
+      if (wishIndex / CardListModule.CARD_COLUMN < (cardListSize - 1) / CardListModule.CARD_COLUMN) {
+        wishIndex = cardListSize - 1;
+      }
     }
     if (myself) {
       ServerControlEntity.getInstance().setPrepareCardListIndex(wishIndex);
@@ -61,7 +64,12 @@ public class PrepareCardListService {
     int index = myself ? ServerControlEntity.getInstance().getPrepareCardListIndex() : ServerControlEntity.getInstance().getOpponentPrepareCardListIndex();
     int wishIndex = index + CardListModule.CARD_COLUMN;
     if (wishIndex >= cardListSize) {
-      wishIndex = index % CardListModule.CARD_COLUMN;
+      boolean lastLine = index / CardListModule.CARD_COLUMN == (cardListSize - 1) / CardListModule.CARD_COLUMN;
+      if (lastLine) {
+        wishIndex = index % CardListModule.CARD_COLUMN;
+      } else {
+        wishIndex = cardListSize - 1;
+      }
     }
     if (myself) {
       ServerControlEntity.getInstance().setPrepareCardListIndex(wishIndex);

@@ -2,6 +2,9 @@ package team.jellymushroom.fullmoon.entity.game.card;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public abstract class CardEntity implements Cloneable {
 
@@ -20,6 +23,17 @@ public abstract class CardEntity implements Cloneable {
    * true:临时牌 false:非临时牌
    */
   Boolean temp = false;
+
+  /**
+   * 可用角色列表
+   */
+  private List<Integer> roleIndexList = new ArrayList<>();
+
+  /**
+   * 只有当本卡牌有星级的概念时，本字段才有意义
+   * 依次记录本卡牌星级序列中各卡牌的index，从1星开始
+   */
+  private List<Integer> levelList = new ArrayList<>();
 
   public abstract CardEntity copy();
 }

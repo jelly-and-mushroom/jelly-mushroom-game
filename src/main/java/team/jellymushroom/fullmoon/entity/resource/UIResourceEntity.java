@@ -43,4 +43,10 @@ public class UIResourceEntity {
    * key: gameRoleEntity.index
    */
   private Map<Integer, BufferedImage> gameDimRoleImgMap = new HashMap<>();
+
+  /**
+   * 卡牌图片map
+   * key: cardEntity.index
+   */
+  private Map<Integer, BufferedImage> cardImgMap = new HashMap<>();
 }

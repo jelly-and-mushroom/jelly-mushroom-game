@@ -388,7 +388,7 @@ public class HttpTransferService {
   private HttpCardEntity convert(CardEntity card) {
     HttpCardEntity httpCard = new HttpCardEntity();
     httpCard.setIndex(card.getIndex());
-    httpCard.setIndex(card.getTemp() ? 1 : 0);
+    httpCard.setTemp(card.getTemp() ? 1 : 0);
     return httpCard;
   }
 

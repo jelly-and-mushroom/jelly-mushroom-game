@@ -27,8 +27,12 @@ public class MainFrameModule extends Module {
       this.drawInGame(g, roleWidth, roleHeight, roleInfoGHeight);
       return;
     }
+    // 牌库
     if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(this.uiService.getMainService().getPlayerMyself().getStage())) {
-      return;
+      int cardListWidth = 720;
+      int cardListHeight = 620;
+      new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.MY_CARD_REPOSITORY).draw(g);
+return;
     }
     // 基础准备
     this.drawPrepare(g, roleWidth);

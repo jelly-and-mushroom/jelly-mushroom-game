@@ -73,6 +73,9 @@ public class MainController {
         if (null != serverControl.getCurrentPrepareIndex()) {
           ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.getEnumByKeyCode(serverControl.getCurrentPrepareIndex()));
         }
+        if (null != serverControl.getPrepareCardListIndex()) {
+          ServerControlEntity.getInstance().setPrepareCardListIndex(serverControl.getPrepareCardListIndex());
+        }
       }
       ServerControlEntity.getInstance().setIsServer(false);
       return HttpResponseEntity.success(null, null);

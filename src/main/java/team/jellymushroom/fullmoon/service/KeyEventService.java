@@ -23,11 +23,14 @@ public class KeyEventService {
 
   private PrepareService prepareService;
 
-  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService, PrepareService prepareService) {
+  private PrepareCardListService prepareCardListService;
+
+  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService, PrepareService prepareService, PrepareCardListService prepareCardListService) {
     this.mainService = mainService;
     this.chooseRoleService = chooseRoleService;
     this.httpTransferService = httpTransferService;
     this.prepareService = prepareService;
+    this.prepareCardListService = prepareCardListService;
   }
 
   /**
@@ -67,6 +70,9 @@ public class KeyEventService {
         break;
       case PREPARE:
         this.handlePrepare(fromLocal, keyEventEnum);
+        break;
+      case PREPARE_MY_CARD_REPOSITORY:
+        this.handlePrepareMyCardRepository(fromLocal, keyEventEnum);
         break;
     }
   }
@@ -211,15 +217,68 @@ public class KeyEventService {
         if (fromLocal) {
           this.prepareService.confirm();
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
+            if (null != this.mainService.getPlayerMyself().getCardList()) {
+              ServerControlEntity.getInstance().setPrepareCardListIndex(0);
+            }
             this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           }
         } else {
           this.prepareService.confirmOpponent();
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
+            if (null != this.mainService.getPlayerOpponent().getCardList()) {
+              ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
+              serverControl.setPrepareCardListIndex(0);
+            }
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           }
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
         }
+    }
+  }
+
+  private void handlePrepareMyCardRepository(boolean fromLocal, KeyEventEnum keyEventEnum) {
+    PlayerEntity player = fromLocal ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
+    int cardListSize = player.getCardList().size();
+    if (cardListSize == 0) {
+      return;
+    }
+    switch (keyEventEnum) {
+      case LEFT:
+        this.prepareCardListService.moveLeft(cardListSize, fromLocal);
+        if (!fromLocal) {
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case RIGHT:
+        this.prepareCardListService.moveRight(cardListSize, fromLocal);
+        if (!fromLocal) {
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case UP:
+        this.prepareCardListService.moveUp(cardListSize, fromLocal);
+        if (!fromLocal) {
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case DOWN:
+        this.prepareCardListService.moveDown(cardListSize, fromLocal);
+        if (!fromLocal) {
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+        }
+        break;
+      case DETAIL:
+        break;
+      case CANCEL:
     }
   }
 }

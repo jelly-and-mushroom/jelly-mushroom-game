@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.entity.game;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,5 +59,10 @@ public class GameRoleEntity {
   /**
    * 因角色特性，每小局游戏开始时，固定可获得的状态(例如狼人的狂怒)
    */
-  private List<GameStateEntity> gameStateList = new ArrayList<>();
+  private List<Integer> gameStateIndexList = new ArrayList<>();
+
+  /**
+   * 初始卡牌index列表
+   */
+  private List<Integer> initCardIndexList = new ArrayList<>();
 }

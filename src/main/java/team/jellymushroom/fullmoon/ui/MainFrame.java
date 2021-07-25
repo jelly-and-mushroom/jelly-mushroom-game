@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
+import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
+import team.jellymushroom.fullmoon.ui.module.CardModule;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
 import team.jellymushroom.fullmoon.ui.module.MainFrameModule;
 import team.jellymushroom.fullmoon.ui.module.WaitConnectModule;
@@ -70,6 +72,11 @@ public class MainFrame extends Frame {
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
       this.resource.getGameRoleImgMap().put(roleEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/role/original/" + roleEntry.getKey() + ".png")));
       this.resource.getGameDimRoleImgMap().put(roleEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/role/dim/" + roleEntry.getKey() + ".png")));
+    }
+    // 加载卡牌图片
+    Map<Integer, CardEntity> cardMap = this.uiService.getResourceService().getServiceResourceEntity().getCardMap();
+    for (Map.Entry<Integer, CardEntity> cardEntry : cardMap.entrySet()) {
+      this.resource.getCardImgMap().put(cardEntry.getKey(), ImageIO.read(new File(resourceRootPath + "/material/image/card/" + cardEntry.getKey() + ".png")));
     }
     // 加载确认图片
     this.resource.setConfirmImg(ImageIO.read(new File(resourceRootPath + "/material/image/confirm.png")));

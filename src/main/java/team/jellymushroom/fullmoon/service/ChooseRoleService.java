@@ -57,10 +57,10 @@ public class ChooseRoleService {
   }
 
   public void confirm() {
-    this.mainService.getPlayerMyself().initByRole(ServerControlEntity.getInstance().getCurrentChooseRole());
+    this.mainService.getPlayerMyself().initByRole(ServerControlEntity.getInstance().getCurrentChooseRole(), this.resourceService);
   }
 
   public void confirmOpponent() {
-    this.mainService.getPlayerOpponent().initByRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole());
+    this.mainService.getPlayerOpponent().initByRole(ServerControlEntity.getInstance().getOpponentCurrentChooseRole(), this.resourceService);
   }
 }

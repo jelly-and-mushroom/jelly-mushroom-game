@@ -3,6 +3,7 @@ package team.jellymushroom.fullmoon.entity.game;
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
+import team.jellymushroom.fullmoon.service.ResourceService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +84,14 @@ public class PlayerEntity {
    */
   private Integer gold = 0;
 
-  public void initByRole(GameRoleEntity role) {
+  public void initByRole(GameRoleEntity role, ResourceService resourceService) {
     this.gameRoleEntity = role;
     this.maxHp = this.gameRoleEntity.getInitMaxHp();
     this.initMp = this.gameRoleEntity.getInitMp();
     this.maxAction = this.gameRoleEntity.getInitMaxAction();
     this.gold = this.gameRoleEntity.getInitGold();
+    if (!role.getInitCardIndexList().isEmpty()) {
+      role.getInitCardIndexList().forEach(e -> this.cardList.add(resourceService.getServiceResourceEntity().getCardMap().get(e)));
+    }
   }
 }

@@ -90,7 +90,7 @@ public class ResourceService {
         case SPECIAL:
           cardEntity = JSONObject.parseObject(gameCardJSONObject.toJSONString(), SpecialCardEntity.class);
       }
-      this.serviceResourceEntity.getCardList().add(cardEntity);
+      this.serviceResourceEntity.addCardList(cardEntity);
       this.serviceResourceEntity.getCardMap().put(cardEntity.getIndex(), cardEntity);
     }
     log.info("游戏卡牌数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getCardList().size());

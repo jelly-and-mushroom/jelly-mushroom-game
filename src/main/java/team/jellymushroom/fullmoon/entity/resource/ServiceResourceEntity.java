@@ -35,4 +35,24 @@ public class ServiceResourceEntity {
    * key: gameStateEntity.index
    */
   private Map<Integer, GameStateEntity> gameStateMap = new HashMap<>();
+
+  public void addCardList(CardEntity card) {
+    if (this.cardList.isEmpty()) {
+      this.cardList.add(card);
+      return;
+    }
+    Integer insertIndex = null;
+    for (int i = 0; i < this.cardList.size(); i++) {
+      if (this.cardList.get(i).getIndex() <= card.getIndex()) {
+        continue;
+      }
+      insertIndex = i;
+      break;
+    }
+    if (null == insertIndex) {
+      this.cardList.add(card);
+      return;
+    }
+    this.cardList.add(insertIndex, card);
+  }
 }

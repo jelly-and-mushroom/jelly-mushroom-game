@@ -279,6 +279,15 @@ public class KeyEventService {
       case DETAIL:
         break;
       case CANCEL:
+        player.setStage(GameStageEnum.PREPARE);
+        if (fromLocal) {
+          ServerControlEntity.getInstance().setPrepareCardListIndex(0);
+        } else {
+          ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
+          HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
+        }
     }
   }
 }

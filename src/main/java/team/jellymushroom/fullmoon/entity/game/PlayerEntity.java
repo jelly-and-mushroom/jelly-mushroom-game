@@ -91,7 +91,7 @@ public class PlayerEntity {
     this.maxAction = this.gameRoleEntity.getInitMaxAction();
     this.gold = this.gameRoleEntity.getInitGold();
     if (!role.getInitCardIndexList().isEmpty()) {
-      role.getInitCardIndexList().forEach(e -> this.cardList.add(resourceService.getServiceResourceEntity().getCardMap().get(e)));
+      role.getInitCardIndexList().forEach(e -> this.cardList.add(resourceService.getServiceResourceEntity().getCardMap().get(e).copy()));
     }
   }
 }

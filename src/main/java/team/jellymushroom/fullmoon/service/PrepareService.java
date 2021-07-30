@@ -27,6 +27,15 @@ public class PrepareService {
   }
 
   private void confirm(PrepareOptionEnum prepare, PlayerEntity player) {
+    if (PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT.equals(prepare)) {
+      int wishGold = player.getGold() - prepare.getPrice();
+      if (wishGold < 0) {
+        return;
+      }
+      player.setInitEquipmentSlotSize(player.getInitEquipmentSlotSize() + prepare.getValue());
+      player.setGold(wishGold);
+      return;
+    }
     if (PrepareOptionEnum.PROMOTE_MAX_HP.equals(prepare)) {
       int wishGold = player.getGold() - prepare.getPrice();
       if (wishGold < 0) {

@@ -35,6 +35,10 @@ public class PrepareOptionModule extends Module {
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       return;
     }
+    if (PrepareOptionEnum.INTENSIFY_CARD.equals(this.prepareOption) || PrepareOptionEnum.DELETE_CARD.equals(this.prepareOption)) {
+      super.drawFont(g, this.iX + 70, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
+      return;
+    }
     if (this.prepareOption.getValue() == -1) {
       super.drawFont(g, this.iX + 125, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       return;

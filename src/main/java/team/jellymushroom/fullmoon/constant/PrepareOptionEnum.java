@@ -8,24 +8,25 @@ import java.util.Map;
 @Getter
 public enum PrepareOptionEnum {
   // 第一行
-  MY_CARD_REPOSITORY (0, "我的牌库", -1, -1, -1, 1, 1, 12, 2),
-  MY_BLESSING (1, "受到祝福", -1, -1, -1,  0, 0, 12, 3),
+  MY_CARD_REPOSITORY (0, "我的牌库", -1, -1, -1, 1, 1, 13, 2),
+  MY_BLESSING (1, "受到祝福", -1, -1, -1,  0, 0, 13, 3),
   // 第二行
   BY_CARD (2, "购买卡牌", -1, -1, -1,  3, 3, 0, 4),
-  BY_BLESSING (3, "购买祝福", -1, -1, -1,  2, 2, 1, 5),
+  BY_BLESSING (3, "购买祝福", -1, -1, -1,  2, 2, 1, 6),
   // 第三行
-  INTENSIFY_CARD (4, "强化卡牌", 30, -1, -1,  5, 5, 2, 6),
-  DELETE_CARD (5, "删除卡牌", 50, -1, -1,  4, 4, 3, 8),
+  INTENSIFY_CARD (4, "强化卡牌", 30, -1, -1,  6, 5, 2, 7),
+  DELETE_CARD (5, "删除卡牌", 50, -1, -1,  4, 6, 2, 8),
+  PROMOTE_EQUIPMENT_SLOT (6, "装备槽数量+", 50, 1, -1, 5, 4, 3, 9),
   // 第四行
-  PROMOTE_MAX_HP (6, "生命值上限+", 20, 9, -1, 8, 7, 4, 9),
-  PROMOTE_INIT_MP (7, "初始魔法值+", 20, 6, -1, 6, 8, 4, 10),
-  PROMOTE_MAX_ACTION (8, "行动力上限+", 50, 1, -1, 7, 6, 5, 11),
+  PROMOTE_MAX_HP (7, "生命值上限+", 20, 9, -1, 9, 8, 4, 10),
+  PROMOTE_INIT_MP (8, "初始魔法值+", 20, 6, -1, 7, 9, 5, 11),
+  PROMOTE_MAX_ACTION (9, "行动力上限+", 50, 1, -1, 8, 7, 6, 12),
   // 第五行
-  PROMOTE_INIT_HAND_CARD (9, "初始手牌+", 50, 1, 5, 11, 10, 6, 12),
-  PROMOTE_MAX_HAND_CARD_SIZE (10, "手牌上限+", 50, 1, 5, 9, 11, 7, 12),
-  PROMOTE_DRAW_CARD_SIZE (11, "抽取牌数+", 99, 1, 3, 10, 9, 8, 12),
+  PROMOTE_INIT_HAND_CARD (10, "初始手牌+", 50, 1, 5, 12, 11, 7, 13),
+  PROMOTE_MAX_HAND_CARD_SIZE (11, "手牌上限+", 50, 1, 5, 10, 12, 8, 13),
+  PROMOTE_DRAW_CARD_SIZE (12, "抽取牌数+", 99, 1, 3, 11, 10, 9, 13),
   // 第六行
-  DONE (12, "准备完成", -1, -1, -1, 12, 12, 9, 0);
+  DONE (13, "准备完成", -1, -1, -1, 13, 13, 11, 0);
 
   private Integer index;
 
@@ -51,25 +52,21 @@ public enum PrepareOptionEnum {
 
   /**
    * 在本选项上时，按下 左 会到达的选项
-   * -1 表示无意义
    */
   private Integer leftIndex;
 
   /**
    * 在本选项上时，按下 右 会到达的选项
-   * -1 表示无意义
    */
   private Integer rightIndex;
 
   /**
    * 在本选项上时，按下 上 会到达的选项
-   * -1 表示无意义
    */
   private Integer upIndex;
 
   /**
    * 在本选项上时，按下 下 会到达的选项
-   * -1 表示无意义
    */
   private Integer downIndex;
 

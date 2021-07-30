@@ -5,12 +5,12 @@ import lombok.Getter;
 @Getter
 public enum CardTypeEnum {
 
-  ATTACK (0, 999, "攻击牌"),
-  ACTION (1000, 1999, "行动牌"),
-  SPELL (2000, 2999, "咒术牌"),
-  MANA (3000, 3999, "法力牌"),
-  COUNTER (4000, 4999, "反制牌"),
-  EQUIPMENT (5000, 5999, "装备牌"),
+  EQUIPMENT (0, 999, "装备牌"),
+  ATTACK (1000, 1999, "攻击牌"),
+  ACTION (2000, 2999, "行动牌"),
+  SPELL (3000, 3999, "咒术牌"),
+  MANA (4000, 4999, "法力牌"),
+  COUNTER (5000, 5999, "反制牌"),
   PRAYER (6000, 6999, "祷告牌"),
   SPECIAL (7000, 7999, "特殊牌");
 

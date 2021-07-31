@@ -389,6 +389,10 @@ public class HttpTransferService {
     HttpCardEntity httpCard = new HttpCardEntity();
     httpCard.setIndex(card.getIndex());
     httpCard.setTemp(card.getTemp() ? 1 : 0);
+    if (card instanceof EquipmentCardEntity) {
+      EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
+      httpCard.setPlace(equipmentCard.getPlace() ? 1 : 0);
+    }
     return httpCard;
   }
 
@@ -396,6 +400,11 @@ public class HttpTransferService {
     CardEntity card = this.resourceService.getServiceResourceEntity().getCardMap().get(httpCard.getIndex()).copy();
     if (httpCard.getTemp() == 1) {
       card.setTemp(true);
+    }
+    if ((card instanceof EquipmentCardEntity) && httpCard.getPlace() == 1) {
+      EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
+      equipmentCard.setPlace(true);
+      card = equipmentCard;
     }
     return card;
   }

@@ -9,6 +9,8 @@ import lombok.SneakyThrows;
 @Data
 public class EquipmentCardEntity extends CardEntity {
 
+  private Boolean place = false;
+
   @SneakyThrows
   @Override
   public CardEntity copy() {

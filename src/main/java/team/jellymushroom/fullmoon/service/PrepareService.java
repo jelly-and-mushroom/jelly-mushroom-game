@@ -4,6 +4,10 @@ import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
+import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
+import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
+
+import java.util.List;
 
 @Service
 public class PrepareService {
@@ -24,6 +28,21 @@ public class PrepareService {
     PrepareOptionEnum prepare = ServerControlEntity.getInstance().getOpponentPrepare();
     PlayerEntity player = this.mainService.getPlayerOpponent();
     this.confirm(prepare, player);
+  }
+
+  public int getEquipmentInSoltSize() {
+    int result = 0;
+    List<CardEntity> cardList = this.mainService.getPlayerMyself().getCardList();
+    for (CardEntity card : cardList) {
+      if (!(card instanceof EquipmentCardEntity)) {
+        continue;
+      }
+      EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
+      if (equipmentCard.getPlace()) {
+        result++;
+      }
+    }
+    return result;
   }
 
   private void confirm(PrepareOptionEnum prepare, PlayerEntity player) {

@@ -12,8 +12,12 @@ public class UIService {
   @Getter
   private ResourceService resourceService;
 
-  public UIService(MainService mainService, ResourceService resourceService) {
+  @Getter
+  private PrepareService prepareService;
+
+  public UIService(MainService mainService, ResourceService resourceService, PrepareService prepareService) {
     this.mainService = mainService;
     this.resourceService = resourceService;
+    this.prepareService = prepareService;
   }
 }

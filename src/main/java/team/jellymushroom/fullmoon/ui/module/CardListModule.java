@@ -99,12 +99,12 @@ public class CardListModule extends Module {
       if (cardListSize % pageSize != 0) {
         totalpage++;
       }
-      int equipmentInSoltSize = 15;
+      int equipmentInSoltSize = this.uiService.getPrepareService().getEquipmentInSoltSize();
       int slotSize = this.uiService.getMainService().getPlayerMyself().getInitEquipmentSlotSize();
       super.drawFont(g, this.iX + 140, this.iY + yAdd, this.prepareOption.getDescription() + "(总计:" + cardListSize + "张)", Color.WHITE, fontStyle, fontSize);
       Color limitColor = equipmentInSoltSize<slotSize ? Color.CYAN : Color.PINK;
-      super.drawFont(g, this.iX + 180, this.iY + yAdd, this.prepareOption.getDescription() + "[装备槽:" + equipmentInSoltSize + "/" + slotSize + "]", limitColor, fontStyle, fontSize);
-      super.drawFont(g, this.iX + 229, this.iY + yAdd, this.prepareOption.getDescription() + "[第" + currentPage+"/" + totalpage + "页]", Color.WHITE, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 240, this.iY + yAdd, this.prepareOption.getDescription() + "[装备槽:" + equipmentInSoltSize + "/" + slotSize + "]", limitColor, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription() + "[第" + currentPage+"/" + totalpage + "页]", Color.WHITE, fontStyle, fontSize);
       return;
     }
   }

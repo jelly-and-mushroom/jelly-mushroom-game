@@ -76,6 +76,9 @@ public class KeyEventService {
         break;
       case PREPARE_MY_CARD_REPOSITORY_DETAIL:
         this.handlePrepareMyCardRepositoryDetail(fromLocal, keyEventEnum);
+        break;
+      case PREPARE_BY_CARD:
+        this.handlePrepareByCard(fromLocal, keyEventEnum);
     }
   }
 
@@ -218,23 +221,20 @@ public class KeyEventService {
       case CONFIRM:
         if (fromLocal) {
           this.prepareService.confirm();
+          ServerControlEntity.getInstance().setPrepareCardListIndex(0);
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
-            ServerControlEntity.getInstance().setPrepareCardListIndex(0);
             this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
-            ServerControlEntity.getInstance().setPrepareCardListIndex(0);
             this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_BY_CARD);
           }
         } else {
           this.prepareService.confirmOpponent();
+          ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
           HttpServerControlEntity serverControl = new HttpServerControlEntity();
+          serverControl.setPrepareCardListIndex(0);
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
-            ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
-            serverControl.setPrepareCardListIndex(0);
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
-            ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
-            serverControl.setPrepareCardListIndex(0);
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_BY_CARD);
           }
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
@@ -315,5 +315,8 @@ public class KeyEventService {
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
     }
+  }
+
+  private void handlePrepareByCard(boolean fromLocal, KeyEventEnum keyEventEnum) {
   }
 }

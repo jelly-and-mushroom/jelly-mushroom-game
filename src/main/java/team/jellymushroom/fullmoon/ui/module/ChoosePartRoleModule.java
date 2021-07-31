@@ -17,7 +17,7 @@ public class ChoosePartRoleModule extends Module {
 
   private Integer confirmX;
 
-  private static final Integer CONFIRM_SIZE = 30;
+  public static final Integer CONFIRM_SIZE = 30;
 
   public ChoosePartRoleModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameRoleEntity gameRoleEntity, Boolean light, Boolean confirm) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);

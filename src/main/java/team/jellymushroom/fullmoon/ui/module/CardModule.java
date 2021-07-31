@@ -31,11 +31,14 @@ public class CardModule extends Module {
   @Override
   public void draw(Graphics g) {
     BufferedImage img = this.resource.getCardImgMap().get(card.getIndex());
+    BufferedImage confirmImg = this.resource.getConfirmImg();
     g.drawImage(img, this.iX, this.iY, this.iX + iWidth, this.iY + iHeight, 486, 305, 1046, 1147, null);
     if (card instanceof EquipmentCardEntity) {
       EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
       if (equipmentCard.getPlace()) {
-        super.drawFont(g, this.iX + 10, this.iY + 43, "装备中", Color.BLACK, Font.PLAIN, 20);
+        int confirmX = this.iX + this.iWidth - (EDGING_WIDTH + ChoosePartRoleModule.CONFIRM_SIZE);
+        int confirmY = this.iY + EDGING_WIDTH;
+        g.drawImage(confirmImg, confirmX, confirmY, confirmX + ChoosePartRoleModule.CONFIRM_SIZE, confirmY + ChoosePartRoleModule.CONFIRM_SIZE, 0, 0, confirmImg.getWidth(), confirmImg.getHeight(), null);
       }
     }
     if (this.showWindow) {

@@ -60,7 +60,7 @@ public abstract class Module {
   /**
    * 边框图片宽度
    */
-  private static final Integer EDGING_WIDTH = 7;
+  static final Integer EDGING_WIDTH = 7;
 
   Module(UIService uiService, UIResourceEntity resource, Integer oX, Integer oY, Integer oWidth, Integer oHeight, Integer padding) {
     this.uiService = uiService;

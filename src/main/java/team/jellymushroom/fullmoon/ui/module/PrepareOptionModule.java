@@ -39,6 +39,13 @@ public class PrepareOptionModule extends Module {
       super.drawFont(g, this.iX + 70, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       return;
     }
+    int currentValue = this.getCurrentValue();
+    if (PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT.equals(this.prepareOption)) {
+      super.drawFont(g, this.iX + 25, this.iY + yAdd, this.prepareOption.getDescription() + this.prepareOption.getValue() , Color.WHITE, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 120, this.iY + yAdd, "[" + currentValue + "]", Color.CYAN, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 165, this.iY + yAdd, "(" + this.prepareOption.getPrice() + ")" , Color.ORANGE, fontStyle, fontSize);
+      return;
+    }
     if (this.prepareOption.getValue() == -1) {
       super.drawFont(g, this.iX + 125, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       return;
@@ -48,7 +55,6 @@ public class PrepareOptionModule extends Module {
       super.drawFont(g, this.iX + 165, this.iY + yAdd, "(" + this.prepareOption.getPrice() + ")" , Color.ORANGE, fontStyle, fontSize);
       return;
     }
-    int currentValue = this.getCurrentValue();
     Color limitColor = currentValue<this.prepareOption.getLimitValue() ? Color.CYAN : Color.PINK;
     super.drawFont(g, this.iX + 10, this.iY + yAdd, this.prepareOption.getDescription() + this.prepareOption.getValue(), Color.WHITE, fontStyle, fontSize);
     super.drawFont(g, this.iX + 120, this.iY + yAdd, "[" + currentValue + "/" + this.prepareOption.getLimitValue() + "]", limitColor, fontStyle, fontSize);
@@ -64,6 +70,9 @@ public class PrepareOptionModule extends Module {
     }
     if (PrepareOptionEnum.PROMOTE_DRAW_CARD_SIZE.equals(this.prepareOption)) {
       return this.uiService.getMainService().getPlayerMyself().getDrawCardSize();
+    }
+    if (PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT.equals(this.prepareOption)) {
+      return this.uiService.getMainService().getPlayerMyself().getInitEquipmentSlotSize();
     }
     return -1;
   }

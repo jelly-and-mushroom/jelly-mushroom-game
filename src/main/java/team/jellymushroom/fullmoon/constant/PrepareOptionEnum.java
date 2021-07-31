@@ -16,7 +16,7 @@ public enum PrepareOptionEnum {
   // 第三行
   INTENSIFY_CARD (4, "强化卡牌", 30, -1, -1,  6, 5, 2, 7),
   DELETE_CARD (5, "删除卡牌", 50, -1, -1,  4, 6, 2, 8),
-  PROMOTE_EQUIPMENT_SLOT (6, "装备槽数量+", 50, 1, -1, 5, 4, 3, 9),
+  PROMOTE_EQUIPMENT_SLOT (6, "装备槽+", 50, 1, -1, 5, 4, 3, 9),
   // 第四行
   PROMOTE_MAX_HP (7, "生命值上限+", 20, 9, -1, 9, 8, 4, 10),
   PROMOTE_INIT_MP (8, "初始魔法值+", 20, 6, -1, 7, 9, 5, 11),

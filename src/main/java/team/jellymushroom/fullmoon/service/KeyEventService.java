@@ -287,6 +287,12 @@ public class KeyEventService {
           new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
         break;
+      case CONFIRM:
+        boolean confirmNeedSend = this.prepareCardListService.confirm(fromLocal);
+        if (!fromLocal && confirmNeedSend) {
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        }
+        break;
       case CANCEL:
         player.setStage(GameStageEnum.PREPARE);
         if (fromLocal) {

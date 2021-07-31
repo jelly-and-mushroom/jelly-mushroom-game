@@ -30,9 +30,10 @@ public class PrepareService {
     this.confirm(prepare, player);
   }
 
-  public int getEquipmentInSoltSize() {
+  public int getEquipmentInSoltSize(boolean myself) {
     int result = 0;
-    List<CardEntity> cardList = this.mainService.getPlayerMyself().getCardList();
+    PlayerEntity player = myself ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
+    List<CardEntity> cardList = player.getCardList();
     for (CardEntity card : cardList) {
       if (!(card instanceof EquipmentCardEntity)) {
         continue;

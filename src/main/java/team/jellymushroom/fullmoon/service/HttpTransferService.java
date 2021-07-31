@@ -404,7 +404,6 @@ public class HttpTransferService {
     if ((card instanceof EquipmentCardEntity) && httpCard.getPlace() == 1) {
       EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
       equipmentCard.setPlace(true);
-      card = equipmentCard;
     }
     return card;
   }

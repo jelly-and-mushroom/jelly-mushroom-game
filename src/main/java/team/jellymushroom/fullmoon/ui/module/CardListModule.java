@@ -59,7 +59,7 @@ public class CardListModule extends Module {
       int columnIndex = 0;
       for (int i = startIndex; i <= endIndex; i++) {
         boolean highLight = i==highLightCardIndex ? true : false;
-        new CardModule(this.uiService, this.resource, this.iX + columnIndex * cardWidth, firstRowY + rowIndex * cardHeight, cardWidth, cardHeight, 0, cardList.get(i).getIndex(), highLight).draw(g);
+        new CardModule(this.uiService, this.resource, this.iX + columnIndex * cardWidth, firstRowY + rowIndex * cardHeight, cardWidth, cardHeight, 0, cardList.get(i), highLight).draw(g);
         columnIndex++;
         if (columnIndex == CARD_COLUMN) {
           columnIndex = 0;
@@ -84,7 +84,7 @@ public class CardListModule extends Module {
           this.iX + (this.iWidth - detailCardWidth) / 2,
           this.iY + (this.iHeight - detailCardHeight) / 2,
           detailCardWidth, detailCardHeight, 0,
-          this.uiService.getMainService().getPlayerMyself().getCardList().get(ServerControlEntity.getInstance().getPrepareCardListIndex()).getIndex(),
+          this.uiService.getMainService().getPlayerMyself().getCardList().get(ServerControlEntity.getInstance().getPrepareCardListIndex()),
           true).draw(g);
     }
   }
@@ -99,12 +99,12 @@ public class CardListModule extends Module {
       if (cardListSize % pageSize != 0) {
         totalpage++;
       }
-      int equipmentInSoltSize = this.uiService.getPrepareService().getEquipmentInSoltSize();
+      int equipmentInSoltSize = this.uiService.getPrepareService().getEquipmentInSoltSize(true);
       int slotSize = this.uiService.getMainService().getPlayerMyself().getInitEquipmentSlotSize();
       super.drawFont(g, this.iX + 140, this.iY + yAdd, this.prepareOption.getDescription() + "(总计:" + cardListSize + "张)", Color.WHITE, fontStyle, fontSize);
       Color limitColor = equipmentInSoltSize<slotSize ? Color.CYAN : Color.PINK;
-      super.drawFont(g, this.iX + 240, this.iY + yAdd, this.prepareOption.getDescription() + "[装备槽:" + equipmentInSoltSize + "/" + slotSize + "]", limitColor, fontStyle, fontSize);
-      super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription() + "[第" + currentPage+"/" + totalpage + "页]", Color.WHITE, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 335, this.iY + yAdd, "[装备槽:" + equipmentInSoltSize + "/" + slotSize + "]", limitColor, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 500, this.iY + yAdd, "[第" + currentPage+"/" + totalpage + "页]", Color.WHITE, fontStyle, fontSize);
       return;
     }
   }

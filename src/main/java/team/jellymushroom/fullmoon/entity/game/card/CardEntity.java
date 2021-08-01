@@ -1,6 +1,8 @@
 package team.jellymushroom.fullmoon.entity.game.card;
 
 import lombok.Data;
+import team.jellymushroom.fullmoon.constant.CardGenreEnum;
+import team.jellymushroom.fullmoon.constant.CardLevelEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +33,13 @@ public abstract class CardEntity implements Cloneable {
 
   /**
    * 只有当本卡牌有星级的概念时，本字段才有意义
-   * 依次记录本卡牌星级序列中各卡牌的index，从1星开始
+   * 从低星至高星，依次记录本卡牌星级序列中各卡牌的index
    */
-  private List<Integer> levelList = new ArrayList<>();
+  private List<Integer> starList = new ArrayList<>();
+
+  private CardLevelEnum level;
+
+  private List<CardGenreEnum> genreValueList = new ArrayList<>();
 
   public abstract CardEntity copy();
 }

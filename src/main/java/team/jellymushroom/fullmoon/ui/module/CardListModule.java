@@ -17,7 +17,7 @@ public class CardListModule extends Module {
 
   public static final Integer CARD_COLUMN = 4;
 
-  private static final Integer CARD_ROW = 2;
+  public static final Integer CARD_ROW = 2;
 
   public CardListModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, PrepareOptionEnum prepareOption) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);

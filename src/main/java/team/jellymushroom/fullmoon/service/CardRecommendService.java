@@ -50,6 +50,10 @@ public class CardRecommendService {
       }
       result.add(recommendCardIndex);
     }
+    // 无可推荐卡牌返回空
+    if (result.isEmpty()) {
+      return result;
+    }
     // 两张特殊卡牌默认占据最后的两个位置
     result.add(cardList.get(cardList.size() - 2).getIndex());
     result.add(cardList.get(cardList.size() - 1).getIndex());

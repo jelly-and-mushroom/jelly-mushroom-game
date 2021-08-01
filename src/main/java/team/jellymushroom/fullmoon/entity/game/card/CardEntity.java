@@ -39,7 +39,7 @@ public abstract class CardEntity implements Cloneable {
 
   private CardLevelEnum level;
 
-  private List<CardGenreEnum> genreValueList = new ArrayList<>();
+  private List<CardGenreEnum> genreList = new ArrayList<>();
 
   public abstract CardEntity copy();
 }

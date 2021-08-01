@@ -91,7 +91,7 @@ public class ResourceService {
         case SPECIAL:
           cardEntity = JSONObject.parseObject(gameCardJSONObject.toJSONString(), SpecialCardEntity.class);
       }
-      cardEntity.setLevel(CardLevelEnum.getEnumByLevel(gameCardJSONObject.getString("levelValue")));
+//      cardEntity.setLevel(CardLevelEnum.getEnumByLevel(gameCardJSONObject.getString("level")));
       this.serviceResourceEntity.addCardList(cardEntity);
       this.serviceResourceEntity.getCardMap().put(cardEntity.getIndex(), cardEntity);
     }

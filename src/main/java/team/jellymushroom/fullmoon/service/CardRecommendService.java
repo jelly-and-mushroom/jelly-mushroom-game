@@ -27,11 +27,11 @@ public class CardRecommendService {
     this.resourceService = resourceService;
   }
 
-  public List<CardEntity> byCard(boolean myself) {
+  public List<Integer> byCard(boolean myself) {
     // 返回卡牌数：前端能一屏显示的数量
     int resultSize = CardListModule.CARD_COLUMN * CardListModule.CARD_ROW;
     // 结果列表
-    List<CardEntity> result = new ArrayList<>(resultSize);
+    List<Integer> result = new ArrayList<>(resultSize);
     // 卡牌列表
     List<CardEntity> cardList = this.resourceService.getServiceResourceEntity().getCardList();
     Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
@@ -48,11 +48,11 @@ public class CardRecommendService {
       if (null == recommendCardIndex) {
         break;
       }
-      result.add(cardMap.get(recommendCardIndex).copy());
+      result.add(recommendCardIndex);
     }
     // 两张特殊卡牌默认占据最后的两个位置
-    result.add(cardList.get(cardList.size() - 2).copy());
-    result.add(cardList.get(cardList.size() - 1).copy());
+    result.add(cardList.get(cardList.size() - 2).getIndex());
+    result.add(cardList.get(cardList.size() - 1).getIndex());
     // 返回结果列表
     return result;
   }

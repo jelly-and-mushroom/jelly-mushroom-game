@@ -42,4 +42,13 @@ public abstract class CardEntity implements Cloneable {
   private List<CardGenreEnum> genreList = new ArrayList<>();
 
   public abstract CardEntity copy();
+
+  public boolean getatable(int roleIndex) {
+    for (Integer roleGetatable : this.roleIndexList) {
+      if (roleGetatable == roleIndex) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

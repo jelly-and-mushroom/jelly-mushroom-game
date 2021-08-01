@@ -8,11 +8,11 @@ import java.util.Map;
 @Getter
 public enum CardLevelEnum {
 
-  LEVEL_S ("S", 90, 0.8, 1),
-  LEVEL_A ("A", 60, 0.8, 2),
-  LEVEL_B ("B", 30, 0.8, 3);
+  LEVEL_0 (0, 90, 0.8, 1),
+  LEVEL_1 (1, 60, 0.8, 2),
+  LEVEL_2 (2, 30, 0.8, 3);
 
-  private String level;
+  private Integer index;
 
   /**
    * 满星/无星 状态下价格
@@ -29,16 +29,16 @@ public enum CardLevelEnum {
    */
   private int recommendSorce;
 
-  private static Map<String, CardLevelEnum> VALUE_MAP = new HashMap<>(CardLevelEnum.values().length);
+  private static Map<Integer, CardLevelEnum> VALUE_MAP = new HashMap<>(CardLevelEnum.values().length);
 
   static {
     for (CardLevelEnum e : CardLevelEnum.values()) {
-      VALUE_MAP.put(e.level, e);
+      VALUE_MAP.put(e.index, e);
     }
   }
 
-  CardLevelEnum(String level, int price, double priveBreakage, int recommendSorce) {
-    this.level = level;
+  CardLevelEnum(Integer index, int price, double priveBreakage, int recommendSorce) {
+    this.index = index;
     this.price = price;
     this.priveBreakage = priveBreakage;
     this.recommendSorce = recommendSorce;
@@ -48,7 +48,7 @@ public enum CardLevelEnum {
    * 若入参为null,返回null
    * 若未找到对应枚举实例，返回null
    */
-  public static CardLevelEnum getEnumByLevel(String level) {
-    return VALUE_MAP.get(level);
+  public static CardLevelEnum getEnumByIndex(Integer index) {
+    return VALUE_MAP.get(index);
   }
 }

@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import team.jellymushroom.fullmoon.constant.CardLevelEnum;
 import team.jellymushroom.fullmoon.constant.CardTypeEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.*;
@@ -91,7 +90,6 @@ public class ResourceService {
         case SPECIAL:
           cardEntity = JSONObject.parseObject(gameCardJSONObject.toJSONString(), SpecialCardEntity.class);
       }
-//      cardEntity.setLevel(CardLevelEnum.getEnumByLevel(gameCardJSONObject.getString("level")));
       this.serviceResourceEntity.addCardList(cardEntity);
       this.serviceResourceEntity.getCardMap().put(cardEntity.getIndex(), cardEntity);
     }

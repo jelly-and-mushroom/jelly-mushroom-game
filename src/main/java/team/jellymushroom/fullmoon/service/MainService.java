@@ -17,7 +17,7 @@ public class MainService {
 
   @Getter
   @Setter
-  private GameEntity gameEntity;
+  private GameEntity gameEntity = new GameEntity();;
 
   private ResourceService resourceService;
 
@@ -43,7 +43,6 @@ public class MainService {
 
   public void initGame() {
     // 初始化游戏
-    this.gameEntity = new GameEntity();
     ServerControlEntity.getInstance().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
     ServerControlEntity.getInstance().setOpponentCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
     ServerControlEntity.getInstance().setIsServer(true);

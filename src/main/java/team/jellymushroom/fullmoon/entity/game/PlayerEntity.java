@@ -14,6 +14,8 @@ import java.util.List;
 @Data
 public class PlayerEntity {
 
+  private SignalEntity signal;
+
   /**
    * 所处阶段
    */

@@ -11,10 +11,7 @@ import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.PrayerCardEntity;
 import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpCardEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpGameInnerEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpPlayerEntity;
+import team.jellymushroom.fullmoon.entity.http.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +99,10 @@ public class HttpTransferService {
   private HttpPlayerEntity convert(PlayerEntity player) {
     // 返回值
     HttpPlayerEntity httpPlayer = new HttpPlayerEntity();
+    // 控制信号
+    if (null != player.getSignal()) {
+      httpPlayer.setHttpSignal(this.convert(player.getSignal()));
+    }
     // 玩家所处阶段
     if (null != player.getStage()) {
       httpPlayer.setStageIndex(player.getStage().getIndex());
@@ -165,6 +166,10 @@ public class HttpTransferService {
   private PlayerEntity convert(HttpPlayerEntity httpPlayer) {
     // 返回值
     PlayerEntity player = new PlayerEntity();
+    // 控制信号
+    if (null != httpPlayer.getHttpSignal()) {
+      player.setSignal(this.convert(httpPlayer.getHttpSignal()));
+    }
     // 玩家所处阶段
     if (null != httpPlayer.getStageIndex()) {
       player.setStage(GameStageEnum.getEnumByIndex(httpPlayer.getStageIndex()));
@@ -221,6 +226,20 @@ public class HttpTransferService {
     }
     // 返回
     return player;
+  }
+
+  public HttpSignalEntity convert(SignalEntity signal) {
+    // 返回值
+    HttpSignalEntity httpSignal = new HttpSignalEntity();
+    // 返回
+    return httpSignal;
+  }
+
+  public SignalEntity convert(HttpSignalEntity httpSignal) {
+    // 返回值
+    SignalEntity signal = new SignalEntity();
+    // 返回
+    return signal;
   }
 
   private HttpGameInnerEntity convert(GameInnerEntity gameInner) {

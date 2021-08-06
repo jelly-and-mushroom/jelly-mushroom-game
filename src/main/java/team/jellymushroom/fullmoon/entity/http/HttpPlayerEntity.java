@@ -11,6 +11,8 @@ import java.util.List;
 @Data
 public class HttpPlayerEntity {
 
+  private HttpSignalEntity httpSignal;
+
   private Integer stageIndex;
 
   private Integer gameRoleIndex;

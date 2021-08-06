@@ -5,13 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.keylistener.GameKeyListener;
 import team.jellymushroom.fullmoon.service.UIService;
-import team.jellymushroom.fullmoon.ui.module.CardModule;
 import team.jellymushroom.fullmoon.ui.module.ChooseRoleModule;
 import team.jellymushroom.fullmoon.ui.module.MainFrameModule;
 import team.jellymushroom.fullmoon.ui.module.WaitConnectModule;
@@ -113,7 +111,7 @@ public class MainFrame extends Frame {
 
   @Override
   public void paint(Graphics g) {
-    Boolean isServer = ServerControlEntity.getInstance().getIsServer();
+    Boolean isServer = this.uiService.getMainService().getIsServer();
     int oY = 29;
     int oWidth = 1024;
     int oHeight = 739;

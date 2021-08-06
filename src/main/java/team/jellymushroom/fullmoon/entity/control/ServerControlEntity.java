@@ -21,11 +21,6 @@ public class ServerControlEntity {
   }
 
   /**
-   * true-服务端 false-客户端 null-尚未确定
-   */
-  private Boolean isServer;
-
-  /**
    * 为保证联机事件同步的准确性
    * 当一个要发给远端的http请求尚未收到正确响应前
    * 不接收新的指令输入

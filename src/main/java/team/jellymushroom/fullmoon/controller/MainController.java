@@ -50,7 +50,7 @@ public class MainController {
   @ResponseBody
   public HttpResponseEntity updateGame(@RequestBody JSONObject jsonObject) {
     try {
-      Boolean isServer = ServerControlEntity.getInstance().getIsServer();
+      Boolean isServer = this.mainService.getIsServer();
       if (null != isServer && isServer) {
         String errorMsg = "updateGame接口无效，不应被调用";
         log.error(errorMsg);
@@ -77,7 +77,7 @@ public class MainController {
           ServerControlEntity.getInstance().setPrepareCardListIndex(serverControl.getPrepareCardListIndex());
         }
       }
-      ServerControlEntity.getInstance().setIsServer(false);
+      this.mainService.setIsServer(false);
       return HttpResponseEntity.success(null, null);
     } catch (Exception e) {
       String errorMsg = "updateGame执行时出错";
@@ -90,7 +90,7 @@ public class MainController {
   @ResponseBody
   public HttpResponseEntity receiveKeyEvent(@RequestBody HttpKeyEventEntity httpKeyEventEntity) {
     try {
-      Boolean isServer = ServerControlEntity.getInstance().getIsServer();
+      Boolean isServer = this.mainService.getIsServer();
       if (null == isServer || !isServer) {
         String errorMsg = "receiveKeyEvent接口无效，不应被调用";
         log.error(errorMsg);

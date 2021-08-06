@@ -51,7 +51,7 @@ public class KeyEventService {
       return;
     }
     // 尚未选出服务端，不接受按键
-    Boolean isServer = ServerControlEntity.getInstance().getIsServer();
+    Boolean isServer = this.mainService.getIsServer();
     if (null == isServer) {
       return;
     }

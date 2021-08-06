@@ -3,11 +3,9 @@ package team.jellymushroom.fullmoon.runnable;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import team.jellymushroom.fullmoon.constant.HttpResponseStatusEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpKeyEventEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
 import team.jellymushroom.fullmoon.util.http.HttpClientUtil;
 import team.jellymushroom.fullmoon.util.http.HttpResult;
 
@@ -26,7 +24,7 @@ public class HttpSendKeyEventRunnable implements Runnable {
   @SneakyThrows
   @Override
   public void run() {
-    ServerControlEntity.getInstance().setHttpSendWait(true);
+    this.httpTransferService.setHttpSendWait(true);
     while (true) {
       HttpKeyEventEntity body = new HttpKeyEventEntity();
       body.setKeyCode(this.keyCode);
@@ -47,6 +45,6 @@ public class HttpSendKeyEventRunnable implements Runnable {
       log.info("客户端发送指令 {} 给服务端成功", this.keyCode);
       break;
     }
-    ServerControlEntity.getInstance().setHttpSendWait(false);
+    this.httpTransferService.setHttpSendWait(false);
   }
 }

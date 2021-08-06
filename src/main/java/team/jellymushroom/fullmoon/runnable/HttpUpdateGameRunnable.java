@@ -30,7 +30,7 @@ public class HttpUpdateGameRunnable implements Runnable {
   @SneakyThrows
   @Override
   public void run() {
-    ServerControlEntity.getInstance().setHttpSendWait(true);
+    this.httpTransferService.setHttpSendWait(true);
     while (true) {
       HttpDataEntity body = new HttpDataEntity();
       body.setServerControl(this.serverControl);
@@ -52,6 +52,6 @@ public class HttpUpdateGameRunnable implements Runnable {
       log.info("服务端向客户端数据同步成功");
       break;
     }
-    ServerControlEntity.getInstance().setHttpSendWait(false);
+    this.httpTransferService.setHttpSendWait(false);
   }
 }

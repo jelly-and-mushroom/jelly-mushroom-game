@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.service;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameResultEnum;
@@ -25,6 +26,15 @@ public class HttpTransferService {
   @Value("${fm.http.opponent.host}")
   @Getter
   private String httpOpponentHost;
+
+  /**
+   * 为保证联机事件同步的准确性
+   * 当一个要发给远端的http请求尚未收到正确响应前
+   * 不接收新的指令输入
+   */
+  @Getter
+  @Setter
+  private Boolean httpSendWait = false;
 
   public static final Long HTTP_RETRY_INTERVAL = 1000L;
 

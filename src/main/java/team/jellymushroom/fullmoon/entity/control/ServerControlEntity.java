@@ -21,13 +21,6 @@ public class ServerControlEntity {
   }
 
   /**
-   * 为保证联机事件同步的准确性
-   * 当一个要发给远端的http请求尚未收到正确响应前
-   * 不接收新的指令输入
-   */
-  private Boolean httpSendWait = false;
-
-  /**
    * 游戏选择阶段，当前选择的角色
    */
   private GameRoleEntity currentChooseRole;

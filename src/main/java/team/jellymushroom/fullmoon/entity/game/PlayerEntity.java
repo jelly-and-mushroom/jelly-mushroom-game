@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class PlayerEntity {
 
-  private SignalEntity signal;
+  private SignalEntity signal = new SignalEntity();
 
   /**
    * 所处阶段
@@ -86,14 +86,14 @@ public class PlayerEntity {
    */
   private Integer gold = 0;
 
-  public void initByRole(GameRoleEntity role, ResourceService resourceService) {
-    this.gameRoleEntity = role;
+  public void initByRole(ResourceService resourceService) {
+    this.gameRoleEntity = this.getSignal().getCurrentChooseRole();
     this.maxHp = this.gameRoleEntity.getInitMaxHp();
     this.initMp = this.gameRoleEntity.getInitMp();
     this.maxAction = this.gameRoleEntity.getInitMaxAction();
     this.gold = this.gameRoleEntity.getInitGold();
-    if (!role.getInitCardIndexList().isEmpty()) {
-      role.getInitCardIndexList().forEach(e -> this.cardList.add(resourceService.getServiceResourceEntity().getCardMap().get(e).copy()));
+    if (!this.gameRoleEntity.getInitCardIndexList().isEmpty()) {
+      this.gameRoleEntity.getInitCardIndexList().forEach(e -> this.cardList.add(resourceService.getServiceResourceEntity().getCardMap().get(e).copy()));
     }
   }
 }

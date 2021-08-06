@@ -9,10 +9,6 @@ import lombok.Data;
 @Data
 public class HttpServerControlEntity {
 
-  private Integer currentChooseRoleIndex;
-
-  private Integer opponentCurrentChooseRoleIndex;
-
   private Integer currentPrepareIndex;
 
   private Integer prepareCardListIndex;

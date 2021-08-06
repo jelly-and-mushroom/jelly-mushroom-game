@@ -2,7 +2,6 @@ package team.jellymushroom.fullmoon.entity.control;
 
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
-import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 
 /**
  * 游戏各阶段用到的信号值
@@ -19,16 +18,6 @@ public class ServerControlEntity {
   public static ServerControlEntity getInstance() {
     return INSTANCE;
   }
-
-  /**
-   * 游戏选择阶段，当前选择的角色
-   */
-  private GameRoleEntity currentChooseRole;
-
-  /**
-   * 游戏选择阶段，对手当前选择的角色
-   */
-  private GameRoleEntity opponentCurrentChooseRole;
 
   /**
    * 游戏准备阶段，当前选择的选项

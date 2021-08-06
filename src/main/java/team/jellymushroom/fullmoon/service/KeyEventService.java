@@ -90,27 +90,19 @@ public class KeyEventService {
       case LEFT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(-1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(-1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
         break;
       case RIGHT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
         break;
       case DETAIL:
@@ -142,27 +134,19 @@ public class KeyEventService {
       case LEFT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(-1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(-1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
         break;
       case RIGHT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(1);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         }
         break;
       case CANCEL:

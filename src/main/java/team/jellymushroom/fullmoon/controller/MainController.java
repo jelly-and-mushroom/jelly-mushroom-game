@@ -5,14 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
-import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.http.*;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
 import team.jellymushroom.fullmoon.service.ResourceService;
-
-import java.util.Map;
 
 @RestController
 @Slf4j
@@ -62,14 +59,7 @@ public class MainController {
         this.mainService.setGameEntity(this.httpTransferService.convert(httpDataEntity.getGame()));
       }
       HttpServerControlEntity serverControl = httpDataEntity.getServerControl();
-      Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
       if (null != serverControl) {
-        if (null != serverControl.getCurrentChooseRoleIndex()) {
-          ServerControlEntity.getInstance().setCurrentChooseRole(gameRoleMap.get(serverControl.getCurrentChooseRoleIndex()));
-        }
-        if (null != serverControl.getOpponentCurrentChooseRoleIndex()) {
-          ServerControlEntity.getInstance().setOpponentCurrentChooseRole(gameRoleMap.get(serverControl.getOpponentCurrentChooseRoleIndex()));
-        }
         if (null != serverControl.getCurrentPrepareIndex()) {
           ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.getEnumByKeyCode(serverControl.getCurrentPrepareIndex()));
         }

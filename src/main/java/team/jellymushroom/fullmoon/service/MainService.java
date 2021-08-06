@@ -3,10 +3,8 @@ package team.jellymushroom.fullmoon.service;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpWaitConnectRunnable;
 
@@ -49,14 +47,11 @@ public class MainService {
   }
 
   public void initGame() {
-    // 初始化游戏
-    ServerControlEntity.getInstance().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
-    ServerControlEntity.getInstance().setOpponentCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
+    // 初始化
     this.isServer = true;
+    this.getPlayerMyself().getSignal().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
+    this.getPlayerOpponent().getSignal().setCurrentChooseRole(this.resourceService.getServiceResourceEntity().getGameRoleMap().get(0));
     // 同步数据给客户端
-    HttpServerControlEntity serverControl = new HttpServerControlEntity();
-    serverControl.setCurrentChooseRoleIndex(ServerControlEntity.getInstance().getOpponentCurrentChooseRole().getIndex());
-    serverControl.setOpponentCurrentChooseRoleIndex(ServerControlEntity.getInstance().getCurrentChooseRole().getIndex());
-    new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.getGameEntity())).start();
+    new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.getGameEntity())).start();
   }
 }

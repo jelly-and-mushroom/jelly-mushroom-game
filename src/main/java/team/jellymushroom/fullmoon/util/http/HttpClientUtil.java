@@ -76,7 +76,7 @@ public class HttpClientUtil {
   private ContentType contentType = ContentType.APPLICATION_JSON;
   private int connTime = 3000;
   private int readTime = 3000;
-  private boolean logMark = true;
+  private boolean logMark = false;
   private HttpServletRequest requestToRelay;
   private Signer signer = null;
   private Set<String> headsWontRelay = Sets.newHashSet("accept", "accept-encoding", "accept-language", "connection", "content-length", "content-type", "host");

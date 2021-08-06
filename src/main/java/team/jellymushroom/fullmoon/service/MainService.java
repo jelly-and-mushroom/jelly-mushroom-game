@@ -17,7 +17,10 @@ public class MainService {
 
   @Getter
   @Setter
-  private GameEntity gameEntity = new GameEntity();;
+  private GameEntity gameEntity = new GameEntity();
+
+  @Getter
+  private Long initTime = System.currentTimeMillis();
 
   private ResourceService resourceService;
 

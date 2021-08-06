@@ -37,7 +37,7 @@ public class MainController {
   public HttpResponseEntity getHttpWaitConnectInfo() {
     try {
       HttpWaitConnectEntity result = new HttpWaitConnectEntity();
-      result.setInitTime(ServerControlEntity.getInstance().getInitTime());
+      result.setInitTime(this.mainService.getInitTime());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
       String errorMsg = "getHttpWaitConnectInfo执行时出错";

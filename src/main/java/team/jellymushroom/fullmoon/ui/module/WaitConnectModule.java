@@ -38,7 +38,7 @@ public class WaitConnectModule extends Module {
   }
 
   private int pointCount() {
-    long timePass = System.currentTimeMillis() - ServerControlEntity.getInstance().getInitTime();
+    long timePass = System.currentTimeMillis() - this.uiService.getMainService().getInitTime();
     return  ((int)(timePass / 1000)) % 4;
   }
 }

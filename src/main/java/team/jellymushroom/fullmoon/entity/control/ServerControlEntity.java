@@ -33,11 +33,6 @@ public class ServerControlEntity {
   private Boolean httpSendWait = false;
 
   /**
-   * 约等于程序启动时间
-   */
-  private Long initTime = System.currentTimeMillis();
-
-  /**
    * 游戏选择阶段，当前选择的角色
    */
   private GameRoleEntity currentChooseRole;

@@ -8,8 +8,5 @@ import lombok.Data;
 @Data
 public class HttpWaitConnectEntity {
 
-  /**
-   * 即 serverControlEntity.initTime
-   */
   private Long initTime;
 }

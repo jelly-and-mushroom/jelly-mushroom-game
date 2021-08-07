@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 public class PrepareMyCardRepositoryDetailStageHandler extends StageHandler {
@@ -40,6 +41,7 @@ public class PrepareMyCardRepositoryDetailStageHandler extends StageHandler {
 
   @Override
   boolean cancel() {
+    super.activePlayer.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
     return false;
   }
 }

@@ -9,6 +9,7 @@ import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 import team.jellymushroom.fullmoon.stagehandler.ChooseRoleDetailStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.ChooseRoleStageHandler;
+import team.jellymushroom.fullmoon.stagehandler.PrepareMyCardRepositoryStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.PrepareStageHandler;
 
 @Service
@@ -21,15 +22,12 @@ public class KeyEventService {
 
   private HttpTransferService httpTransferService;
 
-  private PrepareCardListService prepareCardListService;
-
   private CardRecommendService cardRecommendService;
 
-  public KeyEventService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
+  public KeyEventService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, CardRecommendService cardRecommendService) {
     this.mainService = mainService;
     this.resourceService = resourceService;
     this.httpTransferService = httpTransferService;
-    this.prepareCardListService = prepareCardListService;
     this.cardRecommendService = cardRecommendService;
   }
 
@@ -70,63 +68,13 @@ public class KeyEventService {
         new PrepareStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE_MY_CARD_REPOSITORY:
-        this.handlePrepareMyCardRepository(fromLocal, keyEventEnum);
+        new PrepareMyCardRepositoryStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE_MY_CARD_REPOSITORY_DETAIL:
         this.handlePrepareMyCardRepositoryDetail(fromLocal, keyEventEnum);
         break;
       case PREPARE_BY_CARD:
         this.handlePrepareByCard(fromLocal, keyEventEnum);
-    }
-  }
-
-  private void handlePrepareMyCardRepository(boolean fromLocal, KeyEventEnum keyEventEnum) {
-    PlayerEntity player = fromLocal ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
-    int cardListSize = player.getCardList().size();
-    if (cardListSize == 0 && !KeyEventEnum.CANCEL.equals(keyEventEnum)) {
-      return;
-    }
-    switch (keyEventEnum) {
-      case LEFT:
-        this.prepareCardListService.moveLeft(cardListSize, fromLocal);
-        if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case RIGHT:
-        this.prepareCardListService.moveRight(cardListSize, fromLocal);
-        if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case UP:
-        this.prepareCardListService.moveUp(cardListSize, fromLocal);
-        if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case DOWN:
-        this.prepareCardListService.moveDown(cardListSize, fromLocal);
-        if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case DETAIL:
-        player.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL);
-        if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case CONFIRM:
-        boolean confirmNeedSend = this.prepareCardListService.confirm(fromLocal);
-        if (!fromLocal && confirmNeedSend) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case CANCEL:
-        player.setStage(GameStageEnum.PREPARE);
-        player.getSignal().setIndex(0);
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
     }
   }
 

@@ -7,6 +7,7 @@ import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
+import team.jellymushroom.fullmoon.stagehandler.ChooseRoleDetailStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.ChooseRoleStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.PrepareStageHandler;
 
@@ -60,8 +61,10 @@ public class KeyEventService {
     PlayerEntity activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-      case CHOOSE_ROLE_DETAIL:
         new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
+        break;
+      case CHOOSE_ROLE_DETAIL:
+        new ChooseRoleDetailStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE:
         new PrepareStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);

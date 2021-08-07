@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 
@@ -91,24 +89,24 @@ public class KeyEventService {
       case LEFT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case RIGHT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case DETAIL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_DETAIL);
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
         if (fromLocal) {
@@ -126,7 +124,7 @@ public class KeyEventService {
         } else {
           activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         }
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
     }
   }
 
@@ -135,25 +133,25 @@ public class KeyEventService {
       case LEFT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case RIGHT:
         if (fromLocal) {
           this.chooseRoleService.updateRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         } else {
           this.chooseRoleService.updateOpponentRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case CANCEL:
         activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);
         if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
     }
   }
@@ -165,24 +163,23 @@ public class KeyEventService {
     switch (keyEventEnum) {
       case LEFT:
         signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getLeftIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         break;
       case RIGHT:
         signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getRightIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         break;
       case UP:
         signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getUpIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         break;
       case DOWN:
         signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getDownIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
         if (fromLocal) {
           this.prepareService.confirm();
-          ServerControlEntity.getInstance().setPrepareCardListIndex(0);
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
             this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
@@ -190,15 +187,12 @@ public class KeyEventService {
           }
         } else {
           this.prepareService.confirmOpponent();
-          ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setPrepareCardListIndex(0);
           if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
           } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
             this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_BY_CARD);
           }
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
     }
   }
@@ -213,57 +207,43 @@ public class KeyEventService {
       case LEFT:
         this.prepareCardListService.moveLeft(cardListSize, fromLocal);
         if (!fromLocal) {
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case RIGHT:
         this.prepareCardListService.moveRight(cardListSize, fromLocal);
         if (!fromLocal) {
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case UP:
         this.prepareCardListService.moveUp(cardListSize, fromLocal);
         if (!fromLocal) {
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case DOWN:
         this.prepareCardListService.moveDown(cardListSize, fromLocal);
         if (!fromLocal) {
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case DETAIL:
         player.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL);
         if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case CONFIRM:
         boolean confirmNeedSend = this.prepareCardListService.confirm(fromLocal);
         if (!fromLocal && confirmNeedSend) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
         break;
       case CANCEL:
         player.setStage(GameStageEnum.PREPARE);
-        if (fromLocal) {
-          ServerControlEntity.getInstance().setPrepareCardListIndex(0);
-        } else {
-          ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(0);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setPrepareCardListIndex(ServerControlEntity.getInstance().getOpponentPrepareCardListIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
-        }
+        player.getSignal().setIndex(0);
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
     }
   }
 
@@ -273,7 +253,7 @@ public class KeyEventService {
       case CANCEL:
         player.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
         if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
+          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
         }
     }
   }

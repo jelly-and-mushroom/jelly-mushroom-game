@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.service.MainService;
 import team.jellymushroom.fullmoon.service.ResourceService;
@@ -25,10 +24,7 @@ public class APIController {
   @GetMapping("/full-moon/api/getGameData")
   public HttpResponseEntity getGameData() {
     try {
-      JSONObject result = new JSONObject();
-      result.put("game", this.mainService.getGameEntity());
-      result.put("serverControl", ServerControlEntity.getInstance());
-      return HttpResponseEntity.success(result, null);
+      return HttpResponseEntity.success(JSONObject.parseObject(JSONObject.toJSONString(this.mainService.getGameEntity())), null);
     } catch (Exception e) {
       String errorMsg = "api-getGameData执行时出错";
       log.error(errorMsg, e);

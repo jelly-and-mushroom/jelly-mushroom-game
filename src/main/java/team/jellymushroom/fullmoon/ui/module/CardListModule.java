@@ -2,7 +2,6 @@ package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
@@ -47,7 +46,7 @@ public class CardListModule extends Module {
       int cardWidth = this.iWidth / CARD_COLUMN;
       int cardHeight = (int)(1.0 * cardWidth * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
       // 当前高亮卡牌在列表中的index
-      int highLightCardIndex = ServerControlEntity.getInstance().getPrepareCardListIndex();
+      int highLightCardIndex = this.uiService.getMainService().getPlayerMyself().getSignal().getIndex();
       // 起始展示的卡牌在列表中的index
       startIndex = totalCount * (highLightCardIndex / totalCount);
       int endIndex = startIndex + totalCount - 1;
@@ -84,7 +83,7 @@ public class CardListModule extends Module {
           this.iX + (this.iWidth - detailCardWidth) / 2,
           this.iY + (this.iHeight - detailCardHeight) / 2,
           detailCardWidth, detailCardHeight, 0,
-          this.uiService.getMainService().getPlayerMyself().getCardList().get(ServerControlEntity.getInstance().getPrepareCardListIndex()),
+          this.uiService.getMainService().getPlayerMyself().getCardList().get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex()),
           true).draw(g);
     }
   }

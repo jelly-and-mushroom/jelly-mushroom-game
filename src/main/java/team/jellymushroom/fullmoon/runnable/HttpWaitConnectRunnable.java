@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import team.jellymushroom.fullmoon.constant.HttpResponseStatusEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
 import team.jellymushroom.fullmoon.service.HttpTransferService;

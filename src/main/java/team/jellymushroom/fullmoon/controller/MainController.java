@@ -3,9 +3,10 @@ package team.jellymushroom.fullmoon.controller;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
-import team.jellymushroom.fullmoon.entity.http.*;
+import team.jellymushroom.fullmoon.entity.http.HttpDataEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpKeyEventEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
@@ -57,12 +58,6 @@ public class MainController {
       HttpDataEntity httpDataEntity = JSONObject.parseObject(jsonObject.toJSONString(), HttpDataEntity.class);
       if (null != httpDataEntity.getGame()) {
         this.mainService.setGameEntity(this.httpTransferService.convert(httpDataEntity.getGame()));
-      }
-      HttpServerControlEntity serverControl = httpDataEntity.getServerControl();
-      if (null != serverControl) {
-        if (null != serverControl.getPrepareCardListIndex()) {
-          ServerControlEntity.getInstance().setPrepareCardListIndex(serverControl.getPrepareCardListIndex());
-        }
       }
       this.mainService.setIsServer(false);
       return HttpResponseEntity.success(null, null);

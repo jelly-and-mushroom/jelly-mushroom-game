@@ -55,6 +55,6 @@ public class MainService {
     this.getPlayerMyself().getSignal().setIndex(gameRoleMap.get(0).getIndex());
     this.getPlayerOpponent().getSignal().setIndex(gameRoleMap.get(0).getIndex());
     // 同步数据给客户端
-    new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.getGameEntity())).start();
+    new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.getGameEntity())).start();
   }
 }

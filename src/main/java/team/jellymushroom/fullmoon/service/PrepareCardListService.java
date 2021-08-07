@@ -1,8 +1,8 @@
 package team.jellymushroom.fullmoon.service;
 
 import org.springframework.stereotype.Service;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
+import team.jellymushroom.fullmoon.entity.game.SignalEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.ui.module.CardListModule;
@@ -20,7 +20,8 @@ public class PrepareCardListService {
   }
 
   public void moveLeft(int cardListSize, boolean myself) {
-    int index = myself ? ServerControlEntity.getInstance().getPrepareCardListIndex() : ServerControlEntity.getInstance().getOpponentPrepareCardListIndex();
+    SignalEntity signal = myself ? this.mainService.getPlayerMyself().getSignal() : this.mainService.getPlayerOpponent().getSignal();
+    int index = signal.getIndex();
     int wishIndex = index - 1;
     if (index % CardListModule.CARD_COLUMN == 0) {
       wishIndex = index + 3;
@@ -28,15 +29,12 @@ public class PrepareCardListService {
         wishIndex = cardListSize - 1;
       }
     }
-    if (myself) {
-      ServerControlEntity.getInstance().setPrepareCardListIndex(wishIndex);
-      return;
-    }
-    ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(wishIndex);
+    signal.setIndex(wishIndex);
   }
 
   public void moveRight(int cardListSize, boolean myself) {
-    int index = myself ? ServerControlEntity.getInstance().getPrepareCardListIndex() : ServerControlEntity.getInstance().getOpponentPrepareCardListIndex();
+    SignalEntity signal = myself ? this.mainService.getPlayerMyself().getSignal() : this.mainService.getPlayerOpponent().getSignal();
+    int index = signal.getIndex();
     int wishIndex = index + 1;
     if (index % CardListModule.CARD_COLUMN == CardListModule.CARD_COLUMN - 1) {
       wishIndex = index - (CardListModule.CARD_COLUMN - 1);
@@ -45,15 +43,12 @@ public class PrepareCardListService {
         wishIndex = CardListModule.CARD_COLUMN * (index / CardListModule.CARD_COLUMN);
       }
     }
-    if (myself) {
-      ServerControlEntity.getInstance().setPrepareCardListIndex(wishIndex);
-      return;
-    }
-    ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(wishIndex);
+    signal.setIndex(wishIndex);
   }
 
   public void moveUp(int cardListSize, boolean myself) {
-    int index = myself ? ServerControlEntity.getInstance().getPrepareCardListIndex() : ServerControlEntity.getInstance().getOpponentPrepareCardListIndex();
+    SignalEntity signal = myself ? this.mainService.getPlayerMyself().getSignal() : this.mainService.getPlayerOpponent().getSignal();
+    int index = signal.getIndex();
     int wishIndex = index - CardListModule.CARD_COLUMN;
     if (wishIndex < 0) {
       int lastLineFirstIndex = (cardListSize / CardListModule.CARD_COLUMN) * CardListModule.CARD_COLUMN;
@@ -65,15 +60,12 @@ public class PrepareCardListService {
         wishIndex = cardListSize - 1;
       }
     }
-    if (myself) {
-      ServerControlEntity.getInstance().setPrepareCardListIndex(wishIndex);
-      return;
-    }
-    ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(wishIndex);
+    signal.setIndex(wishIndex);
   }
 
   public void moveDown(int cardListSize, boolean myself) {
-    int index = myself ? ServerControlEntity.getInstance().getPrepareCardListIndex() : ServerControlEntity.getInstance().getOpponentPrepareCardListIndex();
+    SignalEntity signal = myself ? this.mainService.getPlayerMyself().getSignal() : this.mainService.getPlayerOpponent().getSignal();
+    int index = signal.getIndex();
     int wishIndex = index + CardListModule.CARD_COLUMN;
     if (wishIndex >= cardListSize) {
       boolean lastLine = index / CardListModule.CARD_COLUMN == (cardListSize - 1) / CardListModule.CARD_COLUMN;
@@ -83,16 +75,12 @@ public class PrepareCardListService {
         wishIndex = cardListSize - 1;
       }
     }
-    if (myself) {
-      ServerControlEntity.getInstance().setPrepareCardListIndex(wishIndex);
-      return;
-    }
-    ServerControlEntity.getInstance().setOpponentPrepareCardListIndex(wishIndex);
+    signal.setIndex(wishIndex);
   }
 
   public boolean confirm(boolean myself) {
-    int index = myself ? ServerControlEntity.getInstance().getPrepareCardListIndex() : ServerControlEntity.getInstance().getOpponentPrepareCardListIndex();
     PlayerEntity player = myself ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
+    int index = player.getSignal().getIndex();
     CardEntity card = player.getCardList().get(index);
     if (!(card instanceof EquipmentCardEntity)) {
       return false;

@@ -5,7 +5,5 @@ import lombok.Data;
 @Data
 public class HttpDataEntity {
 
-  private HttpServerControlEntity serverControl;
-
   private HttpGameEntity game;
 }

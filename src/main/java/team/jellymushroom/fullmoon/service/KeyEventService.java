@@ -9,6 +9,7 @@ import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
+import team.jellymushroom.fullmoon.stagehandler.ChooseRoleDetailStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.ChooseRoleStageHandler;
 
 @Service
@@ -65,14 +66,12 @@ public class KeyEventService {
     }
     // 服务端处理事件
     PlayerEntity activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
-    PlayerEntity passivePlayer = fromLocal ? this.mainService.getGameEntity().getClientPlayer() : this.mainService.getGameEntity().getServerPlayer();
-    log.info("服务端开始处理键盘指令,keyCode:{},fromLocal:{},发送指令玩家所处状态:{}", keyCode, fromLocal, activePlayer.getStage());
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
         new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case CHOOSE_ROLE_DETAIL:
-        this.handleRoleChooseDetail(fromLocal, activePlayer, keyEventEnum);
+        new ChooseRoleDetailStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE:
         this.handlePrepare(fromLocal, keyEventEnum);
@@ -85,34 +84,6 @@ public class KeyEventService {
         break;
       case PREPARE_BY_CARD:
         this.handlePrepareByCard(fromLocal, keyEventEnum);
-    }
-  }
-
-  private void handleRoleChooseDetail(boolean fromLocal, PlayerEntity activePlayer, KeyEventEnum keyEventEnum) {
-    switch (keyEventEnum) {
-      case LEFT:
-        if (fromLocal) {
-          this.chooseRoleService.updateRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        } else {
-          this.chooseRoleService.updateOpponentRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case RIGHT:
-        if (fromLocal) {
-          this.chooseRoleService.updateRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        } else {
-          this.chooseRoleService.updateOpponentRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case CANCEL:
-        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE);
-        if (!fromLocal) {
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
     }
   }
 

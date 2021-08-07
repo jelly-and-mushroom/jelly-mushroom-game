@@ -4,17 +4,15 @@ import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
-import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
+import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 /**
  * GameStageEnum.PREPARE
  */
 public class PrepareStageHandler extends StageHandler {
 
-  public PrepareStageHandler(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, Boolean fromLocal) {
-    super(mainService, resourceService, httpTransferService, fromLocal);
+  public PrepareStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
+    super(stageHandlerService, fromLocal);
   }
 
   @Override
@@ -64,7 +62,7 @@ public class PrepareStageHandler extends StageHandler {
     }
     if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
       super.activePlayer.getSignal().setIndex(0);
-      super.activePlayer.setStage(GameStageEnum.PREPARE_BY_CARD);
+      super.activePlayer.setStage(GameStageEnum.PREPARE_BUY_CARD);
       return true;
     }
 

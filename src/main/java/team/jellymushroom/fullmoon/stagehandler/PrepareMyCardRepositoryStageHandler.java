@@ -3,14 +3,15 @@ package team.jellymushroom.fullmoon.stagehandler;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
-import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
+import team.jellymushroom.fullmoon.service.StageHandlerService;
 
+/**
+ * PREPARE_MY_CARD_REPOSITORY
+ */
 public class PrepareMyCardRepositoryStageHandler extends CardListStageHandler {
 
-  public PrepareMyCardRepositoryStageHandler(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, Boolean fromLocal) {
-    super(mainService, resourceService, httpTransferService, fromLocal);
+  public PrepareMyCardRepositoryStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
+    super(stageHandlerService, fromLocal);
   }
 
   @Override

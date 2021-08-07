@@ -1,15 +1,13 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
-import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
+import team.jellymushroom.fullmoon.service.StageHandlerService;
 import team.jellymushroom.fullmoon.ui.module.CardListModule;
 
 public abstract class CardListStageHandler extends StageHandler {
 
-  CardListStageHandler(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, Boolean fromLocal) {
-    super(mainService, resourceService, httpTransferService, fromLocal);
+  CardListStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
+    super(stageHandlerService, fromLocal);
   }
 
   void moveLeft(int cardListSize) {

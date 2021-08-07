@@ -1,17 +1,15 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
-import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
+import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 /**
  * GameStageEnum.CHOOSE_ROLE
  */
 public class ChooseRoleStageHandler extends BaseChooseRoleStageHandler {
 
-  public ChooseRoleStageHandler(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, Boolean fromLocal) {
-    super(mainService, resourceService, httpTransferService, fromLocal);
+  public ChooseRoleStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
+    super(stageHandlerService, fromLocal);
   }
 
   @Override
@@ -22,7 +20,7 @@ public class ChooseRoleStageHandler extends BaseChooseRoleStageHandler {
 
   @Override
   boolean confirm() {
-    super.activePlayer.initByRole(this.resourceService);
+    super.activePlayer.initByRole(this.stageHandlerService.getResourceService());
     if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(super.passivePlayer.getStage())) {
       super.activePlayer.setStage(GameStageEnum.PREPARE);
       super.passivePlayer.setStage(GameStageEnum.PREPARE);

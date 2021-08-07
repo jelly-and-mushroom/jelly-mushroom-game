@@ -5,18 +5,12 @@ import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
-import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
+import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 @Slf4j
 public abstract class StageHandler {
 
-  MainService mainService;
-
-  ResourceService resourceService;
-
-  HttpTransferService httpTransferService;
+  StageHandlerService stageHandlerService;
 
   Boolean fromLocal;
 
@@ -24,13 +18,11 @@ public abstract class StageHandler {
 
   PlayerEntity passivePlayer;
 
-  StageHandler(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, Boolean fromLocal) {
-    this.mainService = mainService;
-    this.resourceService = resourceService;
-    this.httpTransferService = httpTransferService;
+  StageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
+    this.stageHandlerService = stageHandlerService;
     this.fromLocal = fromLocal;
-    this.activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
-    this.passivePlayer = fromLocal ? this.mainService.getGameEntity().getClientPlayer() : this.mainService.getGameEntity().getServerPlayer();
+    this.activePlayer = fromLocal ? this.stageHandlerService.getMainService().getGameEntity().getServerPlayer() : this.stageHandlerService.getMainService().getGameEntity().getClientPlayer();
+    this.passivePlayer = fromLocal ? this.stageHandlerService.getMainService().getGameEntity().getClientPlayer() : this.stageHandlerService.getMainService().getGameEntity().getServerPlayer();
   }
 
   public void handle(KeyEventEnum keyEventEnum) {
@@ -59,7 +51,7 @@ public abstract class StageHandler {
         needSend = this.cancel();
     }
     if (needSend) {
-      new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
+      new Thread(new HttpUpdateGameRunnable(this.stageHandlerService.getHttpTransferService(), this.stageHandlerService.getMainService().getGameEntity())).start();
     }
     log.info("键盘指令处理完成,keyEventEnum:{},fromLocal:{},needSend:{},处理前所处状态:{},处理后所处状态:{}", keyEventEnum, this.fromLocal, needSend, stage, this.activePlayer.getStage());
   }

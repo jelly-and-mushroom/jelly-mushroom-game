@@ -18,17 +18,14 @@ public class KeyEventService {
 
   private MainService mainService;
 
-  private ResourceService resourceService;
-
   private HttpTransferService httpTransferService;
 
-  private CardRecommendService cardRecommendService;
+  private StageHandlerService stageHandlerService;
 
-  public KeyEventService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, CardRecommendService cardRecommendService) {
+  public KeyEventService(MainService mainService, HttpTransferService httpTransferService, StageHandlerService stageHandlerService) {
     this.mainService = mainService;
-    this.resourceService = resourceService;
     this.httpTransferService = httpTransferService;
-    this.cardRecommendService = cardRecommendService;
+    this.stageHandlerService = stageHandlerService;
   }
 
   /**
@@ -59,21 +56,21 @@ public class KeyEventService {
     PlayerEntity activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-        new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
+        new ChooseRoleStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
       case CHOOSE_ROLE_DETAIL:
-        new ChooseRoleDetailStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
+        new ChooseRoleDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE:
-        new PrepareStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
+        new PrepareStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE_MY_CARD_REPOSITORY:
-        new PrepareMyCardRepositoryStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
+        new PrepareMyCardRepositoryStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE_MY_CARD_REPOSITORY_DETAIL:
         this.handlePrepareMyCardRepositoryDetail(fromLocal, keyEventEnum);
         break;
-      case PREPARE_BY_CARD:
+      case PREPARE_BUY_CARD:
         this.handlePrepareByCard(fromLocal, keyEventEnum);
     }
   }

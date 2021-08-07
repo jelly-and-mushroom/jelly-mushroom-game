@@ -2,16 +2,14 @@ package team.jellymushroom.fullmoon.stagehandler;
 
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
-import team.jellymushroom.fullmoon.service.HttpTransferService;
-import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
+import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 import java.util.Map;
 
 public abstract class BaseChooseRoleStageHandler extends StageHandler {
 
-  BaseChooseRoleStageHandler(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, Boolean fromLocal) {
-    super(mainService, resourceService, httpTransferService, fromLocal);
+  BaseChooseRoleStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
+    super(stageHandlerService, fromLocal);
   }
 
   @Override
@@ -40,7 +38,7 @@ public abstract class BaseChooseRoleStageHandler extends StageHandler {
     // 信号
     SignalEntity signal = super.activePlayer.getSignal();
     // 所有可选职业
-    Map<Integer, GameRoleEntity> gameRoleMap = super.resourceService.getServiceResourceEntity().getGameRoleMap();
+    Map<Integer, GameRoleEntity> gameRoleMap = super.stageHandlerService.getResourceService().getServiceResourceEntity().getGameRoleMap();
     // 变更后的角色值
     int preResult = signal.getIndex() + delta;
     // 小于下限则设为上限

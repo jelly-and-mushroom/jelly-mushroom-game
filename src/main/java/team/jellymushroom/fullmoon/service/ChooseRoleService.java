@@ -23,19 +23,19 @@ public class ChooseRoleService {
     Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
     // 变更后的角色值
     SignalEntity signal = this.mainService.getPlayerMyself().getSignal();
-    int preResult = signal.getCurrentChooseRole().getIndex() + delta;
+    int preResult = signal.getIndex() + delta;
     // 小于下限则设为上限
     if (preResult < 0) {
-      signal.setCurrentChooseRole(gameRoleMap.get(gameRoleMap.size() - 1));
+      signal.setIndex(gameRoleMap.size() - 1);
       return;
     }
     // 大于上限则设为下限
     if (preResult >= gameRoleMap.size()) {
-      signal.setCurrentChooseRole(gameRoleMap.get(0));
+      signal.setIndex(gameRoleMap.get(0).getIndex());
       return;
     }
     // 设置为变更后的值
-    signal.setCurrentChooseRole(gameRoleMap.get(preResult));
+    signal.setIndex(preResult);
   }
 
   public void updateOpponentRole(int delta) {
@@ -43,19 +43,19 @@ public class ChooseRoleService {
     Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
     // 变更后的角色值
     SignalEntity signal = this.mainService.getPlayerOpponent().getSignal();
-    int preResult = signal.getCurrentChooseRole().getIndex() + delta;
+    int preResult = signal.getIndex() + delta;
     // 小于下限则设为上限
     if (preResult < 0) {
-      signal.setCurrentChooseRole(gameRoleMap.get(gameRoleMap.size() - 1));
+      signal.setIndex(gameRoleMap.size() - 1);
       return;
     }
     // 大于上限则设为下限
     if (preResult >= gameRoleMap.size()) {
-      signal.setCurrentChooseRole(gameRoleMap.get(0));
+      signal.setIndex(gameRoleMap.get(0).getIndex());
       return;
     }
     // 设置为变更后的值
-    signal.setCurrentChooseRole(gameRoleMap.get(preResult));
+    signal.setIndex(preResult);
   }
 
   public void confirm() {

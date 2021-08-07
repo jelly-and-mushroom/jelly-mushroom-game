@@ -25,7 +25,7 @@ public class ChooseRoleModule extends Module {
     int addX = adjustX;
     // 对手选职业
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
-      boolean opponentLight = roleEntry.getValue().getIndex().equals(this.uiService.getMainService().getPlayerOpponent().getSignal().getCurrentChooseRole().getIndex());
+      boolean opponentLight = roleEntry.getValue().getIndex().equals(this.uiService.getMainService().getPlayerOpponent().getSignal().getIndex());
       boolean opponentConfirm = opponentLight && null != this.uiService.getMainService().getPlayerOpponent().getGameRoleEntity();
       new ChoosePartRoleModule(this.uiService, this.resource, this.iX + addX, this.iY, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), opponentLight, opponentConfirm).draw(g);
       addX += moduleRoleOWidth;
@@ -33,16 +33,16 @@ public class ChooseRoleModule extends Module {
     addX = adjustX;
     // 自身选职业
     boolean showRoleChooseDetal = GameStageEnum.CHOOSE_ROLE_DETAIL.equals(this.uiService.getMainService().getPlayerMyself().getStage());
-    GameRoleEntity currentRole = this.uiService.getMainService().getPlayerMyself().getSignal().getCurrentChooseRole();
+    Integer currentRoleIndex = this.uiService.getMainService().getPlayerMyself().getSignal().getIndex();
     for (Map.Entry<Integer, GameRoleEntity> roleEntry : gameRoleMap.entrySet()) {
-      boolean light = !showRoleChooseDetal && roleEntry.getKey().equals(currentRole.getIndex());
+      boolean light = !showRoleChooseDetal && roleEntry.getKey().equals(currentRoleIndex);
       boolean confirm = light && null != this.uiService.getMainService().getPlayerMyself().getGameRoleEntity();
       new ChoosePartRoleModule(this.uiService, this.resource, this.iX + addX, this.iY + moduleRoleOHeight, moduleRoleOWidth, moduleRoleOHeight, 0, roleEntry.getValue(), light, confirm).draw(g);
       addX += moduleRoleOWidth;
     }
     // 详细信息介绍
     if (showRoleChooseDetal) {
-      new ChooseDetailRoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRole).draw(g);
+      new ChooseDetailRoleModule(this.uiService, this.resource, 324, 108, 376, 580, 0, currentRoleIndex).draw(g);
     }
     // 绘制边框
     super.drawWindow(g);

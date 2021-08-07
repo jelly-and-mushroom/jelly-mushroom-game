@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class HttpSignalEntity {
 
-  private Integer currentChooseRoleIndex;
+  private Integer index;
 }

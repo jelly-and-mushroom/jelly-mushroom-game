@@ -241,10 +241,8 @@ public class HttpTransferService {
   public HttpSignalEntity convert(SignalEntity signal) {
     // 返回值
     HttpSignalEntity httpSignal = new HttpSignalEntity();
-    // 游戏选择阶段，当前选择的角色
-    if (null != signal.getCurrentChooseRole()) {
-      httpSignal.setCurrentChooseRoleIndex(signal.getCurrentChooseRole().getIndex());
-    }
+    // 游戏各阶段(GameStageEnum)，主控制信号索引
+    httpSignal.setIndex(signal.getIndex());
     // 返回
     return httpSignal;
   }
@@ -252,11 +250,8 @@ public class HttpTransferService {
   public SignalEntity convert(HttpSignalEntity httpSignal) {
     // 返回值
     SignalEntity signal = new SignalEntity();
-    // 游戏选择阶段，当前选择的角色
-    Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
-    if (null != httpSignal.getCurrentChooseRoleIndex()) {
-      signal.setCurrentChooseRole(gameRoleMap.get(httpSignal.getCurrentChooseRoleIndex()));
-    }
+    // 游戏各阶段(GameStageEnum)，主控制信号索引
+    signal.setIndex(httpSignal.getIndex());
     // 返回
     return signal;
   }

@@ -117,6 +117,8 @@ public class KeyEventService {
           this.chooseRoleService.confirmOpponent();
         }
         if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
+          activePlayer.getSignal().setIndex(PrepareOptionEnum.MY_CARD_REPOSITORY.getIndex());
+          passivePlayer.getSignal().setIndex(PrepareOptionEnum.MY_CARD_REPOSITORY.getIndex());
           activePlayer.setStage(GameStageEnum.PREPARE);
           passivePlayer.setStage(GameStageEnum.PREPARE);
           ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.MY_CARD_REPOSITORY);

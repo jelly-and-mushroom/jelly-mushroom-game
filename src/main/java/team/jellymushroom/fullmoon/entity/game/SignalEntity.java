@@ -6,11 +6,6 @@ import lombok.Data;
 public class SignalEntity {
 
   /**
-   * 游戏选择阶段，当前选择的角色
-   */
-  private GameRoleEntity currentChooseRole;
-
-  /**
    * 游戏各阶段(GameStageEnum)，主控制信号索引
    * CHOOSE_ROLE: GameRoleEntity.index
    */

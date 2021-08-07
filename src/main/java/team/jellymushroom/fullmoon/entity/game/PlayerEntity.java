@@ -87,7 +87,7 @@ public class PlayerEntity {
   private Integer gold = 0;
 
   public void initByRole(ResourceService resourceService) {
-    this.gameRoleEntity = this.getSignal().getCurrentChooseRole();
+    this.gameRoleEntity = resourceService.getServiceResourceEntity().getGameRoleMap().get(this.getSignal().getIndex());
     this.maxHp = this.gameRoleEntity.getInitMaxHp();
     this.initMp = this.gameRoleEntity.getInitMp();
     this.maxAction = this.gameRoleEntity.getInitMaxAction();

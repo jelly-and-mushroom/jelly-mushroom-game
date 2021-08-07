@@ -9,7 +9,6 @@ import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
-import team.jellymushroom.fullmoon.stagehandler.ChooseRoleDetailStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.ChooseRoleStageHandler;
 
 @Service
@@ -20,8 +19,6 @@ public class KeyEventService {
 
   private ResourceService resourceService;
 
-  private ChooseRoleService chooseRoleService;
-
   private HttpTransferService httpTransferService;
 
   private PrepareService prepareService;
@@ -30,10 +27,9 @@ public class KeyEventService {
 
   private CardRecommendService cardRecommendService;
 
-  public KeyEventService(MainService mainService, ResourceService resourceService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService, PrepareService prepareService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
+  public KeyEventService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, PrepareService prepareService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
     this.mainService = mainService;
     this.resourceService = resourceService;
-    this.chooseRoleService = chooseRoleService;
     this.httpTransferService = httpTransferService;
     this.prepareService = prepareService;
     this.prepareCardListService = prepareCardListService;
@@ -68,10 +64,8 @@ public class KeyEventService {
     PlayerEntity activePlayer = fromLocal ? this.mainService.getGameEntity().getServerPlayer() : this.mainService.getGameEntity().getClientPlayer();
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-        new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
-        break;
       case CHOOSE_ROLE_DETAIL:
-        new ChooseRoleDetailStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
+        new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE:
         this.handlePrepare(fromLocal, keyEventEnum);

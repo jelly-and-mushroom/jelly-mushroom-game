@@ -57,12 +57,4 @@ public class ChooseRoleService {
     // 设置为变更后的值
     signal.setIndex(preResult);
   }
-
-  public void confirm() {
-    this.mainService.getPlayerMyself().initByRole(this.resourceService);
-  }
-
-  public void confirmOpponent() {
-    this.mainService.getPlayerOpponent().initByRole(this.resourceService);
-  }
 }

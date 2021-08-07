@@ -16,5 +16,5 @@ public class SignalEntity {
   /**
    * 游戏准备阶段，当前选择的选项
    */
-  private PrepareOptionEnum prepareOption;
+  private PrepareOptionEnum prepareOption = PrepareOptionEnum.MY_CARD_REPOSITORY;
 }

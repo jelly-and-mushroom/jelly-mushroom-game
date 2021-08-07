@@ -9,12 +9,15 @@ import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.SignalEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
+import team.jellymushroom.fullmoon.stagehandler.ChooseRoleStageHandler;
 
 @Service
 @Slf4j
 public class KeyEventService {
 
   private MainService mainService;
+
+  private ResourceService resourceService;
 
   private ChooseRoleService chooseRoleService;
 
@@ -26,8 +29,9 @@ public class KeyEventService {
 
   private CardRecommendService cardRecommendService;
 
-  public KeyEventService(MainService mainService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService, PrepareService prepareService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
+  public KeyEventService(MainService mainService, ResourceService resourceService, ChooseRoleService chooseRoleService, HttpTransferService httpTransferService, PrepareService prepareService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
     this.mainService = mainService;
+    this.resourceService = resourceService;
     this.chooseRoleService = chooseRoleService;
     this.httpTransferService = httpTransferService;
     this.prepareService = prepareService;
@@ -65,7 +69,7 @@ public class KeyEventService {
     log.info("服务端开始处理键盘指令,keyCode:{},fromLocal:{},发送指令玩家所处状态:{}", keyCode, fromLocal, activePlayer.getStage());
     switch (activePlayer.getStage()) {
       case CHOOSE_ROLE:
-        this.handleChooseRole(fromLocal, activePlayer, passivePlayer, keyEventEnum);
+        new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case CHOOSE_ROLE_DETAIL:
         this.handleRoleChooseDetail(fromLocal, activePlayer, keyEventEnum);
@@ -81,50 +85,6 @@ public class KeyEventService {
         break;
       case PREPARE_BY_CARD:
         this.handlePrepareByCard(fromLocal, keyEventEnum);
-    }
-  }
-
-  private void handleChooseRole(boolean fromLocal, PlayerEntity activePlayer, PlayerEntity passivePlayer, KeyEventEnum keyEventEnum) {
-    switch (keyEventEnum) {
-      case LEFT:
-        if (fromLocal) {
-          this.chooseRoleService.updateRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        } else {
-          this.chooseRoleService.updateOpponentRole(-1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case RIGHT:
-        if (fromLocal) {
-          this.chooseRoleService.updateRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        } else {
-          this.chooseRoleService.updateOpponentRole(1);
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
-        break;
-      case DETAIL:
-        activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_DETAIL);
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        break;
-      case CONFIRM:
-        if (fromLocal) {
-          this.chooseRoleService.confirm();
-        } else {
-          this.chooseRoleService.confirmOpponent();
-        }
-        if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
-          activePlayer.getSignal().setIndex(0);
-          passivePlayer.getSignal().setIndex(0);
-          activePlayer.getSignal().setPrepareOption(PrepareOptionEnum.MY_CARD_REPOSITORY);
-          passivePlayer.getSignal().setPrepareOption(PrepareOptionEnum.MY_CARD_REPOSITORY);
-          activePlayer.setStage(GameStageEnum.PREPARE);
-          passivePlayer.setStage(GameStageEnum.PREPARE);
-        } else {
-          activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
-        }
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
     }
   }
 

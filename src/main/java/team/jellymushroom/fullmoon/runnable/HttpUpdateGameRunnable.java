@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import team.jellymushroom.fullmoon.constant.HttpResponseStatusEnum;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpDataEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.util.http.HttpClientUtil;
@@ -27,8 +27,7 @@ public class HttpUpdateGameRunnable implements Runnable {
   public void run() {
     this.httpTransferService.setHttpSendWait(true);
     while (true) {
-      HttpDataEntity body = new HttpDataEntity();
-      body.setGame(this.httpTransferService.convert(this.game));
+      HttpGameEntity body = this.httpTransferService.convert(this.game);
       HttpResult httpResult = HttpClientUtil
           .post(this.httpTransferService.getHttpOpponentHost() + "/full-moon/updateGame")
           .objectBody(body).exec();

@@ -3,10 +3,7 @@ package team.jellymushroom.fullmoon.controller;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import team.jellymushroom.fullmoon.entity.http.HttpDataEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpKeyEventEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
-import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
+import team.jellymushroom.fullmoon.entity.http.*;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
@@ -55,10 +52,8 @@ public class MainController {
         return HttpResponseEntity.error(errorMsg);
       }
       log.info("接收到服务端更新的数据:{}", jsonObject.toJSONString());
-      HttpDataEntity httpDataEntity = JSONObject.parseObject(jsonObject.toJSONString(), HttpDataEntity.class);
-      if (null != httpDataEntity.getGame()) {
-        this.mainService.setGameEntity(this.httpTransferService.convert(httpDataEntity.getGame()));
-      }
+      HttpGameEntity httpGame = JSONObject.parseObject(jsonObject.toJSONString(), HttpGameEntity.class);
+      this.mainService.setGameEntity(this.httpTransferService.convert(httpGame));
       this.mainService.setIsServer(false);
       return HttpResponseEntity.success(null, null);
     } catch (Exception e) {

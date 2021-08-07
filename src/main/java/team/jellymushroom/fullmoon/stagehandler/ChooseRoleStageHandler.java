@@ -57,8 +57,6 @@ public class ChooseRoleStageHandler extends StageHandler {
     }
     super.activePlayer.initByRole(this.resourceService);
     if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(super.passivePlayer.getStage())) {
-      super.activePlayer.getSignal().setIndex(0);
-      super.passivePlayer.getSignal().setIndex(0);
       super.activePlayer.setStage(GameStageEnum.PREPARE);
       super.passivePlayer.setStage(GameStageEnum.PREPARE);
     } else {

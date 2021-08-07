@@ -4,12 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
-import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
-import team.jellymushroom.fullmoon.entity.game.SignalEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 import team.jellymushroom.fullmoon.stagehandler.ChooseRoleStageHandler;
+import team.jellymushroom.fullmoon.stagehandler.PrepareStageHandler;
 
 @Service
 @Slf4j
@@ -68,7 +67,7 @@ public class KeyEventService {
         new ChooseRoleStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE:
-        this.handlePrepare(fromLocal, keyEventEnum);
+        new PrepareStageHandler(this.mainService, this.resourceService, this.httpTransferService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE_MY_CARD_REPOSITORY:
         this.handlePrepareMyCardRepository(fromLocal, keyEventEnum);
@@ -78,47 +77,6 @@ public class KeyEventService {
         break;
       case PREPARE_BY_CARD:
         this.handlePrepareByCard(fromLocal, keyEventEnum);
-    }
-  }
-
-  private void handlePrepare(boolean fromLocal, KeyEventEnum keyEventEnum) {
-    SignalEntity signal = fromLocal ? this.mainService.getGameEntity().getServerPlayer().getSignal() : this.mainService.getGameEntity().getClientPlayer().getSignal();
-    PrepareOptionEnum prepare = signal.getPrepareOption();
-    PrepareOptionEnum nextPrepare = null;
-    switch (keyEventEnum) {
-      case LEFT:
-        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getLeftIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        break;
-      case RIGHT:
-        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getRightIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        break;
-      case UP:
-        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getUpIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        break;
-      case DOWN:
-        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getDownIndex()));
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        break;
-      case CONFIRM:
-        if (fromLocal) {
-          this.prepareService.confirm();
-          if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
-            this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
-          } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
-            this.mainService.getPlayerMyself().setStage(GameStageEnum.PREPARE_BY_CARD);
-          }
-        } else {
-          this.prepareService.confirmOpponent();
-          if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
-            this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
-          } else if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
-            this.mainService.getPlayerOpponent().setStage(GameStageEnum.PREPARE_BY_CARD);
-          }
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
-        }
     }
   }
 

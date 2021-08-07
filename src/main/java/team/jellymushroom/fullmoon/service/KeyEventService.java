@@ -20,17 +20,14 @@ public class KeyEventService {
 
   private HttpTransferService httpTransferService;
 
-  private PrepareService prepareService;
-
   private PrepareCardListService prepareCardListService;
 
   private CardRecommendService cardRecommendService;
 
-  public KeyEventService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, PrepareService prepareService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
+  public KeyEventService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, PrepareCardListService prepareCardListService, CardRecommendService cardRecommendService) {
     this.mainService = mainService;
     this.resourceService = resourceService;
     this.httpTransferService = httpTransferService;
-    this.prepareService = prepareService;
     this.prepareCardListService = prepareCardListService;
     this.cardRecommendService = cardRecommendService;
   }

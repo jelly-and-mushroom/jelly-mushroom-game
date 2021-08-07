@@ -3,6 +3,7 @@ package team.jellymushroom.fullmoon.entity.game;
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
+import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.service.ResourceService;
 
 import java.util.ArrayList;
@@ -95,5 +96,20 @@ public class PlayerEntity {
     if (!this.gameRoleEntity.getInitCardIndexList().isEmpty()) {
       this.gameRoleEntity.getInitCardIndexList().forEach(e -> this.cardList.add(resourceService.getServiceResourceEntity().getCardMap().get(e).copy()));
     }
+  }
+
+  public int getEquipmentInSoltSize() {
+    int result = 0;
+    List<CardEntity> cardList = this.getCardList();
+    for (CardEntity card : cardList) {
+      if (!(card instanceof EquipmentCardEntity)) {
+        continue;
+      }
+      EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
+      if (equipmentCard.getPlace()) {
+        result++;
+      }
+    }
+    return result;
   }
 }

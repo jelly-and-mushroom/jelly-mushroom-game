@@ -98,7 +98,7 @@ public class CardListModule extends Module {
       if (cardListSize % pageSize != 0) {
         totalpage++;
       }
-      int equipmentInSoltSize = this.uiService.getPrepareService().getEquipmentInSoltSize(true);
+      int equipmentInSoltSize = this.uiService.getMainService().getPlayerMyself().getEquipmentInSoltSize();
       int slotSize = this.uiService.getMainService().getPlayerMyself().getInitEquipmentSlotSize();
       super.drawFont(g, this.iX + 140, this.iY + yAdd, this.prepareOption.getDescription() + "(总计:" + cardListSize + "张)", Color.WHITE, fontStyle, fontSize);
       Color limitColor = equipmentInSoltSize<slotSize ? Color.CYAN : Color.PINK;

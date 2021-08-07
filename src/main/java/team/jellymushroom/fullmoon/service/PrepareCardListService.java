@@ -10,12 +10,9 @@ import team.jellymushroom.fullmoon.ui.module.CardListModule;
 @Service
 public class PrepareCardListService {
 
-  private PrepareService prepareService;
-
   private MainService mainService;
 
-  public PrepareCardListService(PrepareService prepareService, MainService mainService) {
-    this.prepareService = prepareService;
+  public PrepareCardListService(MainService mainService) {
     this.mainService = mainService;
   }
 
@@ -86,7 +83,7 @@ public class PrepareCardListService {
       return false;
     }
     EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
-    if (prepareService.getEquipmentInSoltSize(myself) < player.getInitEquipmentSlotSize()) {
+    if (player.getEquipmentInSoltSize() < player.getInitEquipmentSlotSize()) {
       equipmentCard.setPlace(!equipmentCard.getPlace());
       return true;
     }

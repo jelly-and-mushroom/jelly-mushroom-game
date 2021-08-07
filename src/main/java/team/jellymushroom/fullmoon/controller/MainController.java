@@ -60,9 +60,6 @@ public class MainController {
       }
       HttpServerControlEntity serverControl = httpDataEntity.getServerControl();
       if (null != serverControl) {
-        if (null != serverControl.getCurrentPrepareIndex()) {
-          ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.getEnumByKeyCode(serverControl.getCurrentPrepareIndex()));
-        }
         if (null != serverControl.getPrepareCardListIndex()) {
           ServerControlEntity.getInstance().setPrepareCardListIndex(serverControl.getPrepareCardListIndex());
         }

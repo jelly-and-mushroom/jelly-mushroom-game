@@ -6,4 +6,6 @@ import lombok.Data;
 public class HttpSignalEntity {
 
   private Integer index;
+
+  private Integer prepareOptionIndex;
 }

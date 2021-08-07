@@ -94,7 +94,7 @@ public enum PrepareOptionEnum {
    * 若入参为null,返回null
    * 若未找到对应枚举实例，返回null
    */
-  public static PrepareOptionEnum getEnumByKeyCode(Integer keyCode) {
-    return VALUE_MAP.get(keyCode);
+  public static PrepareOptionEnum getEnumByIndex(Integer index) {
+    return VALUE_MAP.get(index);
   }
 }

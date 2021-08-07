@@ -7,6 +7,7 @@ import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
+import team.jellymushroom.fullmoon.entity.game.SignalEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpServerControlEntity;
 import team.jellymushroom.fullmoon.runnable.HttpSendKeyEventRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
@@ -110,24 +111,22 @@ public class KeyEventService {
         new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
-        HttpServerControlEntity serverControl = new HttpServerControlEntity();
         if (fromLocal) {
           this.chooseRoleService.confirm();
         } else {
           this.chooseRoleService.confirmOpponent();
         }
         if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(passivePlayer.getStage())) {
-          activePlayer.getSignal().setIndex(PrepareOptionEnum.MY_CARD_REPOSITORY.getIndex());
-          passivePlayer.getSignal().setIndex(PrepareOptionEnum.MY_CARD_REPOSITORY.getIndex());
+          activePlayer.getSignal().setIndex(0);
+          passivePlayer.getSignal().setIndex(0);
+          activePlayer.getSignal().setPrepareOption(PrepareOptionEnum.MY_CARD_REPOSITORY);
+          passivePlayer.getSignal().setPrepareOption(PrepareOptionEnum.MY_CARD_REPOSITORY);
           activePlayer.setStage(GameStageEnum.PREPARE);
           passivePlayer.setStage(GameStageEnum.PREPARE);
-          ServerControlEntity.getInstance().setCurrentPrepare(PrepareOptionEnum.MY_CARD_REPOSITORY);
-          ServerControlEntity.getInstance().setOpponentPrepare(PrepareOptionEnum.MY_CARD_REPOSITORY);
-          serverControl.setCurrentPrepareIndex(ServerControlEntity.getInstance().getOpponentPrepare().getIndex());
         } else {
           activePlayer.setStage(GameStageEnum.CHOOSE_ROLE_CONFIRM);
         }
-        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, this.mainService.getGameEntity())).start();
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
     }
   }
 
@@ -160,52 +159,25 @@ public class KeyEventService {
   }
 
   private void handlePrepare(boolean fromLocal, KeyEventEnum keyEventEnum) {
-    PrepareOptionEnum prepare = fromLocal ? ServerControlEntity.getInstance().getCurrentPrepare() : ServerControlEntity.getInstance().getOpponentPrepare();
+    SignalEntity signal = fromLocal ? this.mainService.getGameEntity().getServerPlayer().getSignal() : this.mainService.getGameEntity().getClientPlayer().getSignal();
+    PrepareOptionEnum prepare = signal.getPrepareOption();
     PrepareOptionEnum nextPrepare = null;
     switch (keyEventEnum) {
       case LEFT:
-        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getLeftIndex());
-        if (fromLocal) {
-          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
-        } else {
-          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
-        }
+        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getLeftIndex()));
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case RIGHT:
-        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getRightIndex());
-        if (fromLocal) {
-          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
-        } else {
-          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
-        }
+        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getRightIndex()));
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case UP:
-        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getUpIndex());
-        if (fromLocal) {
-          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
-        } else {
-          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
-        }
+        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getUpIndex()));
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case DOWN:
-        nextPrepare = PrepareOptionEnum.getEnumByKeyCode(prepare.getDownIndex());
-        if (fromLocal) {
-          ServerControlEntity.getInstance().setCurrentPrepare(nextPrepare);
-        } else {
-          ServerControlEntity.getInstance().setOpponentPrepare(nextPrepare);
-          HttpServerControlEntity serverControl = new HttpServerControlEntity();
-          serverControl.setCurrentPrepareIndex(nextPrepare.getIndex());
-          new Thread(new HttpUpdateGameRunnable(this.httpTransferService, serverControl, null)).start();
-        }
+        signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(prepare.getDownIndex()));
+        new Thread(new HttpUpdateGameRunnable(this.httpTransferService, null, this.mainService.getGameEntity())).start();
         break;
       case CONFIRM:
         if (fromLocal) {

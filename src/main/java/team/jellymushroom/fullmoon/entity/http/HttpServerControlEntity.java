@@ -9,7 +9,5 @@ import lombok.Data;
 @Data
 public class HttpServerControlEntity {
 
-  private Integer currentPrepareIndex;
-
   private Integer prepareCardListIndex;
 }

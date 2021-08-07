@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameResultEnum;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.game.*;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
@@ -243,6 +244,10 @@ public class HttpTransferService {
     HttpSignalEntity httpSignal = new HttpSignalEntity();
     // 游戏各阶段(GameStageEnum)，主控制信号索引
     httpSignal.setIndex(signal.getIndex());
+    // 游戏准备阶段，当前选择的选项
+    if (null != signal.getPrepareOption()) {
+      httpSignal.setPrepareOptionIndex(signal.getPrepareOption().getIndex());
+    }
     // 返回
     return httpSignal;
   }
@@ -252,6 +257,10 @@ public class HttpTransferService {
     SignalEntity signal = new SignalEntity();
     // 游戏各阶段(GameStageEnum)，主控制信号索引
     signal.setIndex(httpSignal.getIndex());
+    // 游戏准备阶段，当前选择的选项
+    if (null != httpSignal.getPrepareOptionIndex()) {
+      signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(httpSignal.getPrepareOptionIndex()));
+    }
     // 返回
     return signal;
   }

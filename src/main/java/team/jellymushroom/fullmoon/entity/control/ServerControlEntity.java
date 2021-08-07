@@ -1,7 +1,6 @@
 package team.jellymushroom.fullmoon.entity.control;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 
 /**
  * 游戏各阶段用到的信号值
@@ -18,16 +17,6 @@ public class ServerControlEntity {
   public static ServerControlEntity getInstance() {
     return INSTANCE;
   }
-
-  /**
-   * 游戏准备阶段，当前选择的选项
-   */
-  private PrepareOptionEnum currentPrepare;
-
-  /**
-   * 游戏准备阶段，对手当前选择的选项
-   */
-  private PrepareOptionEnum opponentPrepare;
 
   /**
    * 游戏准备阶段 - 查看卡牌列表 (我的牌库，购买卡牌，强化卡牌，删除卡牌 等)

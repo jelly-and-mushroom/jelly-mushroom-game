@@ -2,7 +2,6 @@ package team.jellymushroom.fullmoon.service;
 
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
-import team.jellymushroom.fullmoon.entity.control.ServerControlEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
@@ -19,15 +18,13 @@ public class PrepareService {
   }
 
   public void confirm() {
-    PrepareOptionEnum prepare = ServerControlEntity.getInstance().getCurrentPrepare();
     PlayerEntity player = this.mainService.getPlayerMyself();
-    this.confirm(prepare, player);
+    this.confirm(player.getSignal().getPrepareOption(), player);
   }
 
   public void confirmOpponent() {
-    PrepareOptionEnum prepare = ServerControlEntity.getInstance().getOpponentPrepare();
     PlayerEntity player = this.mainService.getPlayerOpponent();
-    this.confirm(prepare, player);
+    this.confirm(player.getSignal().getPrepareOption(), player);
   }
 
   public int getEquipmentInSoltSize(boolean myself) {

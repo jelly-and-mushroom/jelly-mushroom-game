@@ -27,7 +27,7 @@ public class CardRecommendService {
     this.resourceService = resourceService;
   }
 
-  public List<Integer> byCard(boolean myself) {
+  public List<Integer> buyCard(boolean myself) {
     // 返回卡牌数：前端能一屏显示的数量
     int resultSize = CardListModule.CARD_COLUMN * CardListModule.CARD_ROW;
     // 结果列表

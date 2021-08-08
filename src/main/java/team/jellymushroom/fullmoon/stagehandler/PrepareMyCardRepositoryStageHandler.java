@@ -86,10 +86,4 @@ public class PrepareMyCardRepositoryStageHandler extends CardListStageHandler {
     equipmentCard.setPlace(false);
     return true;
   }
-
-  @Override
-  boolean cancel() {
-    super.activePlayer.setStage(GameStageEnum.PREPARE);
-    return true;
-  }
 }

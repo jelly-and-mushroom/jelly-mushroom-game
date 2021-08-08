@@ -60,6 +60,7 @@ public class KeyEventService {
         new PrepareMyCardRepositoryDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
       case PREPARE_BUY_CARD:
+        new PrepareBuyCardStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
     }
   }
 }

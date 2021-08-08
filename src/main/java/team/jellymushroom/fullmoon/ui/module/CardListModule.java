@@ -32,7 +32,7 @@ public class CardListModule extends Module {
     if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(this.prepareOption)) {
       cardList = this.uiService.getMainService().getPlayerMyself().getCardList();
     } else if (PrepareOptionEnum.BY_CARD.equals(this.prepareOption)) {
-      cardList = new ArrayList<>();
+      cardList = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList();
     }
     // 一屏总计展示个数
     int totalCount = CARD_COLUMN * CARD_ROW;

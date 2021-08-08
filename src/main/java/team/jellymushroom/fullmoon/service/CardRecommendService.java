@@ -27,16 +27,15 @@ public class CardRecommendService {
     this.resourceService = resourceService;
   }
 
-  public List<Integer> buyCard(boolean myself) {
+  public List<CardEntity> buyCard(PlayerEntity player) {
     // 返回卡牌数：前端能一屏显示的数量
     int resultSize = CardListModule.CARD_COLUMN * CardListModule.CARD_ROW;
     // 结果列表
-    List<Integer> result = new ArrayList<>(resultSize);
+    List<CardEntity> result = new ArrayList<>(resultSize);
     // 卡牌列表
     List<CardEntity> cardList = this.resourceService.getServiceResourceEntity().getCardList();
     Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
     // 牌组流派得分
-    PlayerEntity player = myself ? this.mainService.getPlayerMyself() : this.mainService.getPlayerOpponent();
     Map<Integer, Integer> obtainedCardGenreScoreMap = this.calculateCardGenreScore(player.getCardList());
     // 可推荐卡牌加权得分
     CardRecommendEntity cardRecommend = this.calculateRecommendCardScore(obtainedCardGenreScoreMap, cardList, player.getGameRoleEntity().getIndex());
@@ -48,15 +47,15 @@ public class CardRecommendService {
       if (null == recommendCardIndex) {
         break;
       }
-      result.add(recommendCardIndex);
+      result.add(cardMap.get(recommendCardIndex).copy());
     }
     // 无可推荐卡牌返回空
     if (result.isEmpty()) {
       return result;
     }
     // 两张特殊卡牌默认占据最后的两个位置
-    result.add(cardList.get(cardList.size() - 2).getIndex());
-    result.add(cardList.get(cardList.size() - 1).getIndex());
+    result.add(cardList.get(cardList.size() - 2).copy());
+    result.add(cardList.get(cardList.size() - 1).copy());
     // 返回结果列表
     return result;
   }

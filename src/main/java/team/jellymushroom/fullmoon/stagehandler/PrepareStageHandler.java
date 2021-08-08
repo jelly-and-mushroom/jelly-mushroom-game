@@ -62,6 +62,7 @@ public class PrepareStageHandler extends StageHandler {
     }
     if (PrepareOptionEnum.BY_CARD.equals(prepare)) {
       super.activePlayer.getSignal().setIndex(0);
+      super.activePlayer.getSignal().setCardList(super.stageHandlerService.getCardRecommendService().buyCard(super.activePlayer));
       super.activePlayer.setStage(GameStageEnum.PREPARE_BUY_CARD);
       return true;
     }

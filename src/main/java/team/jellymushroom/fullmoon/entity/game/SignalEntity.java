@@ -11,7 +11,7 @@ public class SignalEntity {
    * CHOOSE_ROLE CHOOSE_ROLE_DETAIL CHOOSE_ROLE_CONFIRM: GameRoleEntity.index
    * PREPARE_MY_CARD_REPOSITORY PREPARE_MY_CARD_REPOSITORY_DETAIL PREPARE_BY_CARD: 卡牌在列表中的位置索引
    */
-  private Integer index;
+  private Integer index = 0;
 
   /**
    * 游戏准备阶段，当前选择的选项

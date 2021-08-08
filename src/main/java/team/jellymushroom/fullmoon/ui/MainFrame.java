@@ -35,8 +35,7 @@ public class MainFrame extends Frame {
   @Value("${fm.ui.mainframe.location.y}")
   private Integer locationY;
 
-  @Value("${fm.ui.repaintInterval}")
-  private Integer repaintInterval;
+  private Integer repaintInterval = 10;
 
   private UIService uiService;
 

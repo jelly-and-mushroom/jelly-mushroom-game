@@ -7,7 +7,6 @@ import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CardListModule extends Module {

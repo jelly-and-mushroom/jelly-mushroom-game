@@ -129,6 +129,7 @@ public class MainFrame extends Frame {
       case PREPARE_MY_CARD_REPOSITORY:
       case PREPARE_MY_CARD_REPOSITORY_DETAIL:
       case PREPARE_BUY_CARD:
+      case PREPARE_BUY_CARD_DETAIL:
         new MainFrameModule(this.uiService, this.resource, 0, oY, oWidth, oHeight, 0).draw(g);
     }
   }

@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 /**
@@ -57,7 +58,8 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
     if (cardListSize == 0) {
       return false;
     }
-    return false;
+    super.activePlayer.setStage(GameStageEnum.PREPARE_BUY_CARD_DETAIL);
+    return true;
   }
 
   @Override

@@ -15,7 +15,8 @@ public enum GameStageEnum {
   PREPARE(3, "游戏准备"),
   PREPARE_MY_CARD_REPOSITORY(4, "游戏准备-我的牌库"),
   PREPARE_MY_CARD_REPOSITORY_DETAIL(5, "游戏准备-我的牌库-详情"),
-  PREPARE_BUY_CARD(6, "游戏准备-购买卡牌");
+  PREPARE_BUY_CARD(6, "游戏准备-购买卡牌"),
+  PREPARE_BUY_CARD_DETAIL(7, "游戏准备-购买卡牌-详情");
 
   private Integer index;
 

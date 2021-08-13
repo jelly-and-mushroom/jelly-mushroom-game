@@ -2,6 +2,7 @@ package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
+import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
@@ -75,16 +76,24 @@ public class CardListModule extends Module {
 
   private void drawCardDetail(Graphics g) {
     GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
+    PlayerEntity player = this.uiService.getMainService().getPlayerMyself();
+    Integer cardIndex = player.getSignal().getIndex();
+    CardEntity card = null;
     if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage)) {
-      int detailCardWidth = 300;
-      int detailCardHeight = (int)(1.0 * detailCardWidth * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
-      new CardModule(this.uiService, this.resource,
-          this.iX + (this.iWidth - detailCardWidth) / 2,
-          this.iY + (this.iHeight - detailCardHeight) / 2,
-          detailCardWidth, detailCardHeight, 0,
-          this.uiService.getMainService().getPlayerMyself().getCardList().get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex()),
-          true).draw(g);
+      card = player.getCardList().get(cardIndex);
+    } else if (GameStageEnum.PREPARE_BUY_CARD_DETAIL.equals(stage)) {
+      card = player.getSignal().getCardList().get(cardIndex);
+    } else {
+      return;
     }
+    int detailCardWidth = 300;
+    int detailCardHeight = (int)(1.0 * detailCardWidth * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
+    new CardModule(this.uiService, this.resource,
+        this.iX + (this.iWidth - detailCardWidth) / 2,
+        this.iY + (this.iHeight - detailCardHeight) / 2,
+        detailCardWidth, detailCardHeight, 0,
+        card,
+        true).draw(g);
   }
 
   private void drawTitle(Graphics g, int cardListSize, int startIndex, int pageSize) {

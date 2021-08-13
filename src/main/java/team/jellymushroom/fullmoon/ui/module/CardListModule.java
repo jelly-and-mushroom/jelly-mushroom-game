@@ -114,5 +114,11 @@ public class CardListModule extends Module {
       super.drawFont(g, this.iX + 460, this.iY + yAdd, "[第" + currentPage+"/" + totalpage + "页]", Color.WHITE, fontStyle, fontSize);
       return;
     }
+    if (PrepareOptionEnum.BY_CARD.equals(this.prepareOption)) {
+      CardEntity card = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList().get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex());
+      super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + card.getPrice() + ")", Color.ORANGE, fontStyle, fontSize);
+      return;
+    }
   }
 }

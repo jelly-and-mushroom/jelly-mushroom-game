@@ -1,6 +1,8 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
+import team.jellymushroom.fullmoon.constant.CardTypeEnum;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 /**
@@ -67,6 +69,12 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
     int cardListSize = super.activePlayer.getSignal().getCardList().size();
     if (cardListSize == 0) {
       return false;
+    }
+    CardEntity card = super.activePlayer.getSignal().getCardList().get(super.activePlayer.getSignal().getIndex());
+    // TODO 判断金币是否足够
+    if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin())) {
+      super.activePlayer.getSignal().setCardList(super.stageHandlerService.getCardRecommendService().buyCard(super.activePlayer));
+      return true;
     }
     return false;
   }

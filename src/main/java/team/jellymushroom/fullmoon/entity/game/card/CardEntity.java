@@ -51,4 +51,29 @@ public abstract class CardEntity implements Cloneable {
     }
     return false;
   }
+
+  public Integer getPrice() {
+    Integer result = this.level.getPrice();
+    Integer star = this.getStar();
+    if (null == star) {
+      return result;
+    }
+    Integer breakTimes = this.starList.size() - star;
+    for (int i = 0; i < breakTimes; i++) {
+      result = (int)(this.level.getPriveBreakage() * result);
+    }
+    return result;
+  }
+
+  private Integer getStar() {
+    if (this.starList.isEmpty()) {
+      return null;
+    }
+    for (int i = 0; i < this.starList.size(); i++) {
+      if (this.index == this.starList.get(i)) {
+        return i + 1;
+      }
+    }
+    return null;
+  }
 }

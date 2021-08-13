@@ -71,7 +71,11 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
       return false;
     }
     CardEntity card = super.activePlayer.getSignal().getCardList().get(super.activePlayer.getSignal().getIndex());
-    // TODO 判断金币是否足够
+    int wishGold = super.activePlayer.getGold() - card.getPrice();
+    if (wishGold < 0) {
+      return false;
+    }
+    super.activePlayer.setGold(wishGold);
     if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin())) {
       super.activePlayer.getSignal().setCardList(super.stageHandlerService.getCardRecommendService().buyCard(super.activePlayer));
       return true;

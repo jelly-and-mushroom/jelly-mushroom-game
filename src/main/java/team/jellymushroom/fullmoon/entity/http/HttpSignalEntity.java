@@ -12,5 +12,7 @@ public class HttpSignalEntity {
 
   private List<Integer> cardIndexList = new ArrayList<>();
 
+  private List<Integer> cardIndexList2 = new ArrayList<>();
+
   private Integer prepareOptionIndex;
 }

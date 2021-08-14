@@ -4,6 +4,9 @@ import team.jellymushroom.fullmoon.constant.CardTypeEnum;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
+import team.jellymushroom.fullmoon.util.CardUtil;
+
+import java.util.List;
 
 /**
  * PREPARE_BUY_CARD
@@ -78,6 +81,13 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
     super.activePlayer.setGold(wishGold);
     if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin())) {
       super.activePlayer.getSignal().setCardList(super.stageHandlerService.getCardRecommendService().buyCard(super.activePlayer));
+      return true;
+    }
+    if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin() + 1)) {
+      List<CardEntity> recommendCardList = super.stageHandlerService.getCardRecommendService().recommend(super.activePlayer, 3);
+      super.activePlayer.getSignal().setCardList2(recommendCardList);
+      CardUtil.add(super.activePlayer.getCardList(), recommendCardList);
+      super.activePlayer.setStage(GameStageEnum.PREPARE_BUY_CARD_RANDOM);
       return true;
     }
     return false;

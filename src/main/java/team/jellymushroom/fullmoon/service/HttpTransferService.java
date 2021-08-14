@@ -248,6 +248,10 @@ public class HttpTransferService {
     if (!signal.getCardList().isEmpty()) {
       signal.getCardList().forEach(e -> httpSignal.getCardIndexList().add(e.getIndex()));
     }
+    // 游戏各阶段(GameStageEnum)，卡牌列表2
+    if (!signal.getCardList2().isEmpty()) {
+      signal.getCardList2().forEach(e -> httpSignal.getCardIndexList2().add(e.getIndex()));
+    }
     // 游戏准备阶段，当前选择的选项
     if (null != signal.getPrepareOption()) {
       httpSignal.setPrepareOptionIndex(signal.getPrepareOption().getIndex());
@@ -257,14 +261,19 @@ public class HttpTransferService {
   }
 
   public SignalEntity convert(HttpSignalEntity httpSignal) {
+    // 资源
+    Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
     // 返回值
     SignalEntity signal = new SignalEntity();
     // 游戏各阶段(GameStageEnum)，主控制信号索引
     signal.setIndex(httpSignal.getIndex());
     // 游戏各阶段(GameStageEnum)，卡牌列表
     if (!httpSignal.getCardIndexList().isEmpty()) {
-      Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
       httpSignal.getCardIndexList().forEach(e -> signal.getCardList().add(cardMap.get(e).copy()));
+    }
+    // 游戏各阶段(GameStageEnum)，卡牌列表2
+    if (!httpSignal.getCardIndexList2().isEmpty()) {
+      httpSignal.getCardIndexList2().forEach(e -> signal.getCardList2().add(cardMap.get(e).copy()));
     }
     // 游戏准备阶段，当前选择的选项
     if (null != httpSignal.getPrepareOptionIndex()) {

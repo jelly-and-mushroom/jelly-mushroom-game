@@ -38,7 +38,7 @@ public class MainFrameModule extends Module {
       return;
     }
     // 购买卡牌
-    if (GameStageEnum.PREPARE_BUY_CARD.equals(stage) || GameStageEnum.PREPARE_BUY_CARD_DETAIL.equals(stage)) {
+    if (GameStageEnum.PREPARE_BUY_CARD.equals(stage) || GameStageEnum.PREPARE_BUY_CARD_DETAIL.equals(stage) || GameStageEnum.PREPARE_BUY_CARD_RANDOM.equals(stage)) {
       new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.BY_CARD).draw(g);
       return;
     }

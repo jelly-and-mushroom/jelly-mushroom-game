@@ -24,6 +24,12 @@ public class SignalEntity {
   private List<CardEntity> cardList = new ArrayList<>();
 
   /**
+   * 游戏各阶段(GameStageEnum)，卡牌列表2
+   * PREPARE_BUY_CARD_RANDOM: 随机购买到的卡牌列表(此时cardList被PREPARE_BUY_CARD占据)
+   */
+  private List<CardEntity> cardList2 = new ArrayList<>();
+
+  /**
    * 游戏准备阶段，当前选择的选项
    */
   private PrepareOptionEnum prepareOption = PrepareOptionEnum.MY_CARD_REPOSITORY;

@@ -18,12 +18,9 @@ import java.util.Map;
 @Slf4j
 public class CardRecommendService {
 
-  private MainService mainService;
-
   private ResourceService resourceService;
 
-  public CardRecommendService(MainService mainService, ResourceService resourceService) {
-    this.mainService = mainService;
+  public CardRecommendService(ResourceService resourceService) {
     this.resourceService = resourceService;
   }
 
@@ -31,31 +28,37 @@ public class CardRecommendService {
     // 返回卡牌数：前端能一屏显示的数量
     int resultSize = CardListModule.CARD_COLUMN * CardListModule.CARD_ROW;
     // 结果列表
-    List<CardEntity> result = new ArrayList<>(resultSize);
-    // 卡牌列表
+    List<CardEntity> result = this.recommend(player, resultSize - 2);
+    // 无可推荐卡牌返回空
+    if (result.isEmpty()) {
+      return result;
+    }
+    // 资源
+    List<CardEntity> cardList = this.resourceService.getServiceResourceEntity().getCardList();
+    // 两张特殊卡牌默认占据最后的两个位置
+    result.add(cardList.get(cardList.size() - 2).copy());
+    result.add(cardList.get(cardList.size() - 1).copy());
+    // 返回结果列表
+    return result;
+  }
+
+  public List<CardEntity> recommend(PlayerEntity player, int count) {
+    // 结果列表
+    List<CardEntity> result = new ArrayList<>(count);
+    // 资源
     List<CardEntity> cardList = this.resourceService.getServiceResourceEntity().getCardList();
     Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
-    // 牌组流派得分
+    // 卡牌推荐实体
     Map<Integer, Integer> obtainedCardGenreScoreMap = this.calculateCardGenreScore(player.getCardList());
-    // 可推荐卡牌加权得分
     CardRecommendEntity cardRecommend = this.calculateRecommendCardScore(obtainedCardGenreScoreMap, cardList, player.getGameRoleEntity().getIndex());
-    // 除特殊卡牌外，实际需推荐的卡牌数量
-    int recommendSize = resultSize - 2;
     // 推荐
-    for (int i = 0; i < recommendSize; i++) {
+    for (int i = 0; i < count; i++) {
       Integer recommendCardIndex = cardRecommend.recommend();
       if (null == recommendCardIndex) {
         break;
       }
       result.add(cardMap.get(recommendCardIndex).copy());
     }
-    // 无可推荐卡牌返回空
-    if (result.isEmpty()) {
-      return result;
-    }
-    // 两张特殊卡牌默认占据最后的两个位置
-    result.add(cardList.get(cardList.size() - 2).copy());
-    result.add(cardList.get(cardList.size() - 1).copy());
     // 返回结果列表
     return result;
   }

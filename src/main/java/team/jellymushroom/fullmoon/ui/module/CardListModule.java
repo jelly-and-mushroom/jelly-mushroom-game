@@ -72,6 +72,11 @@ public class CardListModule extends Module {
     super.drawWindow(g);
     // 绘制detail
     this.drawCardDetail(g);
+    // 绘制购买Random
+    this.drawBuyRandow(g);
+  }
+
+  private void drawBuyRandow(Graphics g) {
   }
 
   private void drawCardDetail(Graphics g) {

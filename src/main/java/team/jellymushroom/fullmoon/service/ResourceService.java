@@ -12,6 +12,7 @@ import team.jellymushroom.fullmoon.constant.CardTypeEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.*;
 import team.jellymushroom.fullmoon.entity.resource.ServiceResourceEntity;
+import team.jellymushroom.fullmoon.util.CardUtil;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -90,7 +91,7 @@ public class ResourceService {
         case SPECIAL:
           cardEntity = JSONObject.parseObject(gameCardJSONObject.toJSONString(), SpecialCardEntity.class);
       }
-      this.serviceResourceEntity.addCardList(cardEntity);
+      CardUtil.add(this.serviceResourceEntity.getCardList(), cardEntity);
       this.serviceResourceEntity.getCardMap().put(cardEntity.getIndex(), cardEntity);
     }
     log.info("游戏卡牌数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getCardList().size());

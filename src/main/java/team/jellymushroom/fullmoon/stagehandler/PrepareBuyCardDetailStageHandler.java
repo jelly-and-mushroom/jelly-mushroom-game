@@ -3,6 +3,9 @@ package team.jellymushroom.fullmoon.stagehandler;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
+/**
+ * PREPARE_BUY_CARD_DETAIL
+ */
 public class PrepareBuyCardDetailStageHandler extends CardListDetailStageHandler {
 
   public PrepareBuyCardDetailStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {

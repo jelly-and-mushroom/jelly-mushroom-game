@@ -6,12 +6,15 @@ import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 import team.jellymushroom.fullmoon.util.CardUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * PREPARE_BUY_CARD
  */
 public class PrepareBuyCardStageHandler extends CardListStageHandler {
+
+  public static Integer RANDOM_BUY_SIZE = 3;
 
   public PrepareBuyCardStageHandler(StageHandlerService stageHandlerService, Boolean fromLocal) {
     super(stageHandlerService, fromLocal);
@@ -84,7 +87,11 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
       return true;
     }
     if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin() + 1)) {
-      List<CardEntity> recommendCardList = super.stageHandlerService.getCardRecommendService().recommend(super.activePlayer, 3);
+      List<CardEntity> recommendCardList = super.stageHandlerService.getCardRecommendService().recommend(super.activePlayer, RANDOM_BUY_SIZE);
+      if (recommendCardList.size() != RANDOM_BUY_SIZE.intValue()) {
+        super.activePlayer.getSignal().setCardList2(new ArrayList<>());
+        return false;
+      }
       super.activePlayer.getSignal().setCardList2(recommendCardList);
       CardUtil.add(super.activePlayer.getCardList(), recommendCardList);
       super.activePlayer.setStage(GameStageEnum.PREPARE_BUY_CARD_RANDOM);

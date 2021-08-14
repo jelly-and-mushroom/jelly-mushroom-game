@@ -6,6 +6,7 @@ import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
+import team.jellymushroom.fullmoon.stagehandler.PrepareBuyCardStageHandler;
 
 import java.awt.*;
 import java.util.List;
@@ -44,7 +45,7 @@ public class CardListModule extends Module {
       int firstRowY = this.iY + 65;
       // 卡牌宽高
       int cardWidth = this.iWidth / CARD_COLUMN;
-      int cardHeight = (int)(1.0 * cardWidth * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
+      int cardHeight = CardModule.getHeight(cardWidth);
       // 当前高亮卡牌在列表中的index
       int highLightCardIndex = this.uiService.getMainService().getPlayerMyself().getSignal().getIndex();
       // 起始展示的卡牌在列表中的index
@@ -77,6 +78,22 @@ public class CardListModule extends Module {
   }
 
   private void drawBuyRandow(Graphics g) {
+    if (!GameStageEnum.PREPARE_BUY_CARD_RANDOM.equals(this.uiService.getMainService().getPlayerMyself().getStage())) {
+      return;
+    }
+    List<CardEntity> cardList = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList2();
+    int cardCount = PrepareBuyCardStageHandler.RANDOM_BUY_SIZE;
+    if (cardList.size() != cardCount) {
+      return;
+    }
+    int cardWidth = this.iWidth / cardCount;
+    int cardHeight = CardModule.getHeight(cardWidth);
+    int cardX = this.iX;
+    int cardY = this.iY + (this.iHeight - cardHeight) / 2;
+    for (CardEntity card : cardList) {
+      new CardModule(this.uiService, this.resource, cardX, cardY, cardWidth, cardHeight, 0, card, true).draw(g);
+      cardX += cardWidth;
+    }
   }
 
   private void drawCardDetail(Graphics g) {
@@ -92,7 +109,7 @@ public class CardListModule extends Module {
       return;
     }
     int detailCardWidth = 300;
-    int detailCardHeight = (int)(1.0 * detailCardWidth * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
+    int detailCardHeight = CardModule.getHeight(detailCardWidth);;
     new CardModule(this.uiService, this.resource,
         this.iX + (this.iWidth - detailCardWidth) / 2,
         this.iY + (this.iHeight - detailCardHeight) / 2,

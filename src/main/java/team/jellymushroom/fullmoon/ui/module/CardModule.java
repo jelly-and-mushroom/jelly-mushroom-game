@@ -14,9 +14,9 @@ public class CardModule extends Module {
 
   private Boolean showWindow;
 
-  public static final Integer CARD_SOURCE_WIDHT = 560;
+  private static final Integer CARD_SOURCE_WIDHT = 560;
 
-  public static final Integer CARD_SOURCE_HEIGHT = 842;
+  private static final Integer CARD_SOURCE_HEIGHT = 842;
 
   public CardModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, CardEntity card, Boolean showWindow) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
@@ -44,5 +44,9 @@ public class CardModule extends Module {
     if (this.showWindow) {
       super.drawWindow(g);
     }
+  }
+
+  public static int getHeight(int width) {
+    return (int)(1.0 * width * CardModule.CARD_SOURCE_HEIGHT / CardModule.CARD_SOURCE_WIDHT);
   }
 }

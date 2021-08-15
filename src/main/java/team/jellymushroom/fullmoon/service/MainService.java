@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.entity.game.GameEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
-import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 import team.jellymushroom.fullmoon.runnable.HttpWaitConnectRunnable;
 
 import javax.annotation.PostConstruct;
@@ -24,12 +23,9 @@ public class MainService {
   @Getter
   private Long initTime = System.currentTimeMillis();
 
-  private ResourceService resourceService;
-
   private HttpTransferService httpTransferService;
 
-  public MainService(ResourceService resourceService, HttpTransferService httpTransferService) {
-    this.resourceService = resourceService;
+  public MainService(HttpTransferService httpTransferService) {
     this.httpTransferService = httpTransferService;
   }
 
@@ -44,10 +40,5 @@ public class MainService {
 
   public PlayerEntity getPlayerOpponent() {
     return this.isServer ? this.gameEntity.getClientPlayer() : this.gameEntity.getServerPlayer();
-  }
-
-  public void initGame() {
-    this.isServer = true;
-    new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.getGameEntity())).start();
   }
 }

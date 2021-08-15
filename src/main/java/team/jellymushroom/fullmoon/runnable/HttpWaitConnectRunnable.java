@@ -41,15 +41,22 @@ public class HttpWaitConnectRunnable implements Runnable {
       }
       JSONObject data = httpResult.getJSONObject(HttpResponseEntity.DATA_KEY);
       HttpWaitConnectEntity httpWaitConnectEntity = JSONObject.parseObject(data.toJSONString(), HttpWaitConnectEntity.class);
+      if (null != httpWaitConnectEntity.getIsServer()) {
+        this.mainService.setIsServer(!httpWaitConnectEntity.getIsServer());
+        this.mainService.setGameEntity(this.httpTransferService.convert(httpWaitConnectEntity.getHttpGame()));
+        log.info("连接对手成功，成为:{}", this.mainService.getIsServer() ? "服务端" : "客户端");
+        return;
+      }
       Long remoteInitTime = httpWaitConnectEntity.getInitTime();
       Long localInitTime = this.mainService.getInitTime();
       if (remoteInitTime < localInitTime) {
-        log.info("连接对手成功.remoteInitTime:{},localInitTime:{}.计划成为客户端，等待服务端指令", remoteInitTime, localInitTime);
-        break;
+        log.info("连接对手成功.remoteInitTime:{},localInitTime:{}.成为客户端", remoteInitTime, localInitTime);
+        this.mainService.setIsServer(false);
+        return;
       }
       log.info("连接对手成功.remoteInitTime:{},localInitTime:{}.成为服务端", remoteInitTime, localInitTime);
-      this.mainService.initGame();
-      break;
+      this.mainService.setIsServer(true);
+      return;
     }
   }
 }

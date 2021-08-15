@@ -32,6 +32,8 @@ public class MainController {
   public HttpResponseEntity getHttpWaitConnectInfo() {
     try {
       HttpWaitConnectEntity result = new HttpWaitConnectEntity();
+      result.setIsServer(this.mainService.getIsServer());
+      result.setHttpGame(this.httpTransferService.convert(this.mainService.getGameEntity()));
       result.setInitTime(this.mainService.getInitTime());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
@@ -54,7 +56,6 @@ public class MainController {
       log.info("接收到服务端更新的数据:{}", jsonObject.toJSONString());
       HttpGameEntity httpGame = JSONObject.parseObject(jsonObject.toJSONString(), HttpGameEntity.class);
       this.mainService.setGameEntity(this.httpTransferService.convert(httpGame));
-      this.mainService.setIsServer(false);
       return HttpResponseEntity.success(null, null);
     } catch (Exception e) {
       String errorMsg = "updateGame执行时出错";

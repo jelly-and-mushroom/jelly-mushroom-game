@@ -9,8 +9,4 @@ import lombok.Data;
 public class HttpWaitConnectEntity {
 
   private Long initTime;
-
-  private Boolean isServer;
-
-  private HttpGameEntity httpGame;
 }

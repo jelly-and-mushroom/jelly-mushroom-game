@@ -3,11 +3,13 @@ package team.jellymushroom.fullmoon.controller;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import team.jellymushroom.fullmoon.entity.http.*;
+import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpKeyEventEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.KeyEventService;
 import team.jellymushroom.fullmoon.service.MainService;
-import team.jellymushroom.fullmoon.service.ResourceService;
 
 @RestController
 @Slf4j
@@ -19,12 +21,9 @@ public class MainController {
 
   private KeyEventService keyEventService;
 
-  private ResourceService resourceService;
-
-  public MainController(MainService mainService, KeyEventService keyEventService, ResourceService resourceService, HttpTransferService httpTransferService) {
+  public MainController(MainService mainService, KeyEventService keyEventService, HttpTransferService httpTransferService) {
     this.mainService = mainService;
     this.keyEventService = keyEventService;
-    this.resourceService = resourceService;
     this.httpTransferService = httpTransferService;
   }
 
@@ -32,8 +31,6 @@ public class MainController {
   public HttpResponseEntity getHttpWaitConnectInfo() {
     try {
       HttpWaitConnectEntity result = new HttpWaitConnectEntity();
-      result.setIsServer(this.mainService.getIsServer());
-      result.setHttpGame(this.httpTransferService.convert(this.mainService.getGameEntity()));
       result.setInitTime(this.mainService.getInitTime());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
@@ -56,6 +53,7 @@ public class MainController {
       log.info("接收到服务端更新的数据:{}", jsonObject.toJSONString());
       HttpGameEntity httpGame = JSONObject.parseObject(jsonObject.toJSONString(), HttpGameEntity.class);
       this.mainService.setGameEntity(this.httpTransferService.convert(httpGame));
+      this.mainService.setIsServer(false);
       return HttpResponseEntity.success(null, null);
     } catch (Exception e) {
       String errorMsg = "updateGame执行时出错";

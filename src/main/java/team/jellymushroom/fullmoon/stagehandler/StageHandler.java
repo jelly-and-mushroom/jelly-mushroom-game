@@ -27,33 +27,33 @@ public abstract class StageHandler {
 
   public void handle(KeyEventEnum keyEventEnum) {
     GameStageEnum stage = this.activePlayer.getStage();
-    boolean needSend = false;
+    boolean change = false;
     switch (keyEventEnum) {
       case LEFT:
-        needSend = this.left();
+        change = this.left();
         break;
       case RIGHT:
-        needSend = this.right();
+        change = this.right();
         break;
       case UP:
-        needSend = this.up();
+        change = this.up();
         break;
       case DOWN:
-        needSend = this.down();
+        change = this.down();
         break;
       case DETAIL:
-        needSend = this.detail();
+        change = this.detail();
         break;
       case CONFIRM:
-        needSend = this.confirm();
+        change = this.confirm();
         break;
       case CANCEL:
-        needSend = this.cancel();
+        change = this.cancel();
     }
-    if (needSend) {
+    if (change) {
       new Thread(new HttpUpdateGameRunnable(this.stageHandlerService.getHttpTransferService(), this.stageHandlerService.getMainService().getGameEntity())).start();
     }
-    log.info("键盘指令处理完成,keyEventEnum:{},fromLocal:{},needSend:{},处理前所处状态:{},处理后所处状态:{}", keyEventEnum, this.fromLocal, needSend, stage, this.activePlayer.getStage());
+    log.info("键盘指令处理完成,keyEventEnum:{},fromLocal:{},change:{},处理前所处状态:{},处理后所处状态:{}", keyEventEnum, this.fromLocal, change, stage, this.activePlayer.getStage());
   }
 
   abstract boolean left();

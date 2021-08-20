@@ -42,7 +42,6 @@ public class HttpUpdateGameRunnable implements Runnable {
         Thread.sleep(HttpTransferService.HTTP_RETRY_INTERVAL);
         continue;
       }
-      log.info("服务端向客户端数据同步成功");
       break;
     }
     this.httpTransferService.setHttpSendWait(false);

@@ -8,6 +8,7 @@ import team.jellymushroom.fullmoon.entity.http.HttpResponseEntity;
 import team.jellymushroom.fullmoon.entity.http.HttpWaitConnectEntity;
 import team.jellymushroom.fullmoon.service.HttpTransferService;
 import team.jellymushroom.fullmoon.service.MainService;
+import team.jellymushroom.fullmoon.service.ResourceService;
 import team.jellymushroom.fullmoon.util.http.HttpClientUtil;
 import team.jellymushroom.fullmoon.util.http.HttpResult;
 
@@ -18,9 +19,12 @@ public class HttpWaitConnectRunnable implements Runnable {
 
   private HttpTransferService httpTransferService;
 
-  public HttpWaitConnectRunnable(MainService mainService, HttpTransferService httpTransferService) {
+  private ResourceService resourceService;
+
+  public HttpWaitConnectRunnable(MainService mainService, HttpTransferService httpTransferService, ResourceService resourceService) {
     this.mainService = mainService;
     this.httpTransferService = httpTransferService;
+    this.resourceService = resourceService;
   }
 
   @SneakyThrows
@@ -41,13 +45,21 @@ public class HttpWaitConnectRunnable implements Runnable {
       }
       JSONObject data = httpResult.getJSONObject(HttpResponseEntity.DATA_KEY);
       HttpWaitConnectEntity httpWaitConnectEntity = JSONObject.parseObject(data.toJSONString(), HttpWaitConnectEntity.class);
-      Long remoteInitTime = httpWaitConnectEntity.getInitTime();
-      Long localInitTime = this.mainService.getInitTime();
-      if (remoteInitTime < localInitTime) {
-        log.info("连接对手成功.remoteInitTime:{},localInitTime:{}.计划成为客户端，等待服务端同步初始数据", remoteInitTime, localInitTime);
+      Long remoteServerPriority = httpWaitConnectEntity.getServerPriority();
+      Long localServerPriority = this.mainService.getServerPriority();
+      if (remoteServerPriority.equals(localServerPriority)) {
+        log.info("联机双方均试图读取存档，成为服务端。导致连接失败");
+        continue;
+      }
+      if (remoteServerPriority < localServerPriority) {
+        log.info("连接对手成功.remoteServerPriority:{},localServerPriority:{}.计划成为客户端，等待服务端同步初始数据", remoteServerPriority, localServerPriority);
         return;
       }
-      log.info("连接对手成功.remoteInitTime:{},localInitTime:{}.成为服务端", remoteInitTime, localInitTime);
+      log.info("连接对手成功.remoteServerPriority:{},localServerPriority:{}.成为服务端", remoteServerPriority, localServerPriority);
+      if (localServerPriority.longValue() == 0) {
+        this.mainService.setGameEntity(this.httpTransferService.convert(this.resourceService.load()));
+        log.info("读取存档成功");
+      }
       this.mainService.setIsServer(true);
       new Thread(new HttpUpdateGameRunnable(this.httpTransferService, this.mainService.getGameEntity())).start();
       return;

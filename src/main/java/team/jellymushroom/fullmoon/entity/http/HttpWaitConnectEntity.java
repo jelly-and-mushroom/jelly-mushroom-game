@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 public class HttpWaitConnectEntity {
 
-  private Long initTime;
+  private Long serverPriority;
 }

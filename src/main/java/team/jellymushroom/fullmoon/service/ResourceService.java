@@ -31,9 +31,6 @@ public class ResourceService {
   @Value("${fm.save.auto}")
   private Boolean autoSave;
 
-  @Value("${fm.save.load}")
-  private Boolean loadSave;
-
   private String savePath = "/save/save.txt";
 
   @Getter
@@ -60,6 +57,11 @@ public class ResourceService {
       return;
     }
     Files.write(Paths.get(this.resourceRootPath + this.savePath), JSONObject.toJSONString(game).getBytes());
+  }
+
+  public HttpGameEntity load() {
+    String dataStr = this.readFile(this.savePath);
+    return JSONObject.parseObject(dataStr, HttpGameEntity.class);
   }
 
   private void loadGameRole() {

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.KeyEventEnum;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
+import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
 import team.jellymushroom.fullmoon.runnable.HttpUpdateGameRunnable;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
@@ -52,6 +53,8 @@ public abstract class StageHandler {
     }
     if (change) {
       new Thread(new HttpUpdateGameRunnable(this.stageHandlerService.getHttpTransferService(), this.stageHandlerService.getMainService().getGameEntity())).start();
+      HttpGameEntity game = this.stageHandlerService.getHttpTransferService().convert(this.stageHandlerService.getMainService().getGameEntity());
+      this.stageHandlerService.getResourceService().save(game);
     }
     log.info("键盘指令处理完成,keyEventEnum:{},fromLocal:{},change:{},处理前所处状态:{},处理后所处状态:{}", keyEventEnum, this.fromLocal, change, stage, this.activePlayer.getStage());
   }

@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.CardTypeEnum;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.*;
+import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
 import team.jellymushroom.fullmoon.entity.resource.ServiceResourceEntity;
 import team.jellymushroom.fullmoon.util.CardUtil;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Service
 @Slf4j
@@ -24,6 +27,14 @@ public class ResourceService {
   @Value("${fm.resource.rootPath}")
   @Getter
   private String resourceRootPath;
+
+  @Value("${fm.save.auto}")
+  private Boolean autoSave;
+
+  @Value("${fm.save.load}")
+  private Boolean loadSave;
+
+  private String savePath = "/save/save.txt";
 
   @Getter
   private ServiceResourceEntity serviceResourceEntity = new ServiceResourceEntity();
@@ -41,6 +52,14 @@ public class ResourceService {
       log.error("初始化server资源时出错，程序启动失败", e);
       System.exit(0);
     }
+  }
+
+  @SneakyThrows
+  public void save(HttpGameEntity game) {
+    if (!autoSave) {
+      return;
+    }
+    Files.write(Paths.get(this.resourceRootPath + this.savePath), JSONObject.toJSONString(game).getBytes());
   }
 
   private void loadGameRole() {

@@ -18,32 +18,36 @@ public class PrepareStageHandler extends StageHandler {
   @Override
   boolean left() {
     SignalEntity signal = super.activePlayer.getSignal();
-    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(signal.getPrepareOption().getLeftIndex());
-    signal.setPrepareOption(nextPrepare);
+    PrepareOptionEnum currentPrepare = PrepareOptionEnum.getEnumByIndex(signal.getIndex2());
+    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(currentPrepare.getLeftIndex());
+    signal.setIndex2(nextPrepare.getIndex());
     return true;
   }
 
   @Override
   boolean right() {
     SignalEntity signal = super.activePlayer.getSignal();
-    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(signal.getPrepareOption().getRightIndex());
-    signal.setPrepareOption(nextPrepare);
+    PrepareOptionEnum currentPrepare = PrepareOptionEnum.getEnumByIndex(signal.getIndex2());
+    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(currentPrepare.getRightIndex());
+    signal.setIndex2(nextPrepare.getIndex());
     return true;
   }
 
   @Override
   boolean up() {
     SignalEntity signal = super.activePlayer.getSignal();
-    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(signal.getPrepareOption().getUpIndex());
-    signal.setPrepareOption(nextPrepare);
+    PrepareOptionEnum currentPrepare = PrepareOptionEnum.getEnumByIndex(signal.getIndex2());
+    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(currentPrepare.getUpIndex());
+    signal.setIndex2(nextPrepare.getIndex());
     return true;
   }
 
   @Override
   boolean down() {
     SignalEntity signal = super.activePlayer.getSignal();
-    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(signal.getPrepareOption().getDownIndex());
-    signal.setPrepareOption(nextPrepare);
+    PrepareOptionEnum currentPrepare = PrepareOptionEnum.getEnumByIndex(signal.getIndex2());
+    PrepareOptionEnum nextPrepare = PrepareOptionEnum.getEnumByIndex(currentPrepare.getDownIndex());
+    signal.setIndex2(nextPrepare.getIndex());
     return true;
   }
 
@@ -54,7 +58,7 @@ public class PrepareStageHandler extends StageHandler {
 
   @Override
   boolean confirm() {
-    PrepareOptionEnum prepare = super.activePlayer.getSignal().getPrepareOption();
+    PrepareOptionEnum prepare = PrepareOptionEnum.getEnumByIndex(super.activePlayer.getSignal().getIndex2());
     if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(prepare)) {
       super.activePlayer.getSignal().setIndex(0);
       super.activePlayer.setStage(GameStageEnum.PREPARE_MY_CARD_REPOSITORY);
@@ -77,7 +81,7 @@ public class PrepareStageHandler extends StageHandler {
 
   private boolean confirmPrepareOption() {
     PlayerEntity player = super.activePlayer;
-    PrepareOptionEnum prepare = player.getSignal().getPrepareOption();
+    PrepareOptionEnum prepare = PrepareOptionEnum.getEnumByIndex(player.getSignal().getIndex2());
     if (PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT.equals(prepare)) {
       int wishGold = player.getGold() - prepare.getPrice();
       if (wishGold < 0) {

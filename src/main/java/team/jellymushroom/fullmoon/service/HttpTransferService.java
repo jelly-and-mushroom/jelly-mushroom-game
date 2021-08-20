@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GameResultEnum;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
-import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
 import team.jellymushroom.fullmoon.entity.game.*;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
@@ -244,6 +243,8 @@ public class HttpTransferService {
     HttpSignalEntity httpSignal = new HttpSignalEntity();
     // 游戏各阶段(GameStageEnum)，主控制信号索引
     httpSignal.setIndex(signal.getIndex());
+    // 游戏各阶段(GameStageEnum)，主控制信号索引2
+    httpSignal.setIndex2(signal.getIndex2());
     // 游戏各阶段(GameStageEnum)，卡牌列表
     if (!signal.getCardList().isEmpty()) {
       signal.getCardList().forEach(e -> httpSignal.getCardIndexList().add(e.getIndex()));
@@ -251,10 +252,6 @@ public class HttpTransferService {
     // 游戏各阶段(GameStageEnum)，卡牌列表2
     if (!signal.getCardList2().isEmpty()) {
       signal.getCardList2().forEach(e -> httpSignal.getCardIndexList2().add(e.getIndex()));
-    }
-    // 游戏准备阶段，当前选择的选项
-    if (null != signal.getPrepareOption()) {
-      httpSignal.setPrepareOptionIndex(signal.getPrepareOption().getIndex());
     }
     // 返回
     return httpSignal;
@@ -267,6 +264,8 @@ public class HttpTransferService {
     SignalEntity signal = new SignalEntity();
     // 游戏各阶段(GameStageEnum)，主控制信号索引
     signal.setIndex(httpSignal.getIndex());
+    // 游戏各阶段(GameStageEnum)，主控制信号索引2
+    signal.setIndex2(httpSignal.getIndex2());
     // 游戏各阶段(GameStageEnum)，卡牌列表
     if (!httpSignal.getCardIndexList().isEmpty()) {
       httpSignal.getCardIndexList().forEach(e -> signal.getCardList().add(cardMap.get(e).copy()));
@@ -274,10 +273,6 @@ public class HttpTransferService {
     // 游戏各阶段(GameStageEnum)，卡牌列表2
     if (!httpSignal.getCardIndexList2().isEmpty()) {
       httpSignal.getCardIndexList2().forEach(e -> signal.getCardList2().add(cardMap.get(e).copy()));
-    }
-    // 游戏准备阶段，当前选择的选项
-    if (null != httpSignal.getPrepareOptionIndex()) {
-      signal.setPrepareOption(PrepareOptionEnum.getEnumByIndex(httpSignal.getPrepareOptionIndex()));
     }
     // 返回
     return signal;

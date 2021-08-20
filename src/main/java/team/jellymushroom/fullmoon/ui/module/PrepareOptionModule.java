@@ -18,7 +18,7 @@ public class PrepareOptionModule extends Module {
   @Override
   public void draw(Graphics g) {
     // 绘制底色
-    Color rectColor = this.prepareOption.equals(this.uiService.getMainService().getPlayerMyself().getSignal().getPrepareOption()) ? Color.GRAY : Color.DARK_GRAY;
+    Color rectColor = this.prepareOption.getIndex().equals(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex2()) ? Color.GRAY : Color.DARK_GRAY;
     super.drawFillRect(g, this.iX, this.iY, this.iWidth, this.iHeight, rectColor);
     // 绘制文字
     this.drawOptionFont(g);

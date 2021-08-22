@@ -1,5 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
+import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
@@ -32,10 +33,11 @@ public class CardModule extends Module {
   public void draw(Graphics g) {
     BufferedImage img = this.resource.getCardImgMap().get(card.getIndex());
     BufferedImage confirmImg = this.resource.getConfirmImg();
+    GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
     g.drawImage(img, this.iX, this.iY, this.iX + iWidth, this.iY + iHeight, 486, 305, 1046, 1147, null);
     if (card instanceof EquipmentCardEntity) {
       EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
-      if (equipmentCard.getPlace()) {
+      if (equipmentCard.getPlace() && GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(stage)) {
         int confirmX = this.iX + this.iWidth - (EDGING_WIDTH + ChoosePartRoleModule.CONFIRM_SIZE);
         int confirmY = this.iY + EDGING_WIDTH;
         g.drawImage(confirmImg, confirmX, confirmY, confirmX + ChoosePartRoleModule.CONFIRM_SIZE, confirmY + ChoosePartRoleModule.CONFIRM_SIZE, 0, 0, confirmImg.getWidth(), confirmImg.getHeight(), null);

@@ -112,4 +112,21 @@ public class PlayerEntity {
     }
     return result;
   }
+
+  /**
+   * 返回列表中元素的含义: this.cardList这个列表中待强化卡牌的下标索引
+   */
+  public List<Integer> getIntensifyCardIndexList() {
+    List<Integer> result = new ArrayList<>();
+    if (this.cardList.isEmpty()) {
+      return result;
+    }
+    for (int i = 0; i < this.cardList.size(); i++) {
+      if (null == this.cardList.get(i).getNextStarCardIndex()) {
+        continue;
+      }
+      result.add(i);
+    }
+    return result;
+  }
 }

@@ -68,6 +68,12 @@ public class KeyEventService {
       case PREPARE_BUY_CARD_RANDOM:
         new PrepareBuyCardRandomStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
+      case PREPARE_INTENSIFY_CARD:
+        new PrepareIntensifyCardStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
+        break;
+      case PREPARE_INTENSIFY_CARD_DETAIL:
+        new PrepareIntensifyCardDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
+        break;
     }
   }
 }

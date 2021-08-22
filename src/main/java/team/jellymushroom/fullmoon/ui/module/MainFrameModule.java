@@ -42,6 +42,11 @@ public class MainFrameModule extends Module {
       new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.BY_CARD).draw(g);
       return;
     }
+    // 强化卡牌
+    if (GameStageEnum.PREPARE_INTENSIFY_CARD.equals(stage) || GameStageEnum.PREPARE_INTENSIFY_CARD_DETAIL.equals(stage)) {
+      new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.INTENSIFY_CARD).draw(g);
+      return;
+    }
     // 基础准备
     this.drawPrepare(g, roleWidth);
   }

@@ -7,8 +7,10 @@ import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.stagehandler.PrepareBuyCardStageHandler;
+import team.jellymushroom.fullmoon.stagehandler.PrepareIntensifyCardStageHandler;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CardListModule extends Module {
@@ -34,6 +36,12 @@ public class CardListModule extends Module {
       cardList = this.uiService.getMainService().getPlayerMyself().getCardList();
     } else if (PrepareOptionEnum.BY_CARD.equals(this.prepareOption)) {
       cardList = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList();
+    } else if (PrepareOptionEnum.INTENSIFY_CARD.equals(this.prepareOption)) {
+      cardList = new ArrayList<>();
+      List<Integer> intensifyIndexList = this.uiService.getMainService().getPlayerMyself().getIntensifyCardIndexList();
+      for (Integer intensifyIndex : intensifyIndexList) {
+        cardList.add(this.uiService.getMainService().getPlayerMyself().getCardList().get(intensifyIndex));
+      }
     }
     // 一屏总计展示个数
     int totalCount = CARD_COLUMN * CARD_ROW;
@@ -105,6 +113,8 @@ public class CardListModule extends Module {
       card = player.getCardList().get(cardIndex);
     } else if (GameStageEnum.PREPARE_BUY_CARD_DETAIL.equals(stage)) {
       card = player.getSignal().getCardList().get(cardIndex);
+    } else if (GameStageEnum.PREPARE_INTENSIFY_CARD_DETAIL.equals(stage)) {
+      card = player.getCardList().get(player.getIntensifyCardIndexList().get(cardIndex));
     } else {
       return;
     }
@@ -140,6 +150,13 @@ public class CardListModule extends Module {
       CardEntity card = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList().get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex());
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + card.getPrice() + ")", Color.ORANGE, fontStyle, fontSize);
+      return;
+    }
+    if (PrepareOptionEnum.INTENSIFY_CARD.equals(this.prepareOption)) {
+      super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
+      if (cardListSize > 0) {
+        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + PrepareIntensifyCardStageHandler.PRICE + ")", Color.ORANGE, fontStyle, fontSize);
+      }
       return;
     }
   }

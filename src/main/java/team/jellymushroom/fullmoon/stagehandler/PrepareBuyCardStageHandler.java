@@ -97,6 +97,7 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
       super.activePlayer.setStage(GameStageEnum.PREPARE_BUY_CARD_RANDOM);
       return true;
     }
+    // TODO 购买卡牌
     return false;
   }
 }

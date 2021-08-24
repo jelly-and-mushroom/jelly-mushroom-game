@@ -65,7 +65,7 @@ public class HttpTransferService {
     }
     // 回合所属人
     if (null != game.getServerTune()) {
-      httpGame.setServerTune(game.getServerTune() ? 1 : 0);
+      httpGame.setServerTune(game.getServerTune());
     }
     // 当前场上生效卡牌
     if (null != game.getEffectCard()) {
@@ -95,9 +95,7 @@ public class HttpTransferService {
       httpGame.getHistoryIndexList().forEach(e -> game.getHistoryList().add(GameResultEnum.getEnumByIndex(e)));
     }
     // 回合所属人
-    if (null != httpGame.getServerTune()) {
-      game.setServerTune(httpGame.getServerTune()==1 ? true : false);
-    }
+    game.setServerTune(httpGame.getServerTune());
     // 当前场上生效卡牌
     if (null != httpGame.getEffectCard()) {
       game.setEffectCard(this.convert(httpGame.getEffectCard()));
@@ -443,22 +441,20 @@ public class HttpTransferService {
   private HttpCardEntity convert(CardEntity card) {
     HttpCardEntity httpCard = new HttpCardEntity();
     httpCard.setIndex(card.getIndex());
-    httpCard.setTemp(card.getTemp() ? 1 : 0);
+    httpCard.setTemp(card.getTemp());
     if (card instanceof EquipmentCardEntity) {
       EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
-      httpCard.setPlace(equipmentCard.getPlace() ? 1 : 0);
+      httpCard.setPlace(equipmentCard.getPlace());
     }
     return httpCard;
   }
 
   private CardEntity convert(HttpCardEntity httpCard) {
     CardEntity card = this.resourceService.getServiceResourceEntity().getCardMap().get(httpCard.getIndex()).copy();
-    if (httpCard.getTemp() == 1) {
-      card.setTemp(true);
-    }
-    if ((card instanceof EquipmentCardEntity) && httpCard.getPlace() == 1) {
+    card.setTemp(httpCard.getTemp());
+    if ((card instanceof EquipmentCardEntity)) {
       EquipmentCardEntity equipmentCard = (EquipmentCardEntity)card;
-      equipmentCard.setPlace(true);
+      equipmentCard.setPlace(httpCard.getPlace());
     }
     return card;
   }

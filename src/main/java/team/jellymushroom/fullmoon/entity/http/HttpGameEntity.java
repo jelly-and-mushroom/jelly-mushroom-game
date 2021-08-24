@@ -17,7 +17,7 @@ public class HttpGameEntity {
 
   private List<Integer> historyIndexList;
 
-  private Integer serverTune;
+  private Boolean serverTune;
 
   private HttpCardEntity effectCard;
 }

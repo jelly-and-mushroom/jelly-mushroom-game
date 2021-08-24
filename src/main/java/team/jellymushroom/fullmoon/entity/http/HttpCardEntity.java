@@ -11,7 +11,7 @@ public class HttpCardEntity {
 
   private Integer index;
 
-  private Integer temp;
+  private Boolean temp;
 
-  private Integer place;
+  private Boolean place;
 }

@@ -15,6 +15,8 @@ public abstract class CardEntity implements Cloneable {
    */
   Integer index;
 
+  Boolean isValid;
+
   /**
    * 卡牌名称
    */

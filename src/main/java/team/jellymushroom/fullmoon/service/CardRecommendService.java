@@ -86,6 +86,9 @@ public class CardRecommendService {
   private CardRecommendEntity calculateRecommendCardScore(Map<Integer, Integer> cardGenreScoreMap, List<CardEntity> cardList, int roleIndex) {
     CardRecommendEntity result = new CardRecommendEntity();
     for (CardEntity card : cardList) {
+      if (!card.getIsValid()) {
+        continue;
+      }
       if (card instanceof SpecialCardEntity) {
         continue;
       }

@@ -43,30 +43,18 @@ public class HttpTransferService {
   }
 
   public HttpGameEntity convert(GameEntity game) {
-    // 判空
-    if (null == game) {
-      return null;
-    }
     // 返回值
     HttpGameEntity httpGame = new HttpGameEntity();
     // 服务端玩家
-    if (null != game.getServerPlayer()) {
-      httpGame.setServerPlayer(this.convert(game.getServerPlayer()));
-    }
+    httpGame.setServerPlayer(this.convert(game.getServerPlayer()));
     // 客户端玩家
-    if (null != game.getClientPlayer()) {
-      httpGame.setClientPlayer(this.convert(game.getClientPlayer()));
-    }
+    httpGame.setClientPlayer(this.convert(game.getClientPlayer()));
     // 历史胜负
-    if (!game.getHistoryList().isEmpty()) {
-      List<Integer> historyIndexList = new ArrayList<>(game.getHistoryList().size());
-      game.getHistoryList().forEach(e -> historyIndexList.add(e.getIndex()));
-      httpGame.setHistoryIndexList(historyIndexList);
-    }
+    List<Integer> historyIndexList = new ArrayList<>(game.getHistoryList().size());
+    game.getHistoryList().forEach(e -> historyIndexList.add(e.getIndex()));
+    httpGame.setHistoryIndexList(historyIndexList);
     // 回合所属人
-    if (null != game.getServerTune()) {
-      httpGame.setServerTune(game.getServerTune());
-    }
+    httpGame.setServerTune(game.getServerTune());
     // 当前场上生效卡牌
     if (null != game.getEffectCard()) {
       httpGame.setEffectCard(this.convert(game.getEffectCard()));
@@ -76,24 +64,14 @@ public class HttpTransferService {
   }
 
   public GameEntity convert(HttpGameEntity httpGame) {
-    // 判空
-    if (null == httpGame) {
-      return null;
-    }
     // 返回值
     GameEntity game = new GameEntity();
     // 服务端玩家
-    if (null != httpGame.getServerPlayer()) {
-      game.setServerPlayer(this.convert(httpGame.getServerPlayer()));
-    }
+    game.setServerPlayer(this.convert(httpGame.getServerPlayer()));
     // 客户端玩家
-    if (null != httpGame.getClientPlayer()) {
-      game.setClientPlayer(this.convert(httpGame.getClientPlayer()));
-    }
+    game.setClientPlayer(this.convert(httpGame.getClientPlayer()));
     // 历史胜负
-    if (null != httpGame.getHistoryIndexList() && !httpGame.getHistoryIndexList().isEmpty()) {
-      httpGame.getHistoryIndexList().forEach(e -> game.getHistoryList().add(GameResultEnum.getEnumByIndex(e)));
-    }
+    httpGame.getHistoryIndexList().forEach(e -> game.getHistoryList().add(GameResultEnum.getEnumByIndex(e)));
     // 回合所属人
     game.setServerTune(httpGame.getServerTune());
     // 当前场上生效卡牌
@@ -108,13 +86,9 @@ public class HttpTransferService {
     // 返回值
     HttpPlayerEntity httpPlayer = new HttpPlayerEntity();
     // 控制信号
-    if (null != player.getSignal()) {
-      httpPlayer.setHttpSignal(this.convert(player.getSignal()));
-    }
+    httpPlayer.setHttpSignal(this.convert(player.getSignal()));
     // 玩家所处阶段
-    if (null != player.getStage()) {
-      httpPlayer.setStageIndex(player.getStage().getIndex());
-    }
+    httpPlayer.setStageIndex(player.getStage().getIndex());
     // 所选职业
     if (null != player.getGameRoleEntity()) {
       httpPlayer.setGameRoleIndex(player.getGameRoleEntity().getIndex());
@@ -124,49 +98,29 @@ public class HttpTransferService {
       httpPlayer.setGameInnerEntity(this.convert(player.getGameInnerEntity()));
     }
     // 生命值上限
-    if (null != player.getMaxHp()) {
-      httpPlayer.setMaxHp(player.getMaxHp());
-    }
+    httpPlayer.setMaxHp(player.getMaxHp());
     // 初始魔法值
-    if (null != player.getInitMp()) {
-      httpPlayer.setInitMp(player.getInitMp());
-    }
+    httpPlayer.setInitMp(player.getInitMp());
     // 行动力上限
-    if (null != player.getMaxAction()) {
-      httpPlayer.setMaxAction(player.getMaxAction());
-    }
+    httpPlayer.setMaxAction(player.getMaxAction());
     // 小局游戏刚开始时的手牌数
-    if (null != player.getInitHandCardSize()) {
-      httpPlayer.setInitHandCardSize(player.getInitHandCardSize());
-    }
+    httpPlayer.setInitHandCardSize(player.getInitHandCardSize());
     // 抽牌数
-    if (null != player.getDrawCardSize()) {
-      httpPlayer.setDrawCardSize(player.getDrawCardSize());
-    }
+    httpPlayer.setDrawCardSize(player.getDrawCardSize());
     // 每回合结束时的手牌上限
-    if (null != player.getMaxHandCardSize()) {
-      httpPlayer.setMaxHandCardSize(player.getMaxHandCardSize());
-    }
+    httpPlayer.setMaxHandCardSize(player.getMaxHandCardSize());
     // 本局游戏持有卡牌列表
-    if (!player.getCardList().isEmpty()) {
-      List<HttpCardEntity> httpCardList = new ArrayList<>(player.getCardList().size());
-      player.getCardList().forEach(e -> httpCardList.add(this.convert(e)));
-      httpPlayer.setCardList(httpCardList);
-    }
+    List<HttpCardEntity> httpCardList = new ArrayList<>(player.getCardList().size());
+    player.getCardList().forEach(e -> httpCardList.add(this.convert(e)));
+    httpPlayer.setCardList(httpCardList);
     // 每小局游戏初始化时，装备槽数
-    if (null != player.getInitEquipmentSlotSize()) {
-      httpPlayer.setInitEquipmentSlotSize(player.getInitEquipmentSlotSize());
-    }
+    httpPlayer.setInitEquipmentSlotSize(player.getInitEquipmentSlotSize());
     // 当前获得的祝福
-    if (!player.getGameBlessingList().isEmpty()) {
-      List<Integer> gameBlessingIndexList = new ArrayList<>(player.getGameBlessingList().size());
-      player.getGameBlessingList().forEach(e -> gameBlessingIndexList.add(e.getIndex()));
-      httpPlayer.setGameBlessingIndexList(gameBlessingIndexList);
-    }
+    List<Integer> gameBlessingIndexList = new ArrayList<>(player.getGameBlessingList().size());
+    player.getGameBlessingList().forEach(e -> gameBlessingIndexList.add(e.getIndex()));
+    httpPlayer.setGameBlessingIndexList(gameBlessingIndexList);
     // 持有的金币数
-    if (null != player.getGold()) {
-      httpPlayer.setGold(player.getGold());
-    }
+    httpPlayer.setGold(player.getGold());
     // 返回
     return httpPlayer;
   }
@@ -175,13 +129,9 @@ public class HttpTransferService {
     // 返回值
     PlayerEntity player = new PlayerEntity();
     // 控制信号
-    if (null != httpPlayer.getHttpSignal()) {
-      player.setSignal(this.convert(httpPlayer.getHttpSignal()));
-    }
+    player.setSignal(this.convert(httpPlayer.getHttpSignal()));
     // 玩家所处阶段
-    if (null != httpPlayer.getStageIndex()) {
-      player.setStage(GameStageEnum.getEnumByIndex(httpPlayer.getStageIndex()));
-    }
+    player.setStage(GameStageEnum.getEnumByIndex(httpPlayer.getStageIndex()));
     // 所选职业
     Map<Integer, GameRoleEntity> gameRoleMap = this.resourceService.getServiceResourceEntity().getGameRoleMap();
     if (null != httpPlayer.getGameRoleIndex()) {
@@ -192,33 +142,20 @@ public class HttpTransferService {
       player.setGameInnerEntity(this.convert(httpPlayer.getGameInnerEntity()));
     }
     // 生命值上限
-    if (null != httpPlayer.getMaxHp()) {
-      player.setMaxHp(httpPlayer.getMaxHp());
-    }
+    player.setMaxHp(httpPlayer.getMaxHp());
     // 初始魔法值
-    if (null != httpPlayer.getInitMp()) {
-      player.setInitMp(httpPlayer.getInitMp());
-    }
+    player.setInitMp(httpPlayer.getInitMp());
     // 行动力上限
-    if (null != httpPlayer.getMaxAction()) {
-      player.setMaxAction(httpPlayer.getMaxAction());
-    }
+    player.setMaxAction(httpPlayer.getMaxAction());
     // 小局游戏刚开始时的手牌数
-    if (null != httpPlayer.getInitHandCardSize()) {
-      player.setInitHandCardSize(httpPlayer.getInitHandCardSize());
-    }
+    player.setInitHandCardSize(httpPlayer.getInitHandCardSize());
     // 抽牌数
-    if (null != httpPlayer.getDrawCardSize()) {
-      player.setDrawCardSize(httpPlayer.getDrawCardSize());
-    }
+    player.setDrawCardSize(httpPlayer.getDrawCardSize());
     // 每回合结束时的手牌上限
-    if (null != httpPlayer.getMaxHandCardSize()) {
-      player.setMaxHandCardSize(httpPlayer.getMaxHandCardSize());
-    }
+    player.setMaxHandCardSize(httpPlayer.getMaxHandCardSize());
     // 本局游戏持有卡牌列表
-    if (null != httpPlayer.getCardList() && !httpPlayer.getCardList().isEmpty()) {
-      httpPlayer.getCardList().forEach(e -> player.getCardList().add(this.convert(e)));
-    }
+    httpPlayer.getCardList().forEach(e -> player.getCardList().add(this.convert(e)));
+    // TODO
     // 每小局游戏初始化时，装备槽数
     if (null != httpPlayer.getInitEquipmentSlotSize()) {
       player.setInitEquipmentSlotSize(httpPlayer.getInitEquipmentSlotSize());

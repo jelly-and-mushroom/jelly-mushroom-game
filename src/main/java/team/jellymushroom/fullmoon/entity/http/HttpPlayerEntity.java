@@ -2,6 +2,7 @@ package team.jellymushroom.fullmoon.entity.http;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,11 +32,11 @@ public class HttpPlayerEntity {
 
   private Integer maxHandCardSize;
 
-  private List<HttpCardEntity> cardList;
+  private List<HttpCardEntity> cardList = new ArrayList<>();
 
   private Integer initEquipmentSlotSize;
 
-  private List<Integer> gameBlessingIndexList;
+  private List<Integer> gameBlessingIndexList = new ArrayList<>();
 
   private Integer gold;
 }

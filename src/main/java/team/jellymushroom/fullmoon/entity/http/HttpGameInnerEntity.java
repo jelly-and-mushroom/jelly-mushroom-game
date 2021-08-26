@@ -2,6 +2,7 @@ package team.jellymushroom.fullmoon.entity.http;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,21 +26,21 @@ public class HttpGameInnerEntity {
 
   private Integer maxHandCardSize;
 
-  private List<HttpCardEntity> handCardList;
+  private List<HttpCardEntity> handCardList = new ArrayList<>();
 
-  private List<HttpCardEntity> heapCardList;
+  private List<HttpCardEntity> heapCardList = new ArrayList<>();
 
-  private List<HttpCardEntity> tombCardList;
+  private List<HttpCardEntity> tombCardList = new ArrayList<>();
 
-  private List<HttpCardEntity> removeCardList;
+  private List<HttpCardEntity> removeCardList = new ArrayList<>();
 
-  private List<HttpCardEntity> equipmentCardPlaceList;
+  private List<HttpCardEntity> equipmentCardPlaceList = new ArrayList<>();
 
-  private List<HttpCardEntity> counterCardPlaceList;
+  private List<HttpCardEntity> counterCardPlaceList = new ArrayList<>();
 
-  private List<HttpCardEntity> prayerCardPlaceList;
+  private List<HttpCardEntity> prayerCardPlaceList = new ArrayList<>();
 
-  private List<Integer> blessingIndexList;
+  private List<Integer> blessingIndexList = new ArrayList<>();
 
-  private List<Integer> gameStateIndexList;
+  private List<Integer> gameStateIndexList = new ArrayList<>();
 }

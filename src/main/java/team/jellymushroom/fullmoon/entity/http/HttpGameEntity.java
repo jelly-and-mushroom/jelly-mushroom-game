@@ -2,6 +2,7 @@ package team.jellymushroom.fullmoon.entity.http;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public class HttpGameEntity {
 
   private HttpPlayerEntity clientPlayer;
 
-  private List<Integer> historyIndexList;
+  private List<Integer> historyIndexList = new ArrayList<>();
 
   private Boolean serverTune;
 

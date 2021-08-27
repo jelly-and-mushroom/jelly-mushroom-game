@@ -34,15 +34,11 @@ public class PrepareOptionModule extends Module {
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       return;
     }
-    if (PrepareOptionEnum.INTENSIFY_CARD.equals(this.prepareOption) || PrepareOptionEnum.DELETE_CARD.equals(this.prepareOption)) {
-      super.drawFont(g, this.iX + 70, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
-      return;
-    }
     int currentValue = this.getCurrentValue();
     if (PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT.equals(this.prepareOption)) {
-      super.drawFont(g, this.iX + 25, this.iY + yAdd, this.prepareOption.getDescription() + this.prepareOption.getValue() , Color.WHITE, fontStyle, fontSize);
-      super.drawFont(g, this.iX + 120, this.iY + yAdd, "[" + currentValue + "]", Color.CYAN, fontStyle, fontSize);
-      super.drawFont(g, this.iX + 165, this.iY + yAdd, "(" + this.prepareOption.getPrice() + ")" , Color.ORANGE, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 75, this.iY + yAdd, this.prepareOption.getDescription() + this.prepareOption.getValue() , Color.WHITE, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 170, this.iY + yAdd, "[" + currentValue + "]", Color.CYAN, fontStyle, fontSize);
+      super.drawFont(g, this.iX + 215, this.iY + yAdd, "(" + this.prepareOption.getPrice() + ")" , Color.ORANGE, fontStyle, fontSize);
       return;
     }
     if (this.prepareOption.getValue() == -1) {

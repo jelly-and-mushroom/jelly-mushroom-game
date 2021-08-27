@@ -75,11 +75,10 @@ public class MainFrameModule extends Module {
     new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY, optionLineWidth / 2, optionHeight, 0, PrepareOptionEnum.MY_BLESSING).draw(g);
     // 第二行模块
     new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + optionHeight, optionLineWidth / 2, optionHeight, 0, PrepareOptionEnum.BY_CARD).draw(g);
-    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY + optionHeight, optionLineWidth / 2, optionHeight, 0, PrepareOptionEnum.BY_BLESSING).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY + optionHeight, optionLineWidth / 2, optionHeight, 0, PrepareOptionEnum.INTENSIFY_CARD).draw(g);
     // 第三行模块
-    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 2 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareOptionEnum.INTENSIFY_CARD).draw(g);
-    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 3, firstLineY + 2 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareOptionEnum.DELETE_CARD).draw(g);
-    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth * 2 / 3, firstLineY + 2 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 2 * optionHeight, optionLineWidth / 2, optionHeight, 0, PrepareOptionEnum.DELETE_CARD).draw(g);
+    new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 2, firstLineY + 2 * optionHeight, optionLineWidth / 2, optionHeight, 0, PrepareOptionEnum.PROMOTE_EQUIPMENT_SLOT).draw(g);
     // 第四行模块
     new PrepareOptionModule(this.uiService, this.resource, firstLineX, firstLineY + 3 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareOptionEnum.PROMOTE_MAX_HP).draw(g);
     new PrepareOptionModule(this.uiService, this.resource, firstLineX + optionLineWidth / 3, firstLineY + 3 * optionHeight, optionLineWidth / 3, optionHeight, 0, PrepareOptionEnum.PROMOTE_INIT_MP).draw(g);

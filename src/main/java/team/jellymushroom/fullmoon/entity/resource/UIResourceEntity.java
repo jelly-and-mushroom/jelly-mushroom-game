@@ -12,6 +12,8 @@ import java.util.Map;
 @Data
 public class UIResourceEntity {
 
+
+
   /**
    * 边框图片
    */
@@ -49,4 +51,10 @@ public class UIResourceEntity {
    * key: cardEntity.index
    */
   private Map<Integer, BufferedImage> cardImgMap = new HashMap<>();
+
+  /**
+   * 祝福图片map
+   * key: cardEntity.index
+   */
+  private Map<Integer, BufferedImage> blessingImgMap = new HashMap<>();
 }

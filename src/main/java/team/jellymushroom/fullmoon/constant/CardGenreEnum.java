@@ -9,7 +9,14 @@ import java.util.Map;
 public enum CardGenreEnum {
 
   EQUIPMENT (0, "装备"),
-  ARMOR (1, "护甲");
+  ARMOR (1, "护甲"),
+  MP (2, "法力"),
+  ACTION (3, "行动力"),
+  PRAYER (4, "祷告"),
+  FIRE (5, "火属性"),
+  DODGE (6, "闪避"),
+  INVALID (7, "无效化"),
+  REDUCE_CONSUMPTION (8, "减耗");
 
   private Integer index;
 

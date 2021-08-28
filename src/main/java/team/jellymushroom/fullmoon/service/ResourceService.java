@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.CardTypeEnum;
+import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.*;
 import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
@@ -45,10 +46,25 @@ public class ResourceService {
       this.loadGameRole();
       // 加载卡牌
       this.loadGameCard();
+      // 加载祝福
+      this.loadBlessing();
     } catch (Exception e) {
       log.error("初始化server资源时出错，程序启动失败", e);
       System.exit(0);
     }
+  }
+
+  private void loadBlessing() {
+    String path = "/json/game_blessing.json";
+    String dataStr = this.readFile(path);
+    JSONArray blessingJSONArray = JSONArray.parseArray(dataStr);
+    for (int i = 0; i < blessingJSONArray.size(); i++) {
+      JSONObject blessingJSONObject = blessingJSONArray.getJSONObject(i);
+      GameBlessingEntity gameBlessingEntity = JSONObject.parseObject(blessingJSONObject.toJSONString(), GameBlessingEntity.class);
+      this.serviceResourceEntity.getGameBlessingList().add(gameBlessingEntity);
+      this.serviceResourceEntity.getGameBlessingMap().put(gameBlessingEntity.getIndex(), gameBlessingEntity);
+    }
+    log.info("游戏祝福数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getGameBlessingMap().size());
   }
 
   @SneakyThrows

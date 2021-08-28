@@ -31,6 +31,8 @@ public class ServiceResourceEntity {
    */
   private Map<Integer, GameBlessingEntity> gameBlessingMap = new HashMap<>();
 
+  private List<GameBlessingEntity> gameBlessingList = new ArrayList<>();
+
   /**
    * key: gameStateEntity.index
    */

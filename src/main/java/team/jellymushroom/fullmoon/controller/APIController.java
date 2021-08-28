@@ -39,11 +39,12 @@ public class APIController {
     }
   }
 
-  @GetMapping("/full-moon/api/getCard")
-  public HttpResponseEntity getCard() {
+  @GetMapping("/full-moon/api/getResource")
+  public HttpResponseEntity getResource() {
     try {
       JSONObject result = new JSONObject();
       result.put("cardList", this.resourceService.getServiceResourceEntity().getCardList());
+      result.put("blessingList", this.resourceService.getServiceResourceEntity().getGameBlessingList());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
       String errorMsg = "api-getGameData执行时出错";

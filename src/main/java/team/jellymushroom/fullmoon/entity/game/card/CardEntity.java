@@ -31,17 +31,17 @@ public abstract class CardEntity implements Cloneable {
   /**
    * 可用角色列表
    */
-  private List<Integer> roleIndexList = new ArrayList<>();
+  List<Integer> roleIndexList = new ArrayList<>();
 
   /**
    * 只有当本卡牌有星级的概念时，本字段才有意义
    * 从低星至高星，依次记录本卡牌星级序列中各卡牌的index
    */
-  private List<Integer> starList = new ArrayList<>();
+  List<Integer> starList = new ArrayList<>();
 
-  private CardLevelEnum level;
+  CardLevelEnum level;
 
-  private List<CardGenreEnum> genreList = new ArrayList<>();
+  List<CardGenreEnum> genreList = new ArrayList<>();
 
   public abstract CardEntity copy();
 

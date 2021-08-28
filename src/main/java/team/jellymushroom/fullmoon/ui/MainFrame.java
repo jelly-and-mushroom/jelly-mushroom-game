@@ -77,6 +77,10 @@ public class MainFrame extends Frame {
     }
     // 加载确认图片
     this.resource.setConfirmImg(ImageIO.read(new File(resourceRootPath + "/material/image/confirm.png")));
+    // 加载祝福图片
+    for (int i = 0; i < UIResourceEntity.BLESSING_FIRST_Y_MAP.size(); i++) {
+      this.resource.getBlessingImgMap().put(i, ImageIO.read(new File(resourceRootPath + "/material/image/blessing/" + i + ".png")));
+    }
     // 全部正常完成后打印日志
     log.info("ui resource 初始化完成,resourceRootPath:{}", resourceRootPath);
   }

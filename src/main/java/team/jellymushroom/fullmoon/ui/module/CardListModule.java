@@ -7,6 +7,7 @@ import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 import team.jellymushroom.fullmoon.stagehandler.PrepareBuyCardStageHandler;
+import team.jellymushroom.fullmoon.stagehandler.PrepareDeleteCardStageHandler;
 import team.jellymushroom.fullmoon.stagehandler.PrepareIntensifyCardStageHandler;
 
 import java.awt.*;
@@ -32,7 +33,7 @@ public class CardListModule extends Module {
     super.drawFillRect(g, this.iX, this.iY, this.iWidth, this.iHeight, Color.DARK_GRAY);
     // 待展示的卡牌列表
     List<CardEntity> cardList = null;
-    if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(this.prepareOption)) {
+    if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(this.prepareOption) || PrepareOptionEnum.DELETE_CARD.equals(this.prepareOption)) {
       cardList = this.uiService.getMainService().getPlayerMyself().getCardList();
     } else if (PrepareOptionEnum.BY_CARD.equals(this.prepareOption)) {
       cardList = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList();
@@ -109,7 +110,7 @@ public class CardListModule extends Module {
     PlayerEntity player = this.uiService.getMainService().getPlayerMyself();
     Integer cardIndex = player.getSignal().getIndex();
     CardEntity card = null;
-    if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage)) {
+    if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage) || GameStageEnum.PREPARE_DELETE_CARD_DETAIL.equals(stage)) {
       card = player.getCardList().get(cardIndex);
     } else if (GameStageEnum.PREPARE_BUY_CARD_DETAIL.equals(stage)) {
       card = player.getSignal().getCardList().get(cardIndex);
@@ -156,6 +157,13 @@ public class CardListModule extends Module {
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       if (cardListSize > 0) {
         super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + PrepareIntensifyCardStageHandler.PRICE + ")", Color.ORANGE, fontStyle, fontSize);
+      }
+      return;
+    }
+    if (PrepareOptionEnum.DELETE_CARD.equals(this.prepareOption)) {
+      super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
+      if (cardListSize > 0) {
+        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + PrepareDeleteCardStageHandler.PRICE + ")", Color.ORANGE, fontStyle, fontSize);
       }
       return;
     }

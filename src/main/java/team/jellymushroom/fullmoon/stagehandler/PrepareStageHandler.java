@@ -75,6 +75,11 @@ public class PrepareStageHandler extends StageHandler {
       super.activePlayer.setStage(GameStageEnum.PREPARE_INTENSIFY_CARD);
       return true;
     }
+    if (PrepareOptionEnum.DELETE_CARD.equals(prepare)) {
+      super.activePlayer.getSignal().setIndex(0);
+      super.activePlayer.setStage(GameStageEnum.PREPARE_DELETE_CARD);
+      return true;
+    }
     return this.confirmPrepareOption();
   }
 

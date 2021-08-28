@@ -74,6 +74,12 @@ public class KeyEventService {
       case PREPARE_INTENSIFY_CARD_DETAIL:
         new PrepareIntensifyCardDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
+      case PREPARE_DELETE_CARD:
+        new PrepareDeleteCardStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
+        break;
+      case PREPARE_DELETE_CARD_DETAIL:
+        new PrepareDeleteCardDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
+        break;
     }
   }
 }

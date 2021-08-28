@@ -19,7 +19,9 @@ public enum GameStageEnum {
   PREPARE_BUY_CARD_DETAIL(7, "游戏准备-购买卡牌-详情"),
   PREPARE_BUY_CARD_RANDOM(8, "游戏准备-购买卡牌-随机购买卡牌"),
   PREPARE_INTENSIFY_CARD(9, "游戏准备-强化卡牌"),
-  PREPARE_INTENSIFY_CARD_DETAIL(10, "游戏准备-强化卡牌-详情");
+  PREPARE_INTENSIFY_CARD_DETAIL(10, "游戏准备-强化卡牌-详情"),
+  PREPARE_DELETE_CARD(11, "游戏准备-删除卡牌"),
+  PREPARE_DELETE_CARD_DETAIL(12, "游戏准备-删除卡牌-详情");
 
   private Integer index;
 

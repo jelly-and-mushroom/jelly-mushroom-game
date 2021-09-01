@@ -8,9 +8,9 @@ import java.util.Map;
 @Getter
 public enum CardLevelEnum {
 
-  LEVEL_0 (0, 90, 0.8, 1),
-  LEVEL_1 (1, 60, 0.8, 2),
-  LEVEL_2 (2, 30, 0.8, 3);
+  LEVEL_0 (0, 90, 0.8, 1, 3),
+  LEVEL_1 (1, 60, 0.8, 2, 2),
+  LEVEL_2 (2, 30, 0.8, 3, 1);
 
   private Integer index;
 
@@ -27,7 +27,12 @@ public enum CardLevelEnum {
   /**
    * 非随机推荐状态下，推荐权重
    */
-  private int recommendSorce;
+  private int recommendScore;
+
+  /**
+   * 对所属流派贡献的权重
+   */
+  private int genreScore;
 
   private static Map<Integer, CardLevelEnum> VALUE_MAP = new HashMap<>(CardLevelEnum.values().length);
 
@@ -37,11 +42,12 @@ public enum CardLevelEnum {
     }
   }
 
-  CardLevelEnum(Integer index, int price, double priveBreakage, int recommendSorce) {
+  CardLevelEnum(Integer index, int price, double priveBreakage, int recommendScore, int genreScore) {
     this.index = index;
     this.price = price;
     this.priveBreakage = priveBreakage;
-    this.recommendSorce = recommendSorce;
+    this.recommendScore = recommendScore;
+    this.genreScore = genreScore;
   }
 
   /**

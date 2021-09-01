@@ -1,7 +1,7 @@
 package team.jellymushroom.fullmoon.entity.game.card;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.constant.CardGenreEnum;
+import team.jellymushroom.fullmoon.constant.GenreEnum;
 import team.jellymushroom.fullmoon.constant.CardLevelEnum;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public abstract class CardEntity implements Cloneable {
 
   CardLevelEnum level;
 
-  List<CardGenreEnum> genreList = new ArrayList<>();
+  List<GenreEnum> genreList = new ArrayList<>();
 
   public abstract CardEntity copy();
 

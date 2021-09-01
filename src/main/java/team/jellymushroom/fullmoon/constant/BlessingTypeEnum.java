@@ -8,13 +8,23 @@ import java.util.Map;
 @Getter
 public enum BlessingTypeEnum {
 
-  COMMON (0, "普通"),
-  RARE (1, "稀有"),
-  PANDORA (2, "潘多拉");
+  COMMON (0, "普通", 3, 1),
+  RARE (1, "稀有", 1, 3),
+  PANDORA (2, "潘多拉", 2, 2);
 
   private Integer index;
 
   private String name;
+
+  /**
+   * 非随机推荐状态下，推荐权重
+   */
+  private int recommendScore;
+
+  /**
+   * 对所属流派贡献的权重
+   */
+  private int genreScore;
 
   private static Map<Integer, BlessingTypeEnum> VALUE_MAP = new HashMap<>(BlessingTypeEnum.values().length);
 
@@ -24,9 +34,11 @@ public enum BlessingTypeEnum {
     }
   }
 
-  BlessingTypeEnum(Integer index, String name) {
+  BlessingTypeEnum(Integer index, String name, int recommendScore, int genreScore) {
     this.index = index;
     this.name = name;
+    this.recommendScore = recommendScore;
+    this.genreScore = genreScore;
   }
 
   /**

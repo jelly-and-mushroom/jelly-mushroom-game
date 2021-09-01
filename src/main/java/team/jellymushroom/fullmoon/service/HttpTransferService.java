@@ -159,34 +159,22 @@ public class HttpTransferService {
   }
 
   public HttpSignalEntity convert(SignalEntity signal) {
-    // 返回值
     HttpSignalEntity httpSignal = new HttpSignalEntity();
-    // 游戏各阶段(GameStageEnum)，主控制信号索引
     httpSignal.setIndex(signal.getIndex());
-    // 游戏各阶段(GameStageEnum)，主控制信号索引2
     httpSignal.setIndex2(signal.getIndex2());
-    // 游戏各阶段(GameStageEnum)，卡牌列表
-    signal.getCardList().forEach(e -> httpSignal.getCardIndexList().add(e.getIndex()));
-    // 游戏各阶段(GameStageEnum)，卡牌列表2
-    signal.getCardList2().forEach(e -> httpSignal.getCardIndexList2().add(e.getIndex()));
-    // 返回
+    signal.getCardList().forEach(e -> httpSignal.getCardList().add(this.convert(e)));
+    signal.getCardList2().forEach(e -> httpSignal.getCardList2().add(this.convert(e)));
+    signal.getBlessingList().forEach(e -> httpSignal.getBlessingList().add(this.convert(e)));
     return httpSignal;
   }
 
   public SignalEntity convert(HttpSignalEntity httpSignal) {
-    // 资源
-    Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
-    // 返回值
     SignalEntity signal = new SignalEntity();
-    // 游戏各阶段(GameStageEnum)，主控制信号索引
     signal.setIndex(httpSignal.getIndex());
-    // 游戏各阶段(GameStageEnum)，主控制信号索引2
     signal.setIndex2(httpSignal.getIndex2());
-    // 游戏各阶段(GameStageEnum)，卡牌列表
-    httpSignal.getCardIndexList().forEach(e -> signal.getCardList().add(cardMap.get(e).copy()));
-    // 游戏各阶段(GameStageEnum)，卡牌列表2
-    httpSignal.getCardIndexList2().forEach(e -> signal.getCardList2().add(cardMap.get(e).copy()));
-    // 返回
+    httpSignal.getCardList().forEach(e -> signal.getCardList().add(this.convert(e)));
+    httpSignal.getCardList2().forEach(e -> signal.getCardList2().add(this.convert(e)));
+    httpSignal.getBlessingList().forEach(e -> signal.getBlessingList().add(this.convert(e)));
     return signal;
   }
 
@@ -289,5 +277,15 @@ public class HttpTransferService {
       equipmentCard.setPlace(httpCard.getPlace());
     }
     return card;
+  }
+
+  private HttpGameBlessingEntity convert(GameBlessingEntity blessing) {
+    HttpGameBlessingEntity httpBlessing = new HttpGameBlessingEntity();
+    httpBlessing.setIndex(blessing.getIndex());
+    return httpBlessing;
+  }
+
+  private GameBlessingEntity convert(HttpGameBlessingEntity httpBlessing) {
+    return this.resourceService.getServiceResourceEntity().getGameBlessingMap().get(httpBlessing.getIndex()).copy();
   }
 }

@@ -3,7 +3,7 @@ package team.jellymushroom.fullmoon.entity.game;
 import lombok.Data;
 import lombok.SneakyThrows;
 import team.jellymushroom.fullmoon.constant.BlessingTypeEnum;
-import team.jellymushroom.fullmoon.constant.CardGenreEnum;
+import team.jellymushroom.fullmoon.constant.GenreEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,19 @@ public class GameBlessingEntity implements Cloneable {
 
   private BlessingTypeEnum type;
 
-  private List<CardGenreEnum> genreList = new ArrayList<>();
+  private List<GenreEnum> genreList = new ArrayList<>();
 
   @SneakyThrows
   public GameBlessingEntity copy() {
     return (GameBlessingEntity)this.clone();
+  }
+
+  public boolean getatable(int roleIndex) {
+    for (Integer roleGetatable : this.roleIndexList) {
+      if (roleGetatable == roleIndex) {
+        return true;
+      }
+    }
+    return false;
   }
 }

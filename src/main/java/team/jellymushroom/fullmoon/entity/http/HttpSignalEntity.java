@@ -12,7 +12,9 @@ public class HttpSignalEntity {
 
   private Integer index2;
 
-  private List<Integer> cardIndexList = new ArrayList<>();
+  private List<HttpCardEntity> cardList = new ArrayList<>();
 
-  private List<Integer> cardIndexList2 = new ArrayList<>();
+  private List<HttpCardEntity> cardList2 = new ArrayList<>();
+
+  private List<HttpGameBlessingEntity> blessingList = new ArrayList<>();
 }

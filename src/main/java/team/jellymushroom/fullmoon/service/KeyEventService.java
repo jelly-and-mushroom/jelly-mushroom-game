@@ -50,6 +50,9 @@ public class KeyEventService {
       case CHOOSE_ROLE_DETAIL:
         new ChooseRoleDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
+      case CHOOSE_BLESSING:
+        new ChooseBlessingStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
+        break;
       case PREPARE:
         new PrepareStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;

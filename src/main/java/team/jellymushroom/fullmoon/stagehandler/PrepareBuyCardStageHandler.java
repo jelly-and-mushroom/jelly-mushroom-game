@@ -83,11 +83,11 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
     }
     super.activePlayer.setGold(wishGold);
     if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin())) {
-      super.activePlayer.getSignal().setCardList(super.stageHandlerService.getCardRecommendService().buyCard(super.activePlayer));
+      super.activePlayer.getSignal().setCardList(super.stageHandlerService.getRecommendService().buyCard(super.activePlayer));
       return true;
     }
     if (card.getIndex().equals(CardTypeEnum.SPECIAL.getIndexRangeBegin() + 1)) {
-      List<CardEntity> recommendCardList = super.stageHandlerService.getCardRecommendService().recommend(super.activePlayer, RANDOM_BUY_SIZE);
+      List<CardEntity> recommendCardList = super.stageHandlerService.getRecommendService().recommendCard(super.activePlayer, RANDOM_BUY_SIZE);
       if (recommendCardList.size() != RANDOM_BUY_SIZE.intValue()) {
         super.activePlayer.getSignal().setCardList2(new ArrayList<>());
         return false;
@@ -98,7 +98,7 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
       return true;
     }
     CardUtil.add(super.activePlayer.getCardList(), card);
-    super.activePlayer.getSignal().setCardList(super.stageHandlerService.getCardRecommendService().buyCard(super.activePlayer));
+    super.activePlayer.getSignal().setCardList(super.stageHandlerService.getRecommendService().buyCard(super.activePlayer));
     return true;
   }
 }

@@ -5,8 +5,6 @@ import team.jellymushroom.fullmoon.service.UIService;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
-import java.util.Map;
 
 public class WaitConnectModule extends Module {
 
@@ -34,23 +32,8 @@ public class WaitConnectModule extends Module {
       g.fillOval(pointXBegin, pointYBegin, diameter, diameter);
       pointXBegin = pointXBegin + diameter + interval;
     }
-    this.test(g);
     // 绘制边框
     super.drawWindow(g);
-  }
-
-  private void test(Graphics g) {
-    Map.Entry<BufferedImage, List<Integer>> imgMap = this.resource.getBlessing(12, true);
-    g.drawImage(imgMap.getKey(),
-        this.iX + 50,
-        this.iY + 50,
-        this.iX + 50 + (int)((imgMap.getValue().get(2) - imgMap.getValue().get(0))),
-        this.iY + 50 + (int)((imgMap.getValue().get(3) - imgMap.getValue().get(1))),
-        imgMap.getValue().get(0),
-        imgMap.getValue().get(1),
-        imgMap.getValue().get(2),
-        imgMap.getValue().get(3),
-        null);
   }
 
   private int pointCount() {

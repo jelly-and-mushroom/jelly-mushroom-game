@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ChooseBlessingModule extends Module {
 
-  public static final Integer BLESSING_COUNT = 3;
+  public static final Integer BLESSING_COUNT = 6;
 
   public ChooseBlessingModule(UIService uiService, UIResourceEntity resource, Integer oX, Integer oY, Integer oWidth, Integer oHeight, Integer padding) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
@@ -18,6 +18,8 @@ public class ChooseBlessingModule extends Module {
 
   @Override
   void draw(Graphics g) {
+    // 底色
+    super.drawFillRect(g, this.iX, this.iY, this.iWidth, this.iHeight, Color.DARK_GRAY);
     // 标题
     super.drawFont(g, this.iX + 300, this.iY + 43, "选择祝福", Color.WHITE, Font.PLAIN, 20);
     // 祝福

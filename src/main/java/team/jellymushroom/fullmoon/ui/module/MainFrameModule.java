@@ -29,14 +29,16 @@ public class MainFrameModule extends Module {
     }
     // 当前状态
     GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
+    // 选择祝福
+    if (GameStageEnum.CHOOSE_BLESSING.equals(stage)) {
+      int blessingListWidth = 575;
+      int blessingListHeight = 700;
+      new ChooseBlessingModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - blessingListWidth) / 2, this.iY + (this.iHeight - blessingListHeight) / 2, blessingListWidth, blessingListHeight, 0).draw(g);
+      return;
+    }
     // 卡牌列表宽高
     int cardListWidth = 720;
     int cardListHeight = 607;
-    // 选择祝福
-    if (GameStageEnum.CHOOSE_BLESSING.equals(stage)) {
-      new ChooseBlessingModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0).draw(g);
-      return;
-    }
     // 牌库
     if (GameStageEnum.PREPARE_MY_CARD_REPOSITORY.equals(stage) || GameStageEnum.PREPARE_MY_CARD_REPOSITORY_DETAIL.equals(stage)) {
       new CardListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - cardListWidth) / 2, this.iY + (this.iHeight - cardListHeight) / 2, cardListWidth, cardListHeight, 0, PrepareOptionEnum.MY_CARD_REPOSITORY).draw(g);

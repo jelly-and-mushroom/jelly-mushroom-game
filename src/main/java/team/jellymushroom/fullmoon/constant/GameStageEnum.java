@@ -23,7 +23,8 @@ public enum GameStageEnum {
   PREPARE_INTENSIFY_CARD(10, "游戏准备-强化卡牌"),
   PREPARE_INTENSIFY_CARD_DETAIL(11, "游戏准备-强化卡牌-详情"),
   PREPARE_DELETE_CARD(12, "游戏准备-删除卡牌"),
-  PREPARE_DELETE_CARD_DETAIL(13, "游戏准备-删除卡牌-详情");
+  PREPARE_DELETE_CARD_DETAIL(13, "游戏准备-删除卡牌-详情"),
+  PREPARE_MY_BLESSING(14, "游戏准备-受到祝福");
 
   private Integer index;
 

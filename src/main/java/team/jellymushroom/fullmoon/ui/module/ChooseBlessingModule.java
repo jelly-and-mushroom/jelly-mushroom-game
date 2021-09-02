@@ -21,7 +21,7 @@ public class ChooseBlessingModule extends Module {
     // 底色
     super.drawFillRect(g, this.iX, this.iY, this.iWidth, this.iHeight, Color.DARK_GRAY);
     // 标题
-    super.drawFont(g, this.iX + 300, this.iY + 43, "选择祝福", Color.WHITE, Font.PLAIN, 20);
+    super.drawFont(g, this.iX + 240, this.iY + 43, "选择祝福", Color.WHITE, Font.PLAIN, 20);
     // 祝福
     PlayerEntity player = this.uiService.getMainService().getPlayerMyself();
     List<GameBlessingEntity> blessingList = player.getSignal().getBlessingList();

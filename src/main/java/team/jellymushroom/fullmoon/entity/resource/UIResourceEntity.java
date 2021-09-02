@@ -69,6 +69,7 @@ public class UIResourceEntity {
    * key: 祝福所在图片
    * value: 4个值，分别对应在图片中的 [左上角x, 左上角y, 右下角x, 右下角y]
    */
+  @SuppressWarnings("unchecked")
   public Map.Entry<BufferedImage, List<Integer>> getBlessing(int index, boolean part) {
     int imgIndex = index / UIResourceEntity.BLESSING_IN_ONE_IMG_COUNT;
     List<Integer> coordinateList = new ArrayList<>(4);

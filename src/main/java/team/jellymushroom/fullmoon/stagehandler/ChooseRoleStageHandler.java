@@ -2,7 +2,7 @@ package team.jellymushroom.fullmoon.stagehandler;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
-import team.jellymushroom.fullmoon.ui.module.ChooseBlessingModule;
+import team.jellymushroom.fullmoon.ui.module.BlessingListModule;
 
 /**
  * GameStageEnum.CHOOSE_ROLE
@@ -23,10 +23,10 @@ public class ChooseRoleStageHandler extends BaseChooseRoleStageHandler {
   boolean confirm() {
     super.activePlayer.initByRole(this.stageHandlerService.getResourceService());
     if (GameStageEnum.CHOOSE_ROLE_CONFIRM.equals(super.passivePlayer.getStage())) {
-      super.activePlayer.getSignal().setBlessingList(this.stageHandlerService.getRecommendService().recommendBlessing(super.activePlayer, ChooseBlessingModule.BLESSING_COUNT));
+      super.activePlayer.getSignal().setBlessingList(this.stageHandlerService.getRecommendService().recommendBlessing(super.activePlayer, BlessingListModule.BLESSING_COUNT));
       super.activePlayer.getSignal().setIndex(0);
       super.activePlayer.setStage(GameStageEnum.CHOOSE_BLESSING);
-      super.passivePlayer.getSignal().setBlessingList(this.stageHandlerService.getRecommendService().recommendBlessing(super.passivePlayer, ChooseBlessingModule.BLESSING_COUNT));
+      super.passivePlayer.getSignal().setBlessingList(this.stageHandlerService.getRecommendService().recommendBlessing(super.passivePlayer, BlessingListModule.BLESSING_COUNT));
       super.passivePlayer.getSignal().setIndex(0);
       super.passivePlayer.setStage(GameStageEnum.CHOOSE_BLESSING);
     } else {

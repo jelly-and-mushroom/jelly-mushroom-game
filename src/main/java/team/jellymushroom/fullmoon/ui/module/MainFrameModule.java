@@ -30,10 +30,10 @@ public class MainFrameModule extends Module {
     // 当前状态
     GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
     // 选择祝福
-    if (GameStageEnum.CHOOSE_BLESSING.equals(stage)) {
+    if (GameStageEnum.CHOOSE_BLESSING.equals(stage) || GameStageEnum.PREPARE_MY_BLESSING.equals(stage)) {
       int blessingListWidth = 575;
       int blessingListHeight = 700;
-      new ChooseBlessingModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - blessingListWidth) / 2, this.iY + (this.iHeight - blessingListHeight) / 2, blessingListWidth, blessingListHeight, 0).draw(g);
+      new BlessingListModule(this.uiService, this.resource, this.iX + (this.iWidth - roleWidth - blessingListWidth) / 2, this.iY + (this.iHeight - blessingListHeight) / 2, blessingListWidth, blessingListHeight, 0).draw(g);
       return;
     }
     // 卡牌列表宽高

@@ -83,6 +83,9 @@ public class KeyEventService {
       case PREPARE_DELETE_CARD_DETAIL:
         new PrepareDeleteCardDetailStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
         break;
+      case PREPARE_MY_BLESSING:
+        new PrepareMyBlessingStageHandler(this.stageHandlerService, fromLocal).handle(keyEventEnum);
+        break;
     }
   }
 }

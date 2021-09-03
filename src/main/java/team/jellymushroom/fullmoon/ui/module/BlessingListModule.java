@@ -42,7 +42,8 @@ public class BlessingListModule extends Module {
         endIndex = blessingList.size() - 1;
       }
       for (int i = startIndex; i <= endIndex; i++) {
-        new BlessingModule(this.uiService, this.resource, this.iX, firstRowY + i * blessingHeight, this.iWidth, blessingHeight, 0, blessingList.get(i), false, i == chooseIndex).draw(g);
+        int row = i % BlessingListModule.BLESSING_COUNT;
+        new BlessingModule(this.uiService, this.resource, this.iX, firstRowY + row * blessingHeight, this.iWidth, blessingHeight, 0, blessingList.get(i), false, i == chooseIndex).draw(g);
       }
     }
     // 标题

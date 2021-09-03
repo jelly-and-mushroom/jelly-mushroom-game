@@ -12,7 +12,7 @@ import java.util.List;
  * 祝福
  */
 @Data
-public class GameBlessingEntity implements Cloneable {
+public class BlessingEntity implements Cloneable {
 
   private Integer index;
 
@@ -29,8 +29,8 @@ public class GameBlessingEntity implements Cloneable {
   private List<GenreEnum> genreList = new ArrayList<>();
 
   @SneakyThrows
-  public GameBlessingEntity copy() {
-    return (GameBlessingEntity)this.clone();
+  public BlessingEntity copy() {
+    return (BlessingEntity)this.clone();
   }
 
   public boolean getatable(int roleIndex) {

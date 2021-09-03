@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.GenreEnum;
 import team.jellymushroom.fullmoon.entity.BlessingRecommendEntity;
 import team.jellymushroom.fullmoon.entity.CardRecommendEntity;
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.ui.module.CardListModule;
@@ -52,7 +52,7 @@ public class RecommendService {
     List<CardEntity> cardList = this.resourceService.getServiceResourceEntity().getCardList();
     Map<Integer, CardEntity> cardMap = this.resourceService.getServiceResourceEntity().getCardMap();
     // 卡牌推荐实体
-    Map<Integer, Integer> genreScoreMap = this.calculateGenreScore(player.getCardList(), player.getGameBlessingList());
+    Map<Integer, Integer> genreScoreMap = this.calculateGenreScore(player.getCardList(), player.getBlessingList());
     CardRecommendEntity cardRecommend = new CardRecommendEntity(genreScoreMap, cardList, player.getGameRoleEntity().getIndex());
     // 推荐
     for (int i = 0; i < count; i++) {
@@ -66,15 +66,15 @@ public class RecommendService {
     return result;
   }
 
-  public List<GameBlessingEntity> recommendBlessing(PlayerEntity player, int count) {
+  public List<BlessingEntity> recommendBlessing(PlayerEntity player, int count) {
     // 结果列表
-    List<GameBlessingEntity> result = new ArrayList<>(count);
+    List<BlessingEntity> result = new ArrayList<>(count);
     // 资源
-    List<GameBlessingEntity> blessingList = this.resourceService.getServiceResourceEntity().getGameBlessingList();
-    Map<Integer, GameBlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getGameBlessingMap();
+    List<BlessingEntity> blessingList = this.resourceService.getServiceResourceEntity().getBlessingList();
+    Map<Integer, BlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getBlessingMap();
     // 祝福推荐实体
-    Map<Integer, Integer> genreScoreMap = this.calculateGenreScore(player.getCardList(), player.getGameBlessingList());
-    BlessingRecommendEntity blessingRecommend = new BlessingRecommendEntity(genreScoreMap, blessingList, player.getGameRoleEntity().getIndex(), player.getGameBlessingList());
+    Map<Integer, Integer> genreScoreMap = this.calculateGenreScore(player.getCardList(), player.getBlessingList());
+    BlessingRecommendEntity blessingRecommend = new BlessingRecommendEntity(genreScoreMap, blessingList, player.getGameRoleEntity().getIndex(), player.getBlessingList());
     // 推荐
     List<Integer> blessingIndexList = blessingRecommend.recommend(count - 1);
     blessingIndexList.add(RecommendService.GOLD_BLESSING_INDEX);
@@ -87,7 +87,7 @@ public class RecommendService {
    * key: GenreEnum.index
    * value: 得分(对应流派卡牌/祝福 得分)
    */
-  private Map<Integer, Integer> calculateGenreScore(List<CardEntity> cardList, List<GameBlessingEntity> blessingList) {
+  private Map<Integer, Integer> calculateGenreScore(List<CardEntity> cardList, List<BlessingEntity> blessingList) {
     Map<Integer, Integer> result = new HashMap<>();
     for (CardEntity card : cardList) {
       List<GenreEnum> genreList = card.getGenreList();
@@ -100,7 +100,7 @@ public class RecommendService {
         result.put(genre.getIndex(), value + card.getLevel().getGenreScore());
       }
     }
-    for (GameBlessingEntity blessing : blessingList) {
+    for (BlessingEntity blessing : blessingList) {
       List<GenreEnum> genreList = blessing.getGenreList();
       for (GenreEnum genre : genreList) {
         if (!result.containsKey(genre.getIndex())) {

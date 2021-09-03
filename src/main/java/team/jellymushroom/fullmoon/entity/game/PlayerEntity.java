@@ -80,7 +80,7 @@ public class PlayerEntity {
    * 当前获得的祝福
    * 按获得顺序排序
    */
-  private List<GameBlessingEntity> gameBlessingList = new ArrayList<>();
+  private List<BlessingEntity> blessingList = new ArrayList<>();
 
   /**
    * 持有的金币数

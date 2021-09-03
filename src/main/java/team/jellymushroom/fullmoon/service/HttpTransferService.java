@@ -109,7 +109,7 @@ public class HttpTransferService {
     // 每小局游戏初始化时，装备槽数
     httpPlayer.setInitEquipmentSlotSize(player.getInitEquipmentSlotSize());
     // 当前获得的祝福
-    player.getGameBlessingList().forEach(e -> httpPlayer.getGameBlessingIndexList().add(e.getIndex()));
+    player.getBlessingList().forEach(e -> httpPlayer.getBlessingIndexList().add(e.getIndex()));
     // 持有的金币数
     httpPlayer.setGold(player.getGold());
     // 返回
@@ -149,8 +149,8 @@ public class HttpTransferService {
     // 每小局游戏初始化时，装备槽数
     player.setInitEquipmentSlotSize(httpPlayer.getInitEquipmentSlotSize());
     // 当前获得的祝福
-    Map<Integer, GameBlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getGameBlessingMap();
-    httpPlayer.getGameBlessingIndexList().forEach(e -> player.getGameBlessingList().add(blessingMap.get(e)));
+    Map<Integer, BlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getBlessingMap();
+    httpPlayer.getBlessingIndexList().forEach(e -> player.getBlessingList().add(blessingMap.get(e)));
     // 持有的金币数
     player.setGold(httpPlayer.getGold());
     // 返回
@@ -246,7 +246,7 @@ public class HttpTransferService {
     // 当前已放置的祷告牌列表
     httpGameInner.getPrayerCardPlaceList().forEach(e -> gameInner.getPrayerCardPlaceList().add((PrayerCardEntity)this.convert(e)));
     // 本小局游戏中，当前获得的祝福
-    Map<Integer, GameBlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getGameBlessingMap();
+    Map<Integer, BlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getBlessingMap();
     httpGameInner.getBlessingIndexList().forEach(e -> gameInner.getBlessingList().add(blessingMap.get(e)));
     // 返回
     return gameInner;
@@ -273,13 +273,13 @@ public class HttpTransferService {
     return card;
   }
 
-  private HttpGameBlessingEntity convert(GameBlessingEntity blessing) {
-    HttpGameBlessingEntity httpBlessing = new HttpGameBlessingEntity();
+  private HttpBlessingEntity convert(BlessingEntity blessing) {
+    HttpBlessingEntity httpBlessing = new HttpBlessingEntity();
     httpBlessing.setIndex(blessing.getIndex());
     return httpBlessing;
   }
 
-  private GameBlessingEntity convert(HttpGameBlessingEntity httpBlessing) {
-    return this.resourceService.getServiceResourceEntity().getGameBlessingMap().get(httpBlessing.getIndex()).copy();
+  private BlessingEntity convert(HttpBlessingEntity httpBlessing) {
+    return this.resourceService.getServiceResourceEntity().getBlessingMap().get(httpBlessing.getIndex()).copy();
   }
 }

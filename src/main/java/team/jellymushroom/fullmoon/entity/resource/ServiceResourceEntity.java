@@ -1,7 +1,7 @@
 package team.jellymushroom.fullmoon.entity.resource;
 
 import lombok.Data;
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 
@@ -26,9 +26,9 @@ public class ServiceResourceEntity {
   private List<CardEntity> cardList = new ArrayList<>();
 
   /**
-   * key: gameBlessingEntity.index
+   * key: blessingEntity.index
    */
-  private Map<Integer, GameBlessingEntity> gameBlessingMap = new HashMap<>();
+  private Map<Integer, BlessingEntity> blessingMap = new HashMap<>();
 
-  private List<GameBlessingEntity> gameBlessingList = new ArrayList<>();
+  private List<BlessingEntity> blessingList = new ArrayList<>();
 }

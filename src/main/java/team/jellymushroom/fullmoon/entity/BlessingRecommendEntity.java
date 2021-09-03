@@ -2,7 +2,7 @@ package team.jellymushroom.fullmoon.entity;
 
 import lombok.Getter;
 import team.jellymushroom.fullmoon.constant.GenreEnum;
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.service.RecommendService;
 
 import java.util.*;
@@ -11,17 +11,17 @@ import java.util.*;
 public class BlessingRecommendEntity {
 
   /**
-   * key: GameBlessingEntity.index
+   * key: BlessingEntity.index
    * value: 得分
    */
   private Map<Integer, Integer> blessingScoreMap = new LinkedHashMap<>();
 
   private Integer totalScore = 0;
 
-  public BlessingRecommendEntity(Map<Integer, Integer> genreScoreMap, List<GameBlessingEntity> allBlessingList, Integer roleIndex, List<GameBlessingEntity> obtainedBlessingList) {
+  public BlessingRecommendEntity(Map<Integer, Integer> genreScoreMap, List<BlessingEntity> allBlessingList, Integer roleIndex, List<BlessingEntity> obtainedBlessingList) {
     Set<Integer> obtainedBlessingIndexSet = new HashSet<>();
     obtainedBlessingList.forEach(e -> obtainedBlessingIndexSet.add(e.getIndex()));
-    for (GameBlessingEntity blessing : allBlessingList) {
+    for (BlessingEntity blessing : allBlessingList) {
       if (!blessing.getIsValid()) {
         continue;
       }

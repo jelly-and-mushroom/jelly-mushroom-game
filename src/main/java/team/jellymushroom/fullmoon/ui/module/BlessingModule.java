@@ -1,6 +1,6 @@
 package team.jellymushroom.fullmoon.ui.module;
 
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
 
@@ -11,13 +11,13 @@ import java.util.Map;
 
 public class BlessingModule extends Module {
 
-  private GameBlessingEntity blessing;
+  private BlessingEntity blessing;
 
   private Boolean part;
 
   private Boolean showWindow;
 
-  public BlessingModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, GameBlessingEntity blessing, Boolean part, Boolean showWindow) {
+  public BlessingModule(UIService uiService, UIResourceEntity resource, int oX, int oY, int oWidth, int oHeight, int padding, BlessingEntity blessing, Boolean part, Boolean showWindow) {
     super(uiService, resource, oX, oY, oWidth, oHeight, padding);
     this.iX = this.oX + this.padding;
     this.iY = this.oY + this.padding;

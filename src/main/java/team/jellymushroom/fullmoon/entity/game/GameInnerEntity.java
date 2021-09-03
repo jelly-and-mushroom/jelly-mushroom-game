@@ -111,5 +111,5 @@ public class GameInnerEntity {
    * 因此要与全局的祝福列表做出区分
    * 按获得顺序排序
    */
-  private List<GameBlessingEntity> blessingList = new ArrayList<>();
+  private List<BlessingEntity> blessingList = new ArrayList<>();
 }

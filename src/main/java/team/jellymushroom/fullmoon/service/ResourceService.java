@@ -9,7 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.CardTypeEnum;
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.*;
 import team.jellymushroom.fullmoon.entity.http.HttpGameEntity;
@@ -60,11 +60,11 @@ public class ResourceService {
     JSONArray blessingJSONArray = JSONArray.parseArray(dataStr);
     for (int i = 0; i < blessingJSONArray.size(); i++) {
       JSONObject blessingJSONObject = blessingJSONArray.getJSONObject(i);
-      GameBlessingEntity gameBlessingEntity = JSONObject.parseObject(blessingJSONObject.toJSONString(), GameBlessingEntity.class);
-      this.serviceResourceEntity.getGameBlessingList().add(gameBlessingEntity);
-      this.serviceResourceEntity.getGameBlessingMap().put(gameBlessingEntity.getIndex(), gameBlessingEntity);
+      BlessingEntity blessingEntity = JSONObject.parseObject(blessingJSONObject.toJSONString(), BlessingEntity.class);
+      this.serviceResourceEntity.getBlessingList().add(blessingEntity);
+      this.serviceResourceEntity.getBlessingMap().put(blessingEntity.getIndex(), blessingEntity);
     }
-    log.info("游戏祝福数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getGameBlessingMap().size());
+    log.info("游戏祝福数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getBlessingMap().size());
   }
 
   @SneakyThrows

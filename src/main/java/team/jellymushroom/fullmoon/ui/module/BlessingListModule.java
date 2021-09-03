@@ -2,7 +2,7 @@ package team.jellymushroom.fullmoon.ui.module;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
 import team.jellymushroom.fullmoon.constant.PrepareOptionEnum;
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.PlayerEntity;
 import team.jellymushroom.fullmoon.entity.resource.UIResourceEntity;
 import team.jellymushroom.fullmoon.service.UIService;
@@ -25,11 +25,11 @@ public class BlessingListModule extends Module {
     // 祝福
     PlayerEntity player = this.uiService.getMainService().getPlayerMyself();
     GameStageEnum stage = this.uiService.getMainService().getPlayerMyself().getStage();
-    List<GameBlessingEntity> blessingList = null;
+    List<BlessingEntity> blessingList = null;
     if (GameStageEnum.CHOOSE_BLESSING.equals(stage)) {
       blessingList = player.getSignal().getBlessingList();
     } else {
-      blessingList = player.getGameBlessingList();
+      blessingList = player.getBlessingList();
     }
     int startIndex = 0;
     if (!blessingList.isEmpty()) {

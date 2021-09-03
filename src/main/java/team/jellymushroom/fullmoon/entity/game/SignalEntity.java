@@ -17,5 +17,5 @@ public class SignalEntity {
 
   private List<CardEntity> cardList2 = new ArrayList<>();
 
-  private List<GameBlessingEntity> blessingList = new ArrayList<>();
+  private List<BlessingEntity> blessingList = new ArrayList<>();
 }

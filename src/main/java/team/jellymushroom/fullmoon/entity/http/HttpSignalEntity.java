@@ -16,5 +16,5 @@ public class HttpSignalEntity {
 
   private List<HttpCardEntity> cardList2 = new ArrayList<>();
 
-  private List<HttpGameBlessingEntity> blessingList = new ArrayList<>();
+  private List<HttpBlessingEntity> blessingList = new ArrayList<>();
 }

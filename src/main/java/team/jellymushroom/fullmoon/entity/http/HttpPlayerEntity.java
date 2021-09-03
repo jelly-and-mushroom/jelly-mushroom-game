@@ -36,7 +36,7 @@ public class HttpPlayerEntity {
 
   private Integer initEquipmentSlotSize;
 
-  private List<Integer> gameBlessingIndexList = new ArrayList<>();
+  private List<Integer> blessingIndexList = new ArrayList<>();
 
   private Integer gold;
 }

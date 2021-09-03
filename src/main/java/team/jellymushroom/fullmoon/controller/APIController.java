@@ -44,7 +44,7 @@ public class APIController {
     try {
       JSONObject result = new JSONObject();
       result.put("cardList", this.resourceService.getServiceResourceEntity().getCardList());
-      result.put("blessingList", this.resourceService.getServiceResourceEntity().getGameBlessingList());
+      result.put("blessingList", this.resourceService.getServiceResourceEntity().getBlessingList());
       return HttpResponseEntity.success(result, null);
     } catch (Exception e) {
       String errorMsg = "api-getGameData执行时出错";

@@ -1,7 +1,7 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
-import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
+import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class PrepareMyBlessingStageHandler extends StageHandler {
 
   @Override
   boolean up() {
-    List<GameBlessingEntity> blessingList = super.activePlayer.getGameBlessingList();
+    List<BlessingEntity> blessingList = super.activePlayer.getBlessingList();
     if (blessingList.isEmpty() || blessingList.size() == 1) {
       return false;
     }
@@ -41,7 +41,7 @@ public class PrepareMyBlessingStageHandler extends StageHandler {
 
   @Override
   boolean down() {
-    List<GameBlessingEntity> blessingList = super.activePlayer.getGameBlessingList();
+    List<BlessingEntity> blessingList = super.activePlayer.getBlessingList();
     if (blessingList.isEmpty() || blessingList.size() == 1) {
       return false;
     }

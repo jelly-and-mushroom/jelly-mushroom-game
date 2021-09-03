@@ -11,7 +11,6 @@ import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.PrayerCardEntity;
-import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 import team.jellymushroom.fullmoon.entity.http.*;
 
 import java.util.Map;
@@ -211,8 +210,6 @@ public class HttpTransferService {
     gameInner.getPrayerCardPlaceList().forEach(e -> httpGameInner.getPrayerCardPlaceList().add(this.convert(e)));
     // 本小局游戏中，当前获得的祝福
     gameInner.getBlessingList().forEach(e -> httpGameInner.getBlessingIndexList().add(e.getIndex()));
-    // 本小局游戏中，当前获得的状态
-    gameInner.getGameStateList().forEach(e -> httpGameInner.getGameStateIndexList().add(e.getIndex()));
     // 返回
     return httpGameInner;
   }
@@ -251,9 +248,6 @@ public class HttpTransferService {
     // 本小局游戏中，当前获得的祝福
     Map<Integer, GameBlessingEntity> blessingMap = this.resourceService.getServiceResourceEntity().getGameBlessingMap();
     httpGameInner.getBlessingIndexList().forEach(e -> gameInner.getBlessingList().add(blessingMap.get(e)));
-    // 本小局游戏中，当前获得的状态
-    Map<Integer, GameStateEntity> gameStateMap = this.resourceService.getServiceResourceEntity().getGameStateMap();
-    httpGameInner.getGameStateIndexList().forEach(e -> gameInner.getGameStateList().add(gameStateMap.get(e)));
     // 返回
     return gameInner;
   }

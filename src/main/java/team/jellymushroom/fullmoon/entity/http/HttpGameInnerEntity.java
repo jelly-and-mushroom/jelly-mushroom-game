@@ -41,6 +41,4 @@ public class HttpGameInnerEntity {
   private List<HttpCardEntity> prayerCardPlaceList = new ArrayList<>();
 
   private List<Integer> blessingIndexList = new ArrayList<>();
-
-  private List<Integer> gameStateIndexList = new ArrayList<>();
 }

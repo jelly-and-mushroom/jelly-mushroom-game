@@ -5,7 +5,6 @@ import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.PrayerCardEntity;
-import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,10 +112,4 @@ public class GameInnerEntity {
    * 按获得顺序排序
    */
   private List<GameBlessingEntity> blessingList = new ArrayList<>();
-
-  /**
-   * 本小局游戏中，当前获得的状态
-   * 按获得顺序排序
-   */
-  private List<GameStateEntity> gameStateList = new ArrayList<>();
 }

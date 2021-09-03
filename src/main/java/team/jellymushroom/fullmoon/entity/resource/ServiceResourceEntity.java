@@ -4,7 +4,6 @@ import lombok.Data;
 import team.jellymushroom.fullmoon.entity.game.GameBlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
-import team.jellymushroom.fullmoon.entity.game.state.GameStateEntity;
 
 import java.util.*;
 
@@ -32,9 +31,4 @@ public class ServiceResourceEntity {
   private Map<Integer, GameBlessingEntity> gameBlessingMap = new HashMap<>();
 
   private List<GameBlessingEntity> gameBlessingList = new ArrayList<>();
-
-  /**
-   * key: gameStateEntity.index
-   */
-  private Map<Integer, GameStateEntity> gameStateMap = new HashMap<>();
 }

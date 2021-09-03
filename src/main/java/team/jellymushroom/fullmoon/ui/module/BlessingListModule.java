@@ -65,6 +65,6 @@ public class BlessingListModule extends Module {
     if (blessingListSize % BlessingListModule.BLESSING_COUNT != 0) {
       totalpage++;
     }
-    super.drawFont(g, this.iX + 100, this.iY + yAdd, PrepareOptionEnum.MY_BLESSING.getDescription() + "(总计:" + blessingListSize + ")[第" + currentPage + "/" + totalpage + "页]", color, fontStyle, fontSize);
+    super.drawFont(g, this.iX + 165, this.iY + yAdd, PrepareOptionEnum.MY_BLESSING.getDescription() + "(总计:" + blessingListSize + ")[第" + currentPage + "/" + totalpage + "页]", color, fontStyle, fontSize);
   }
 }

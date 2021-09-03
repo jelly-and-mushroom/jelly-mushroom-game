@@ -45,7 +45,7 @@ public class ResourceService {
       // 加载职业
       this.loadGameRole();
       // 加载卡牌
-      this.loadGameCard();
+      this.loadCard();
       // 加载祝福
       this.loadBlessing();
     } catch (Exception e) {
@@ -92,7 +92,7 @@ public class ResourceService {
     log.info("游戏角色数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getGameRoleMap().size());
   }
 
-  private void loadGameCard() {
+  private void loadCard() {
     String path = "/json/game_card.json";
     String dataStr = this.readFile(path);
     JSONArray gameCardJSONArray = JSONArray.parseArray(dataStr);

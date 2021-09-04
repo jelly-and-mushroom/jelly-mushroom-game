@@ -39,4 +39,6 @@ public class HttpPlayerEntity {
   private List<Integer> blessingIndexList = new ArrayList<>();
 
   private Integer gold;
+
+  private List<HttpEffectiveStateEntity> effectiveStateList = new ArrayList<>();
 }

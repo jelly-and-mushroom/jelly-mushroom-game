@@ -2,6 +2,7 @@ package team.jellymushroom.fullmoon.entity.game;
 
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.entity.EffectiveStateEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.EquipmentCardEntity;
 import team.jellymushroom.fullmoon.service.ResourceService;
@@ -86,6 +87,11 @@ public class PlayerEntity {
    * 持有的金币数
    */
   private Integer gold = 0;
+
+  /**
+   * 获得的状态列表
+   */
+  private List<EffectiveStateEntity> effectiveStateList = new ArrayList<>();
 
   public void initByRole(ResourceService resourceService) {
     this.gameRoleEntity = resourceService.getServiceResourceEntity().getGameRoleMap().get(this.getSignal().getIndex());

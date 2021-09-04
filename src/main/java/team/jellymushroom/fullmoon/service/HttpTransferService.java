@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import team.jellymushroom.fullmoon.constant.EffectiveFromEnum;
 import team.jellymushroom.fullmoon.constant.GameResultEnum;
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.entity.EffectiveStateEntity;
 import team.jellymushroom.fullmoon.entity.game.*;
 import team.jellymushroom.fullmoon.entity.game.card.CardEntity;
 import team.jellymushroom.fullmoon.entity.game.card.CounterCardEntity;
@@ -112,6 +114,8 @@ public class HttpTransferService {
     player.getBlessingList().forEach(e -> httpPlayer.getBlessingIndexList().add(e.getIndex()));
     // 持有的金币数
     httpPlayer.setGold(player.getGold());
+    // 获得的状态列表
+    player.getEffectiveStateList().forEach(e -> httpPlayer.getEffectiveStateList().add(this.convert(e)));
     // 返回
     return httpPlayer;
   }
@@ -153,6 +157,8 @@ public class HttpTransferService {
     httpPlayer.getBlessingIndexList().forEach(e -> player.getBlessingList().add(blessingMap.get(e)));
     // 持有的金币数
     player.setGold(httpPlayer.getGold());
+    // 获得的状态列表
+    httpPlayer.getEffectiveStateList().forEach(e -> player.getEffectiveStateList().add(this.convert(e)));
     // 返回
     return player;
   }
@@ -281,5 +287,19 @@ public class HttpTransferService {
 
   private BlessingEntity convert(HttpBlessingEntity httpBlessing) {
     return this.resourceService.getServiceResourceEntity().getBlessingMap().get(httpBlessing.getIndex()).copy();
+  }
+
+  private HttpEffectiveStateEntity convert(EffectiveStateEntity effectiveState) {
+    HttpEffectiveStateEntity httpEffectiveState = new HttpEffectiveStateEntity();
+    httpEffectiveState.setIndex(effectiveState.getIndex());
+    httpEffectiveState.setFromIndex(effectiveState.getFrom().getIndex());
+    return httpEffectiveState;
+  }
+
+  private EffectiveStateEntity convert(HttpEffectiveStateEntity httpEffectiveState) {
+    EffectiveStateEntity effectiveState = new EffectiveStateEntity();
+    effectiveState.setIndex(httpEffectiveState.getIndex());
+    effectiveState.setFrom(EffectiveFromEnum.getEnumByIndex(httpEffectiveState.getFromIndex()));
+    return effectiveState;
   }
 }

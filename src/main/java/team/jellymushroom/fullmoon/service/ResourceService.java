@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import team.jellymushroom.fullmoon.constant.CardTypeEnum;
+import team.jellymushroom.fullmoon.entity.AbilityEntity;
 import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.entity.game.GameRoleEntity;
 import team.jellymushroom.fullmoon.entity.game.card.*;
@@ -18,8 +19,10 @@ import team.jellymushroom.fullmoon.util.CardUtil;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -39,6 +42,8 @@ public class ResourceService {
 
   private static final String ENCODING = "UTF-8";
 
+  private static final String JSON_ABILITYLIST_KEY = "abilityList";
+
   @PostConstruct
   public void init() {
     try {
@@ -52,19 +57,6 @@ public class ResourceService {
       log.error("初始化server资源时出错，程序启动失败", e);
       System.exit(0);
     }
-  }
-
-  private void loadBlessing() {
-    String path = "/json/game_blessing.json";
-    String dataStr = this.readFile(path);
-    JSONArray blessingJSONArray = JSONArray.parseArray(dataStr);
-    for (int i = 0; i < blessingJSONArray.size(); i++) {
-      JSONObject blessingJSONObject = blessingJSONArray.getJSONObject(i);
-      BlessingEntity blessingEntity = JSONObject.parseObject(blessingJSONObject.toJSONString(), BlessingEntity.class);
-      this.serviceResourceEntity.getBlessingList().add(blessingEntity);
-      this.serviceResourceEntity.getBlessingMap().put(blessingEntity.getIndex(), blessingEntity);
-    }
-    log.info("游戏祝福数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getBlessingMap().size());
   }
 
   @SneakyThrows
@@ -125,10 +117,35 @@ public class ResourceService {
         case SPECIAL:
           cardEntity = JSONObject.parseObject(gameCardJSONObject.toJSONString(), SpecialCardEntity.class);
       }
+      setEffect(cardEntity.getAbilityList(), gameCardJSONObject.getJSONArray(ResourceService.JSON_ABILITYLIST_KEY));
       CardUtil.add(this.serviceResourceEntity.getCardList(), cardEntity);
       this.serviceResourceEntity.getCardMap().put(cardEntity.getIndex(), cardEntity);
     }
     log.info("游戏卡牌数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getCardList().size());
+  }
+
+  private void loadBlessing() {
+    String path = "/json/game_blessing.json";
+    String dataStr = this.readFile(path);
+    JSONArray blessingJSONArray = JSONArray.parseArray(dataStr);
+    for (int i = 0; i < blessingJSONArray.size(); i++) {
+      JSONObject blessingJSONObject = blessingJSONArray.getJSONObject(i);
+      BlessingEntity blessingEntity = JSONObject.parseObject(blessingJSONObject.toJSONString(), BlessingEntity.class);
+      setEffect(blessingEntity.getAbilityList(), blessingJSONObject.getJSONArray(ResourceService.JSON_ABILITYLIST_KEY));
+      this.serviceResourceEntity.getBlessingList().add(blessingEntity);
+      this.serviceResourceEntity.getBlessingMap().put(blessingEntity.getIndex(), blessingEntity);
+    }
+    log.info("游戏祝福数据加载完成,path:{},size:{}", path, this.serviceResourceEntity.getBlessingMap().size());
+  }
+
+  @SneakyThrows
+  private void setEffect(List<AbilityEntity> abilityList, JSONArray abilityArray) {
+    for (int i = 0; i < abilityArray.size(); i++) {
+      JSONObject abilityJson = abilityArray.getJSONObject(i);
+      JSONObject effectJson = abilityJson.getJSONObject("effectData");
+      AbilityEntity abilityEntity = abilityList.get(i);
+      abilityEntity.setEffect(JSONObject.parseObject(effectJson.toJSONString(), (Type) Class.forName("team.jellymushroom.fullmoon.entity.effect." + effectJson.getString("type") + "EffectEntity")));
+    }
   }
 
   @SneakyThrows

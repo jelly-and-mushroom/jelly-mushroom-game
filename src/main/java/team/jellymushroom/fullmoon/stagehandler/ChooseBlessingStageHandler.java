@@ -1,6 +1,7 @@
 package team.jellymushroom.fullmoon.stagehandler;
 
 import team.jellymushroom.fullmoon.constant.GameStageEnum;
+import team.jellymushroom.fullmoon.constant.TimingEnum;
 import team.jellymushroom.fullmoon.entity.game.BlessingEntity;
 import team.jellymushroom.fullmoon.service.StageHandlerService;
 
@@ -62,7 +63,9 @@ public class ChooseBlessingStageHandler extends StageHandler {
   boolean confirm() {
     List<BlessingEntity> blessingList = super.activePlayer.getSignal().getBlessingList();
     if (!blessingList.isEmpty()) {
-      super.activePlayer.getBlessingList().add(super.activePlayer.getSignal().getBlessingList().get(super.activePlayer.getSignal().getIndex()));
+      BlessingEntity blessing = super.activePlayer.getSignal().getBlessingList().get(super.activePlayer.getSignal().getIndex());
+      super.stageHandlerService.getEffectService().effect(super.activePlayer, super.passivePlayer, true, TimingEnum.OBTAIN, blessing);
+      super.activePlayer.getBlessingList().add(blessing);
     }
     super.activePlayer.getSignal().setIndex(0);
     super.activePlayer.setStage(GameStageEnum.PREPARE);

@@ -6,7 +6,7 @@ import team.jellymushroom.fullmoon.constant.TimingEnum;
 @Data
 public class TimingEntity {
 
-  private Boolean mySelf;
+  private Boolean owner;
 
   private TimingEnum timing;
 }

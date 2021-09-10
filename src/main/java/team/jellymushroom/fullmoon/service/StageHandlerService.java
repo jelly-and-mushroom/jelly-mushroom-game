@@ -18,10 +18,14 @@ public class StageHandlerService {
   @Getter
   private RecommendService recommendService;
 
-  public StageHandlerService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, RecommendService recommendService) {
+  @Getter
+  private EffectService effectService;
+
+  public StageHandlerService(MainService mainService, ResourceService resourceService, HttpTransferService httpTransferService, RecommendService recommendService, EffectService effectService) {
     this.mainService = mainService;
     this.resourceService = resourceService;
     this.httpTransferService = httpTransferService;
     this.recommendService = recommendService;
+    this.effectService = effectService;
   }
 }

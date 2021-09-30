@@ -148,9 +148,12 @@ public class CardListModule extends Module {
       return;
     }
     if (PrepareOptionEnum.BY_CARD.equals(this.prepareOption)) {
-      CardEntity card = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList().get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex());
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
-      super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + card.getPrice() + ")", Color.ORANGE, fontStyle, fontSize);
+      List<CardEntity> cardList = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList();
+      if (!cardList.isEmpty()) {
+        CardEntity card = cardList.get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex());
+        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + card.getPrice() + ")", Color.ORANGE, fontStyle, fontSize);
+      }
       return;
     }
     if (PrepareOptionEnum.INTENSIFY_CARD.equals(this.prepareOption)) {

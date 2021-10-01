@@ -85,6 +85,9 @@ public class PrepareStageHandler extends StageHandler {
       super.activePlayer.setStage(GameStageEnum.PREPARE_MY_BLESSING);
       return true;
     }
+    if (PrepareOptionEnum.DONE.equals(prepare)) {
+      super.activePlayer.getSignal().init();
+    }
     return this.confirmPrepareOption();
   }
 

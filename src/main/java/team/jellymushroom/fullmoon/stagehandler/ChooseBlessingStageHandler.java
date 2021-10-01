@@ -67,7 +67,7 @@ public class ChooseBlessingStageHandler extends StageHandler {
       super.stageHandlerService.getEffectService().effect(super.activePlayer, super.passivePlayer, true, TimingEnum.OBTAIN, blessing);
       super.activePlayer.getBlessingList().add(blessing);
     }
-    super.activePlayer.getSignal().setIndex(0);
+    super.activePlayer.getSignal().init();
     super.activePlayer.setStage(GameStageEnum.PREPARE);
     return true;
   }

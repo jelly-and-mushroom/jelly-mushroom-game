@@ -18,4 +18,12 @@ public class SignalEntity {
   private List<CardEntity> cardList2 = new ArrayList<>();
 
   private List<BlessingEntity> blessingList = new ArrayList<>();
+
+  public void init() {
+    this.index = 0;
+    this.index2 = 0;
+    this.cardList = new ArrayList<>();
+    this.cardList2 = new ArrayList<>();
+    this.blessingList = new ArrayList<>();
+  }
 }

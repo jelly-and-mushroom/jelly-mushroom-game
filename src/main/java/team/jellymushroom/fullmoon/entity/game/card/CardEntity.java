@@ -3,6 +3,7 @@ package team.jellymushroom.fullmoon.entity.game.card;
 import lombok.Data;
 import team.jellymushroom.fullmoon.constant.CardLevelEnum;
 import team.jellymushroom.fullmoon.entity.game.EffectiveEntity;
+import team.jellymushroom.fullmoon.ui.module.CardListModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,5 +65,23 @@ public abstract class CardEntity extends EffectiveEntity {
       }
     }
     return null;
+  }
+
+  public int getPrice(int price, int index, double rightCardCostRate) {
+    boolean right = false;
+    for (int i = 1; i < index; i++) {
+      int tempIndex = i * CardListModule.CARD_COLUMN - 1;
+      if (tempIndex > index) {
+        break;
+      }
+      if (tempIndex == index) {
+        right = true;
+        break;
+      }
+    }
+    if (!right) {
+      return price;
+    }
+    return (int)(price * rightCardCostRate);
   }
 }

@@ -77,7 +77,7 @@ public class PrepareBuyCardStageHandler extends CardListStageHandler {
       return false;
     }
     CardEntity card = super.activePlayer.getSignal().getCardList().get(super.activePlayer.getSignal().getIndex());
-    int wishGold = super.activePlayer.getGold() - card.getPrice();
+    int wishGold = super.activePlayer.getGold() - card.getPrice(card.getPrice(), super.activePlayer.getSignal().getIndex(), super.activePlayer.getRightCardCostRate());
     if (wishGold < 0) {
       return false;
     }

@@ -98,6 +98,11 @@ public class PlayerEntity {
    */
   private Integer deleteUncostTimes = 0;
 
+  /**
+   * 购买卡牌时，最右侧卡牌折扣后剩余比例
+   */
+  private Double rightCardCostRate = 1.0;
+
   public void initByRole(ResourceService resourceService) {
     this.gameRoleEntity = resourceService.getServiceResourceEntity().getGameRoleMap().get(this.getSignal().getIndex());
     this.maxHp = this.gameRoleEntity.getInitMaxHp();

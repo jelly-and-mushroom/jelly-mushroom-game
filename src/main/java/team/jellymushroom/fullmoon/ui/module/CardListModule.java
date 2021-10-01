@@ -133,14 +133,15 @@ public class CardListModule extends Module {
     int yAdd = 43;
     int fontSize = 20;
     int fontStyle = Font.PLAIN;
+    PlayerEntity player = this.uiService.getMainService().getPlayerMyself();
     if (PrepareOptionEnum.MY_CARD_REPOSITORY.equals(this.prepareOption)) {
       int currentPage = cardListSize==0 ? 0 : startIndex / pageSize + 1;
       int totalpage = cardListSize / pageSize;
       if (cardListSize % pageSize != 0) {
         totalpage++;
       }
-      int equipmentInSoltSize = this.uiService.getMainService().getPlayerMyself().getEquipmentInSoltSize();
-      int slotSize = this.uiService.getMainService().getPlayerMyself().getInitEquipmentSlotSize();
+      int equipmentInSoltSize = player.getEquipmentInSoltSize();
+      int slotSize = player.getInitEquipmentSlotSize();
       super.drawFont(g, this.iX + 140, this.iY + yAdd, this.prepareOption.getDescription() + "(总计:" + cardListSize + "张)", Color.WHITE, fontStyle, fontSize);
       Color limitColor = equipmentInSoltSize<slotSize ? Color.CYAN : Color.PINK;
       super.drawFont(g, this.iX + 335, this.iY + yAdd, "[装备槽:" + equipmentInSoltSize + "/" + slotSize + "]", limitColor, fontStyle, fontSize);
@@ -149,10 +150,10 @@ public class CardListModule extends Module {
     }
     if (PrepareOptionEnum.BY_CARD.equals(this.prepareOption)) {
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
-      List<CardEntity> cardList = this.uiService.getMainService().getPlayerMyself().getSignal().getCardList();
+      List<CardEntity> cardList = player.getSignal().getCardList();
       if (!cardList.isEmpty()) {
-        CardEntity card = cardList.get(this.uiService.getMainService().getPlayerMyself().getSignal().getIndex());
-        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + card.getPrice() + ")", Color.ORANGE, fontStyle, fontSize);
+        CardEntity card = cardList.get(player.getSignal().getIndex());
+        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + card.getPrice(card.getPrice(), player.getSignal().getIndex(), player.getRightCardCostRate()) + ")", Color.ORANGE, fontStyle, fontSize);
       }
       return;
     }
@@ -166,7 +167,7 @@ public class CardListModule extends Module {
     if (PrepareOptionEnum.DELETE_CARD.equals(this.prepareOption)) {
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       if (cardListSize > 0) {
-        int deleteCost = this.uiService.getMainService().getPlayerMyself().getDeleteUncostTimes() > 0 ? 0 : PrepareDeleteCardStageHandler.PRICE;
+        int deleteCost = player.getDeleteUncostTimes() > 0 ? 0 : PrepareDeleteCardStageHandler.PRICE;
         super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + deleteCost + ")", Color.ORANGE, fontStyle, fontSize);
       }
       return;

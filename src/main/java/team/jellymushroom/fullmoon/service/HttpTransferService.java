@@ -118,6 +118,8 @@ public class HttpTransferService {
     player.getEffectiveStateList().forEach(e -> httpPlayer.getEffectiveStateList().add(this.convert(e)));
     // 可无消耗删除卡牌的次数
     httpPlayer.setDeleteUncostTimes(player.getDeleteUncostTimes());
+    // 购买卡牌时，最右侧卡牌折扣后剩余比例
+    httpPlayer.setRightCardCostRate(player.getRightCardCostRate());
     // 返回
     return httpPlayer;
   }
@@ -163,6 +165,8 @@ public class HttpTransferService {
     httpPlayer.getEffectiveStateList().forEach(e -> player.getEffectiveStateList().add(this.convert(e)));
     // 可无消耗删除卡牌的次数
     player.setDeleteUncostTimes(httpPlayer.getDeleteUncostTimes());
+    // 购买卡牌时，最右侧卡牌折扣后剩余比例
+    player.setRightCardCostRate(httpPlayer.getRightCardCostRate());
     // 返回
     return player;
   }

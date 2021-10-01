@@ -41,4 +41,6 @@ public class HttpPlayerEntity {
   private Integer gold;
 
   private List<HttpEffectiveStateEntity> effectiveStateList = new ArrayList<>();
+
+  private Integer deleteUncostTimes;
 }

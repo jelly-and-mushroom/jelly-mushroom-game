@@ -93,6 +93,11 @@ public class PlayerEntity {
    */
   private List<EffectiveStateEntity> effectiveStateList = new ArrayList<>();
 
+  /**
+   * 可无消耗删除卡牌的次数
+   */
+  private Integer deleteUncostTimes = 0;
+
   public void initByRole(ResourceService resourceService) {
     this.gameRoleEntity = resourceService.getServiceResourceEntity().getGameRoleMap().get(this.getSignal().getIndex());
     this.maxHp = this.gameRoleEntity.getInitMaxHp();

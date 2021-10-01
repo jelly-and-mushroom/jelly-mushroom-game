@@ -116,6 +116,8 @@ public class HttpTransferService {
     httpPlayer.setGold(player.getGold());
     // 获得的状态列表
     player.getEffectiveStateList().forEach(e -> httpPlayer.getEffectiveStateList().add(this.convert(e)));
+    // 可无消耗删除卡牌的次数
+    httpPlayer.setDeleteUncostTimes(player.getDeleteUncostTimes());
     // 返回
     return httpPlayer;
   }
@@ -159,6 +161,8 @@ public class HttpTransferService {
     player.setGold(httpPlayer.getGold());
     // 获得的状态列表
     httpPlayer.getEffectiveStateList().forEach(e -> player.getEffectiveStateList().add(this.convert(e)));
+    // 可无消耗删除卡牌的次数
+    player.setDeleteUncostTimes(httpPlayer.getDeleteUncostTimes());
     // 返回
     return player;
   }

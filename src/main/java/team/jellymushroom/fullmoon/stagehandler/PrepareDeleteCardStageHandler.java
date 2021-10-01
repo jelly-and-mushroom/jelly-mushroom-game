@@ -73,7 +73,12 @@ public class PrepareDeleteCardStageHandler extends CardListStageHandler {
     if (cardList.size() == 0) {
       return false;
     }
-    int wishGold = super.activePlayer.getGold() - PrepareDeleteCardStageHandler.PRICE;
+    int cost = PrepareDeleteCardStageHandler.PRICE;
+    if (super.activePlayer.getDeleteUncostTimes() > 0) {
+      cost = 0;
+      super.activePlayer.setDeleteUncostTimes(super.activePlayer.getDeleteUncostTimes() - 1);
+    }
+    int wishGold = super.activePlayer.getGold() - cost;
     if (wishGold < 0) {
       return false;
     }

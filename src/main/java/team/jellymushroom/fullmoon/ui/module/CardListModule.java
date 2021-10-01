@@ -166,7 +166,8 @@ public class CardListModule extends Module {
     if (PrepareOptionEnum.DELETE_CARD.equals(this.prepareOption)) {
       super.drawFont(g, this.iX + 300, this.iY + yAdd, this.prepareOption.getDescription(), Color.WHITE, fontStyle, fontSize);
       if (cardListSize > 0) {
-        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + PrepareDeleteCardStageHandler.PRICE + ")", Color.ORANGE, fontStyle, fontSize);
+        int deleteCost = this.uiService.getMainService().getPlayerMyself().getDeleteUncostTimes() > 0 ? 0 : PrepareDeleteCardStageHandler.PRICE;
+        super.drawFont(g, this.iX + 400, this.iY + yAdd, "(" + deleteCost + ")", Color.ORANGE, fontStyle, fontSize);
       }
       return;
     }

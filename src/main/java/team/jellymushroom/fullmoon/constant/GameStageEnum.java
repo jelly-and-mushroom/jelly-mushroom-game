@@ -24,7 +24,8 @@ public enum GameStageEnum {
   PREPARE_INTENSIFY_CARD_DETAIL(11, "游戏准备-强化卡牌-详情"),
   PREPARE_DELETE_CARD(12, "游戏准备-删除卡牌"),
   PREPARE_DELETE_CARD_DETAIL(13, "游戏准备-删除卡牌-详情"),
-  PREPARE_MY_BLESSING(14, "游戏准备-受到祝福");
+  PREPARE_MY_BLESSING(14, "游戏准备-受到祝福"),
+  PREPARE_DONE_CONFIRM(15, "游戏准备-准备确认");
 
   private Integer index;
 
@@ -56,6 +57,9 @@ public enum GameStageEnum {
    * true-在一小局游戏中 false-未在一小局游戏中
    */
   public static boolean inGame(GameStageEnum gameStageEnum) {
+    if (GameStageEnum.PREPARE_DONE_CONFIRM.equals(gameStageEnum)) {
+      return true;
+    }
     return false;
   }
 }

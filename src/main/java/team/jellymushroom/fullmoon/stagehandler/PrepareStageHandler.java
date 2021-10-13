@@ -87,6 +87,8 @@ public class PrepareStageHandler extends StageHandler {
     }
     if (PrepareOptionEnum.DONE.equals(prepare)) {
       super.activePlayer.getSignal().init();
+      super.activePlayer.setStage(GameStageEnum.PREPARE_DONE_CONFIRM);
+      return true;
     }
     return this.confirmPrepareOption();
   }

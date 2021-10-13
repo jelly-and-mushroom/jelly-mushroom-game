@@ -105,7 +105,9 @@ public class MainFrameModule extends Module {
 
   private void drawInGame(Graphics g, int roleWidth, int roleHeight, int roleInfoGHeight) {
     // 绘制对手
-    new MainFrameRoleModule(this.uiService, this.resource, this.iX, this.iY, roleWidth, roleHeight, 0, false).draw(g);
-    new RoleInfoModule(this.uiService, this.resource, this.iX, this.iY + roleHeight, roleWidth, roleInfoGHeight, 0, false).draw(g);
+//    new MainFrameRoleModule(this.uiService, this.resource, this.iX, this.iY, roleWidth, roleHeight, 0, false).draw(g);
+//    new RoleInfoModule(this.uiService, this.resource, this.iX, this.iY + roleHeight, roleWidth, roleInfoGHeight, 0, false).draw(g);
+    // 基础准备
+    this.drawPrepare(g, roleWidth);
   }
 }
